@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;0,600;0,700;1,200&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header class="container">
+        <a href="">
+            <img class="logo" src="../images/logo/logo.png" alt=""> </a>
+        <div class="menu">
+            <div class="rong">
+
+            </div>
+            <ul>
+                <li><a href="home.html">Trang chủ</a></li>
+                <li class="active" id="products"><a href="products.html">Sản phẩm</a>
+                    <ul class="menu_con">
+                        <li><a href="">Kính cận</a></li>
+                        <li><a href="">Kính râm</a></li>
+                        <li><a href="">Kính chính hãng</a></li>
+                        <li><a href="">Kính áp tròng</a></li>
+                    </ul>
+                </li>
+                <li><a href="">Sale</a></li>
+                <li><a href="">Kiến thức</a></li>
+                <li><a href="">Liên hệ</a></li>
+
+                <!-- GET: Thường dùng cho tìm kiếm...:đẩy value lên URL  ; POST: dùng cho đăng nhập, đăng ký: bảo mật -->
+            </ul>
+            <div class="search">
+                <form action="" method="">
+                    <input class="key_word" type="text" placeholder="Tìm kiếm">
+                    <button type="submit" class="search_function"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="right_function">
+            <a href="#"><i class="fa fa-heart"></i></a>
+            <a href="cart.html"><i class="fa fa-shopping-cart"></i></a>
+        </div>
+    </header>
+    <main>
+        <div class="page_banner">
+            <div class="page_title">
+                <h1>Chi tiết sản phẩm</h1>
+                <ol class="bread_crumb">
+                    <li><a href="">Trang chủ</a></li>
+                    <li><a href="">Sản phẩm</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="glass-img-detail col-lg-7 col-12">
+                    <img src="../images/glasses/glass1.jpg" alt="">
+                </div>
+                <div class="detail-info col-lg-4 col-12 mt-5">
+                    <h3 class="product-title ">Kính râm Linemai K304</h3>
+
+                    <div class="product-price">850.000 VND</div>
+                    <div class="glass-details">Loại : <span>Kính râm</span></div>
+                    <div class="glass-details">Hãng : <span>Gucci</span></div>
+                    <div class="glass-details">Màu sắc : <span>Đen</span></div>
+
+                    <div class="pd_summary">
+                        Sản xuất bởi những vật liệu cao cấp với gọng kính được bo tròn tinh tế và trang nhã.
+                        <br>
+                        Chống lóa, chống tia UV
+                        <br>
+                        Gọng kính được bo tròn tinh tế. Màu sắc không phai mờ đảm bảo theo năm tháng.
+                        tốt khi đi chơi, đi du lịch hay tham gia các hoạt động ngoài trời khác.
+                    </div>
+                    <div class="special-offer">
+                        <h5 class="offer-title">
+                            Ưu đãi đặc biệt
+                        </h5>
+                        <ul>
+                            <li>Có sẵn</li>
+                            <li>Giao hàng, vận chuyển miễn phí</li>
+                            <li>Giảm Giá 30% với mã: Deal30</li>
+                        </ul>
+                    </div>
+                    <div class="quantity">
+                        <h5>Số lượng</h5>
+                        <div class="quantity-icon-action">
+                            <i onclick="minusQuantity()" class="fa-solid fa-minus"></i>
+                            <span class="quantity-number" id="quantity-number">1</span>
+                            <i onclick="plusQuantity()" class="fa-solid fa-plus"></i>
+                        </div>
+                    </div>
+                    <script>
+
+                    </script>
+                    <div class="btn-action">
+                        <button class="add_to_cart">Thêm vào giỏ hàng</button>
+                        <button class="buy_now">Mua ngay</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container ">
+            <div class="row">
+                <div class="benefit col-lg-3 col-6">
+                    <div class="benefit-box ">
+                        <div class="benefit-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                        <div class="benefit-content">Giao hàng nhanh, tiết kiệm</div>
+                    </div>
+                </div>
+                <div class="benefit col-lg-3 col-6">
+                    <div class="benefit-box ">
+                        <div class="benefit-icon"><i class="fa-solid fa-arrow-rotate-left"></i></div>
+                        <div class="benefit-content">Đổi trả trong vòng 7 ngày đầu</div>
+                    </div>
+                </div>
+                <div class="benefit col-lg-3 col-6">
+                    <div class="benefit-box ">
+                        <div class="benefit-icon"><i class="fa-solid fa-medal"></i></div>
+                        <div class="benefit-content">Bảo hành trong vòng 6 tháng</div>
+                    </div>
+                </div>
+                <div class="benefit col-lg-3 col-6">
+                    <div class="benefit-box">
+                        <div class="benefit-icon"><i class="fa-solid fa-glasses"></i></div>
+                        <div class="benefit-content">Chất lượng đảm bảo 100%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-4">
+            <div class="tabs">
+                <div class="tab-2">
+                    <label for="tab2-1">Đánh giá sản phẩm</label>
+                    <input id="tab2-1" name="tabs-two" type="radio" checked="checked">
+                    <div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="comment-widgets m-b-20">
+                                        <div class="d-flex flex-row comment-row">
+                                            <div class="p-2"><span class="round"><img
+                                                        src="../images/model/detail_info.jpg" alt="user"
+                                                        width="50"></span></div>
+                                            <div class="comment-text w-100">
+                                                <h5>Nguyễn Văn Hoạt</h5>
+                                                <div class="comment-footer">
+                                                    <span class="action-icons">
+                                                        <span class="fa fa-star vote"></span>
+                                                        <span class="fa fa-star vote"></span>
+                                                        <span class="fa fa-star vote"></span>
+                                                        <span class="fa fa-star vote"></span>
+                                                        <span class="fa fa-star vote"></span>
+                                                    </span>
+                                                    <div class="date">14 - 8 - 2022</div>
+                                                </div>
+                                                <p class="m-b-5 m-t-10">Sẩn phẩm chất lượng, đóng gói cẩn thận, giao
+                                                    hàng nhanh</p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="d-flex flex-row comment-row">
+                                            <div class="p-2"><span class="round"><img
+                                                        src="https://i.imgur.com/cAdLHeY.jpg" alt="user"
+                                                        width="50"></span></div>
+                                            <div class="comment-text w-100">
+                                                <h5>Sarah Tim</h5>
+                                                <div class="comment-footer">
+                                                    <span class="action-icons">
+                                                        <span class="fa fa-star vote"></span>
+                                                        <span class="fa fa-star vote"></span>
+                                                        <span class="fa fa-star vote"></span>
+                                                        <span class="fa fa-star "></span>
+                                                        <span class="fa fa-star "></span>
+                                                    </span>
+                                                    <div class="date">14 - 8 - 2022</div>
+                                                </div>
+                                                <p class="m-b-5 m-t-10">There are many variations of passages of Lorem
+                                                    Ipsum available,
+                                                    but the majority have suffered alteration in some form, by injected
+                                                    humour, or
+                                                    randomised words which don't look even slightly believable. If you
+                                                    are going to use
+                                                    a passage of Lorem Ipsum, you need to be sure</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row comment-row">
+                                            <div class="p-2"><span class="round"><img
+                                                        src="https://i.imgur.com/uIgDDDd.jpg" alt="user"
+                                                        width="50"></span></div>
+                                            <div class="comment-text w-100">
+                                                <h5>Samso Nagaro</h5>
+                                                <div class="comment-footer">
+                                                    <span class="action-icons">
+                                                        <span class="fa fa-star vote"></span>
+                                                        <span class="fa fa-star vote"></span>
+                                                        <span class="fa fa-star vote"></span>
+                                                        <span class="fa fa-star vote"></span>
+                                                        <span class="fa fa-star "></span>
+                                                    </span>
+                                                    <div class="date">14 - 8 - 2022</div>
+                                                </div>
+                                                <p class="m-b-5 m-t-10">It uses a dictionary of over 200 Latin words,
+                                                    combined with a
+                                                    handful of model sentence structures, to generate Lorem Ipsum which
+                                                    looks
+                                                    reasonable. The generated Lorem Ipsum is therefore always free from
+                                                    repetition,
+                                                    injected humour, or non-characteristic words etc.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-2">
+                    <label for="tab2-2">Thông tin thêm</label>
+                    <input id="tab2-2" name="tabs-two" type="radio">
+                    <div>
+                        <div class="row">
+                            <div class="addition-info-image col-lg-6 col-12">
+                                <img src="../images/model/detail_info.jpg" alt="">
+                            </div>
+
+                            <div class="more_info col-lg-6 col-12">
+                                <div class="addition-info-content">
+                                    Thương hiệu Gucci – biểu tượng quyền lực của thời trang
+                                </div>
+                                <div class="description">
+                                    Gucci là thương hiệu thời trang đầy quyền lực trên thế giới. Vài năm trở lại đây,
+                                    Gucci tự phác thảo cho mình các hướng đi mới, đó là sự thân thiện với môi trường
+                                    hơn, và thiết kế với bộ
+                                    sưu tập
+                                    kính
+                                    mắt hàng hiệu authentic tuyệt đẹp, chất lượng và thẩm mỹ cao. Tuy nhiên, dù thế nào
+                                    đi
+                                    chăng
+                                    nữa,
+                                    Gucci vẫn luôn duy trì được danh tiếng và phẩm chất của mình: độc đáo, chất lượng,
+                                    sáng
+                                    tạo,
+                                    thời
+                                    trang, và được làm thủ công bằng chính đôi tay của những nghệ nhân đến từ nước Ý.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container infor">
+            <div class="row">
+                <div class="details col-lg-3">
+                    <h3>Trợ Giúp & Thông Tin
+                    </h3>
+                    <ul>
+                        <li>Địa chỉ: Số 176, Đường Quang Trung, Hà Đông, Hà Nội</li>
+                        <li>Điện thoại: +84 968209396</li>
+                        <li>Email: cp_glasses@gmail.com</li>
+                        <li>www.facebook.com/giftshowhanoi</li>
+                    </ul>
+
+                </div>
+                <div class="details col-lg-3">
+                    <h3>Các thương hiệu nổi bật
+                    </h3>
+                    <ul>
+                        <li><a href="">Gucci</a></li>
+                        <li><a href="">Dior</a></li>
+                        <li><a href="">Chorme Heart</a></li>
+                        <li><a href="">Chanel</a></li>
+                        <li><a href="">Bubbery</a></li>
+                    </ul>
+
+                </div>
+                <div class="details col-lg-3">
+                    <h3>Hệ thống cửa hàng
+                    </h3>
+                    <ul>
+                        <li><a href="">164 Tôn Đức Thắng – Đống Đa HN</a> </li>
+                        <li><a href="">38 Nguyễn Khang – Cầu Giấy HN</a> </li>
+                        <li><a href="">298 Nguyễn Trãi – Hà Đông HN</a> </li>
+                        <li><a href="">805 Lê Hồng Phong – Q.10 HCM</a> </li>
+                        <li><a href="">399 – 401 Lê Văn Sỹ – Q.Tân Bình HCM</a> </li>
+                    </ul>
+
+                </div>
+
+                <div class="details col-lg-3">
+                    <h3>Địa chỉ
+                    </h3>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.8334970122846!2d105.77121431478464!3d21.039347192793077!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454c9ca620493%3A0x56beef4adf761a25!2zM2EgTmfDtSA2NSBNYWkgROG7i2NoLCBNYWkgROG7i2NoLCBD4bqndSBHaeG6pXksIEjDoCBO4buZaSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1658339939027!5m2!1svi!2s"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="support">
+            <a href=""><img src="../images/logo/messenger_14.png" alt=""></a>
+            <a href=""><img src="../images/logo/zalo_16.png" alt=""></a>
+        </div>
+
+        <div class="author">
+            Thiết kế 2022 © CP Glasses
+        </div>
+        <div id="scroll_top">
+            <a href="#top" onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-angle-up"></i></a>
+        </div>
+    </footer>
+
+
+    <script src="../js/script.js"></script>
+</body>
+
+</html>

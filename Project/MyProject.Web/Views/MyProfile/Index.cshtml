@@ -1,0 +1,140 @@
+﻿@{
+    ViewData["Title"] = "My Profile";
+    var mess = TempData["Message"] as string;
+}
+
+@model MyProject.Web.Controllers.UserRequest
+
+<div class="container">
+    <div class="row justify-content-center">
+        @*<div class="col-6">
+        hehe
+        </div>*@
+        <div class="shadow col-6 p-5">
+
+            <h3>My Profile</h3>
+            @if (!String.IsNullOrEmpty(mess))
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Thông báo!</strong> @mess
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            <form id="account" method="post" autocomplete="off" method="post" id="form-user" asp-action="ChangeProfile">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating">
+                    <input asp-for="UserName" type="text" class="form-control" id="floatingInputEmail"
+                           placeholder="name@example.com">
+                    <label for="floatingInputEmail">UserName</label>
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating">
+                    <input asp-for="Email" type="text" class="form-control" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Email</label>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" class="form-control" asp-for="Id">
+                </div>
+                <div class="d-grid">
+                    <button class="btn-register btn-login " type="submit">Save changes</button>
+                </div>
+                <br>
+            </form>
+        </div>
+    </div>
+</div>
+
+@*<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
+        </div>
+        <div class="col-md-9 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile Settings</h4>
+                </div>
+
+                <div class="row mt-3">
+                    @if (!String.IsNullOrEmpty(mess))
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Thông báo!</strong> @mess
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                    <form autocomplete="off" method="post" id="form-user" asp-action="ChangeProfile">
+                        
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label for="username">User name</label>
+                            <input type="text" class="form-control" asp-for="UserName">
+                            <span class="text-danger" asp-validation-for="UserName"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input type="text" class="form-control" asp-for="Email">
+                            <span class="text-danger" asp-validation-for="Email"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" asp-for="Id">
+                        </div>
+
+                        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>*@
+
+
+
+@*<style>
+    /*.form-control:focus {
+                box-shadow: none;
+                border-color: #BA68C8
+            }*/
+
+    .profile-button {
+        background: rgb(99, 39, 120);
+        box-shadow: none;
+        border: none
+    }
+
+        .profile-button:hover {
+            background: #682773
+        }
+
+        .profile-button:focus {
+            background: #682773;
+            box-shadow: none
+        }
+
+        .profile-button:active {
+            background: #682773;
+            box-shadow: none
+        }
+
+    .back:hover {
+        color: #682773;
+        cursor: pointer
+    }
+
+    .labels {
+        font-size: 14px
+    }
+
+    .add-experience:hover {
+        background: #BA68C8;
+        color: #fff;
+        cursor: pointer;
+        border: solid 1px #BA68C8
+    }
+</style>*@
+

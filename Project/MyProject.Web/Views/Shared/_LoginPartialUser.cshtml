@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using MyProject.Data.Entities
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        @UserManager.GetUserName(User)!
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" asp-controller="MyProfile" asp-action="Index">Tài khoản của tôi</a>
+        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/ChangePassword">Change Password</a>
+        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button id="logout" type="submit" class="dropdown-item" style="font-size: 16px">Đăng Xuất</button>
+        </form>
+    </div>
+    @*<button type="button" class="btn">
+        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"> @UserManager.GetUserName(User)!</a>
+    </button>
+    <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+        <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+    </form>*@
+}
+else
+{
+    <button type="button" class="btn">
+        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Đăng Ký</a>
+    </button>
+    <button type="button" class="btn">
+        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Đăng Nhập</a>
+    </button>
+}
+

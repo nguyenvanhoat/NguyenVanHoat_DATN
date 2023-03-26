@@ -1,0 +1,486 @@
+﻿@using Service.Interface
+@using System.Globalization
+@using System.Security.Claims
+@inject IProductService productService
+@inject IReviewsAndWishListService reviewService
+@{
+    ViewData["Title"] = "Trang chủ";
+    var list = productService.GetProduct();
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var listTrending = productService.GetTrendingProduct(12);
+    var listTen = productService.GetTopTenProduct(8);
+    var listViewd = reviewService.GetProductViewd(8, userId);
+}
+
+
+<div class=" banner">
+    <!-- Carousel -->
+    <div id="demo" class="carousel slide" data-bs-ride="carousel">
+        <!-- Indicators/dots -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="3"></button>
+        </div>
+        <!-- The slideshow/carousel -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="banner_detail">
+                    <div class="banner_title">
+                        <h1>Xe Máy thời thượng</h1>
+                        <h3>
+                            Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                            <br>
+                            Issa trong chiến dịch mùa mới của chúng tôi.
+                        </h3>
+                    </div>
+                    <a href=""><button class="buy">Mua Ngay</button></a>
+                </div>
+                <img src="~/user/images/banner/banner4.jpg" alt="Los Angeles" class="d-block">
+            </div>
+            <div class="carousel-item">
+                <div class="banner_detail">
+                    <div class="banner_title">
+                        <h1>Kính râm thời trang</h1>
+                        <h3>
+                            Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                            <br>
+                            Issa trong chiến dịch mùa mới của chúng tôi.
+                        </h3>
+                    </div>
+                    <a href=""><button class="buy">Mua Ngay</button></a>
+                </div>
+                <img src="~/user/images/banner/banner01.jpg" alt="Chicago" class="d-block">
+            </div>
+            <div class="carousel-item">
+                <div class="banner_detail">
+                    <div class="banner_title">
+                        <h1>Kính râm thời trang</h1>
+                        <h3>
+                            Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                            <br>
+                            Issa trong chiến dịch mùa mới của chúng tôi.
+                        </h3>
+                    </div>
+                    <a href=""><button class="buy">Mua Ngay</button></a>
+                </div>
+                <img src="~/user/images/banner/banner03.jpg" alt="New York" class="d-block">
+            </div>
+
+            <div class="carousel-item">
+                <div class="banner_detail">
+                    <div class="banner_title">
+                        <h1>Kính râm thời trang</h1>
+                        <h3>
+                            Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                            <br>
+                            Issa trong chiến dịch mùa mới của chúng tôi.
+                        </h3>
+                    </div>
+                    <a href=""><button class="buy">Mua Ngay</button></a>
+                </div>
+                <img src="~/user/images/banner/banner2.jpg" alt="New York" class="d-block">
+            </div>
+        </div>
+
+        <!-- Left and right controls/icons -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+</div>
+<!-- <ol class="bread_crumb">
+    <li><a href="">Home</a></li>
+    <li><a href="">Quần áo</a></li>
+    <li>Quần Jean</li>
+  </ol> -->
+
+<div class="container content">
+</div>
+
+<div class="container">
+    <div class="title">
+        <h2>Xe Theo Xu Hướng</h2>
+    </div>
+    <div class="row justify-content-between">
+        <!-- <div class="left_popular col-lg-4 col-12">
+          <img src="~/user/images/model/model1.png" alt="">
+        </div> -->
+        <div class="col-lg-12">
+            <div class="row">
+                @foreach (var item in listTrending)
+                {
+                    <div class="glass col-lg-3 col-6 p-1 mb-3">
+                        <img src="~/img/@item.Thumbnail" alt="">
+                        <div class="glass_name">
+                            <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
+
+                        </div>
+                        <div class="price">
+                            @item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <p>@item.Views <i class="fa-solid fa-eye"></i></p>
+                            
+                        </div>
+                        <div class="glass_icon_action">
+                            <button class="btn-search"><i class="fa fa-search"></i></button>
+                            @if(userId == null){
+                                <a ><i class="fa fa-heart"></i></a>
+                                <a ><i class="fa fa-shopping-cart"></i></a>
+                            }
+                            else{
+                                if (reviewService.IsWishList(userId, item.Id)){
+                                    <a  class="deleteWishList" data-id="@item.Id"><i class="fa fa-heart" style="background-color: red"></i></a>
+                                    <a ><i class="fa fa-shopping-cart"></i></a>
+                                }
+                                else{
+                                    <a  class="addWishList" data-id="@item.Id"><i class="fa fa-heart"></i></a>
+                                    <a ><i class="fa fa-shopping-cart"></i></a>
+                                }
+                            }
+                            
+                        </div>
+
+                    </div>
+                    
+                }
+                @*<div class="glass col-lg-3 col-6">
+                    <img src="~/user/images/glasses/glass1.jpg" alt="">
+                    <div class="glass_name">
+                        <a href="">Kính râm Linemai K304</a>
+                    </div>
+                    <div class="price">
+                        850.000 VND
+                    </div>
+                    <div class="glass_icon_action">
+                        <button class="btn-search"><i class="fa fa-search"></i></button>
+                        <a href="#"><i class="fa fa-heart"></i></a>
+                        <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                    </div>
+
+                </div>*@
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container ">
+    <div class="row">
+        <div class="benefit col-lg-3 col-6">
+            <div class="benefit-box ">
+                <div class="benefit-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                <div class="benefit-content">Giao hàng nhanh, tiết kiệm</div>
+            </div>
+        </div>
+        <div class="benefit col-lg-3 col-6">
+            <div class="benefit-box ">
+                <div class="benefit-icon"><i class="fa-solid fa-arrow-rotate-left"></i></div>
+                <div class="benefit-content">Đổi trả trong vòng 7 ngày đầu</div>
+            </div>
+        </div>
+        <div class="benefit col-lg-3 col-6">
+            <div class="benefit-box ">
+                <div class="benefit-icon"><i class="fa-solid fa-medal"></i></div>
+                <div class="benefit-content">Bảo hành trong vòng 6 tháng</div>
+            </div>
+        </div>
+        <div class="benefit col-lg-3 col-6">
+            <div class="benefit-box">
+                <div class="benefit-icon"><i class="fa-solid fa-glasses"></i></div>
+                <div class="benefit-content">Chất lượng đảm bảo 100%</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="title">
+        <h2>Top Xe Máy Xem Nhiều Nhất</h2>
+    </div>
+    <div class="row justify-content-between">
+        <!-- <div class="left_popular col-lg-4 col-12">
+          <img src="~/user/images/model/model1.png" alt="">
+        </div> -->
+        <div class="col-lg-12">
+            <div class="row">
+                @foreach (var item in listTen)
+                {
+                    <div class="glass col-lg-3 col-6">
+                        <img src="~/img/@item.Thumbnail" alt="">
+                        <div class="glass_name">
+                            <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
+                        </div>
+                        <div class="price">
+                            @item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <p>@item.Views <i class="fa-solid fa-eye"></i></p>
+                        </div>
+                        <div class="glass_icon_action">
+                            <button class="btn-search"><i class="fa fa-search"></i></button>
+                            @if (userId == null)
+                            {
+                                <a><i class="fa fa-heart"></i></a>
+                                <a><i class="fa fa-shopping-cart"></i></a>
+                            }
+                            else
+                            {
+                                if (reviewService.IsWishList(userId, item.Id))
+                                {
+                                    <a class="deleteWishList" data-id="@item.Id"><i class="fa fa-heart" style="background-color: red"></i></a>
+                                    <a><i class="fa fa-shopping-cart"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="addWishList" data-id="@item.Id"><i class="fa fa-heart"></i></a>
+                                    <a><i class="fa fa-shopping-cart"></i></a>
+                                }
+                            }
+
+                        </div>
+
+                    </div>
+
+                }
+                @*<div class="glass col-lg-3 col-6">
+                <img src="~/user/images/glasses/glass1.jpg" alt="">
+                <div class="glass_name">
+                <a href="">Kính râm Linemai K304</a>
+                </div>
+                <div class="price">
+                850.000 VND
+                </div>
+                <div class="glass_icon_action">
+                <button class="btn-search"><i class="fa fa-search"></i></button>
+                <a href="#"><i class="fa fa-heart"></i></a>
+                <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                </div>
+
+                </div>*@
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@if(userId != null && listViewd.Count() != 0){
+    <div class="container">
+    <div class="title">
+        <h2>Xe Máy Đã Xem</h2>
+    </div>
+    <div class="row justify-content-between">
+        <!-- <div class="left_popular col-lg-4 col-12">
+          <img src="~/user/images/model/model1.png" alt="">
+        </div> -->
+        <div class="col-lg-12">
+            <div class="row">
+                    @foreach (var i in listViewd)
+                    {
+                        var item = i.Product;
+                        <div class="glass col-lg-3 col-6">
+                            <img src="~/img/@item.Thumbnail" alt="">
+                            <div class="glass_name">
+                                <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
+                            </div>
+                            <div class="price">
+                                @item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <p>@item.Views <i class="fa-solid fa-eye"></i></p>
+                            </div>
+                            <div class="glass_icon_action">
+                                <button class="btn-search"><i class="fa fa-search"></i></button>
+                                @if (userId == null)
+                                {
+                                    <a><i class="fa fa-heart"></i></a>
+                                    <a><i class="fa fa-shopping-cart"></i></a>
+                                }
+                                else
+                                {
+                                    if (reviewService.IsWishList(userId, item.Id))
+                                    {
+                                        <a class="deleteWishList" data-id="@item.Id"><i class="fa fa-heart" style="background-color: red"></i></a>
+                                        <a><i class="fa fa-shopping-cart"></i></a>
+                                    }
+                                    else
+                                    {
+                                        <a class="addWishList" data-id="@item.Id"><i class="fa fa-heart"></i></a>
+                                        <a><i class="fa fa-shopping-cart"></i></a>
+                                    }
+                                }
+
+                            </div>
+
+                        </div>
+
+                    }
+
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+<div class="container category">
+    <div class="title">
+        <h2>Danh Mục Sản Phẩm</h2>
+    </div>
+    <div class="row">
+        <div class="left_category col-lg-8 ">
+            <div class="row">
+                <div class="category_box col-lg-4">
+                    <img src="~/user/images/category/gong-kinh-ram.jpg" alt="">
+                    <div class="overlay">
+                        <div class="text"><a href="">Kính Râm</a></div>
+                        <a href=""><button class="buy">Mua Ngay</button></a>
+                    </div>
+                </div>
+                <div class="category_box col-lg-7">
+                    <img src="~/user/images/category/kinh-ram.jpg" alt="">
+                    <div class="overlay">
+                        <div class="text"><a href="">Kính Chính Hãng</a></div>
+                        <a href=""><button class="buy">Mua Ngay</button></a>
+                    </div>
+                </div>
+                <div class="category_box col-lg-7">
+                    <img src="~/user/images/category/kinh-can.jpg" alt="">
+                    <div class="overlay">
+                        <div class="text"><a href="">Kính Cận</a></div>
+                        <a href=""><button class="buy">Mua Ngay</button></a>
+                    </div>
+                </div>
+                <div class="category_box col-lg-4">
+                    <img src="~/user/images/category/kinh-ap-trong.jpg" alt="">
+                    <div class="overlay">
+                        <div class="text"><a href="">Kính Áp Tròng</a></div>
+                        <a href=""><button class="buy">Mua Ngay</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right_category col-lg-4">
+            <div class="category_box ">
+                <img src="~/user/images/category/sale.jpg" alt="">
+                <div class="overlay">
+                    <div class="text"><a href="">Sale</a></div>
+                    <a href=""><button class="buy">Mua Ngay</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="brand-slider h-100">
+        <div class="row align-items-center h-100">
+            <div class="container rounded">
+                <div class="title">
+                    <h2>Các thương hiệu nổi bật</h2>
+                </div>
+                <div class="slider">
+                    <div class="logos">
+                        <img src="~/user/images/brands/gucci.jpg" alt="">
+                        <img src="~/user/images/brands/balenciaga.jpg" alt="">
+                        <img src="~/user/images/brands/chanel.jpg" alt="">
+                        <img src="~/user/images/brands/dior.jpg" alt="">
+                        <img src="~/user/images/brands/lv.jpg" alt="">
+                        <img src="~/user/images/brands/ysl.jpg" alt="">
+                    </div>
+                    <div class="logos">
+                        <img src="~/user/images/brands/gucci.jpg" alt="">
+                        <img src="~/user/images/brands/balenciaga.jpg" alt="">
+                        <img src="~/user/images/brands/chanel.jpg" alt="">
+                        <img src="~/user/images/brands/dior.jpg" alt="">
+                        <img src="~/user/images/brands/lv.jpg" alt="">
+                        <img src="~/user/images/brands/ysl.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            $(".addWishList").click(function () {
+                var id = $(this).data('id');
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("AddWishList", "Home")',
+                    data: { id: id },
+                    //dataType: "json",
+                    //contentType: "application/json;charset=utf-8",
+                    success: function (response) {
+                        if (!response.result) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: response.mess,
+
+                            })
+                        }
+                        else {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Thêm WishList thành công',
+                                showConfirmButton: false,
+                                timer: 2500
+                            });
+                            setTimeout(() => location.href = '@Url.Action("Index", "Home")', 2500);
+                        }
+                    }
+                })
+            })
+
+            $(".deleteWishList").click(function () {
+                var id = $(this).data('id');
+                Swal.fire({
+                    title: 'Thông báo!',
+                    text: "Bạn có thực sự muốn xóa hay không?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("RemoveWishList", "Home")',
+                            data: { id: id},
+                            //dataType: "json",
+                            //contentType: "application/json;charset=utf-8",
+                            success: function (response) {
+                                if (!response.result) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: response.mess,
+
+                                    })
+                                }
+                                else {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Đã Xóa Sản Phẩm Khỏi WishList',
+                                        'success'
+                                    )
+                                    setTimeout(() => location.href = '@Url.Action("Index", "Home")', 2000);
+                                }
+                            }
+                        })
+
+                    }
+                })
+
+            })
+        });
+    </script>
+}

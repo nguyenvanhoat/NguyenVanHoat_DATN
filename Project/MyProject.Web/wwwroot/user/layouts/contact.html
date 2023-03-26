@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css"
+        integrity="sha512-5PV92qsds/16vyYIJo3T/As4m2d8b6oWYfoqV+vtizRB6KhF1F9kYzWzQmsO6T3z3QG2Xdhrx7FQ+5R1LiQdUA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;0,600;0,700;1,200&display=swap"
+        rel="stylesheet">
+    <style></style>
+</head>
+
+<body>
+    <header class="container">
+        <a href="">
+            <img class="logo" src="../images/logo/logo.png" alt=""> </a>
+        <div class="menu">
+            <div class="rong">
+
+            </div>
+            <ul>
+                <li><a href="home.html">Trang chủ</a></li>
+                <li class="active" id="products"><a href="products.html">Sản phẩm</a>
+                    <ul class="menu_con">
+                        <li><a href="">Kính cận</a></li>
+                        <li><a href="">Kính râm</a></li>
+                        <li><a href="">Kính chính hãng</a></li>
+                        <li><a href="">Kính áp tròng</a></li>
+                    </ul>
+                </li>
+                <li><a href="">Sale</a></li>
+                <li><a href="">Kiến thức</a></li>
+                <li><a href="">Liên hệ</a></li>
+
+                <!-- GET: Thường dùng cho tìm kiếm...:đẩy value lên URL  ; POST: dùng cho đăng nhập, đăng ký: bảo mật -->
+            </ul>
+            <div class="search">
+                <form action="" method="">
+                    <input class="key_word" type="text" placeholder="Tìm kiếm">
+                    <button type="submit" class="search_function"><i class="bi bi-search"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="right_function">
+            <a href="#"><i class="bi bi-person"></i></a>
+            <a href="cart.html"><i class="bi bi-cart"></i></a>
+        </div>
+    </header>
+    <main>
+        <div class="page_banner">
+            <div class="page_title">
+                <h1>Liên hệ</h1>
+                <ol class="bread_crumb">
+                    <li><a href="">Trang chủ</a></li>
+                    <li><a href="">Liên hệ</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="contact_info">
+                        <h2>Thông tin liên hệ</h2>
+                        <p>
+                            Nếu có thắc mắc, hoặc gặp vấn đề nào đó, hãy liên hệ ngay với chúng tôi để được các nhân
+                            viên tư vấn hỗ trợ và tư vấn.
+                            <br>
+                            Để biết thêm về các chính sách của chúng tôi, bạn có thể tham khảo
+                            <br>
+                            <span><a href="">Điều khoản và Điều kiện của chúng tôi.</a></span>
+                        </p>
+                        <div class="info_find">
+                            <div class="icon-box-wrapper">
+                                <i class="bi bi-geo-alt"></i>
+                                <div class="icon-box-content">
+                                    <h3>Địa chỉ</h3>
+                                    <p>164 Tôn Đức Thắng – Đống Đa HN</p>
+                                    <p>38 Nguyễn Khang – Cầu Giấy HN</p>
+                                    <p>298 Nguyễn Trãi – Hà Đông HN</p>
+                                </div>
+                            </div>
+                            <div class="icon-box-wrapper">
+                                <i class="bi bi-telephone"></i>
+                                <div class="icon-box-content">
+                                    <h3>Điện thoại</h3>
+                                    <p>+84 968209396</p>
+                                </div>
+                            </div>
+                            <div class="icon-box-wrapper">
+                                <i class="bi bi-facebook"></i>
+                                <div class="icon-box-content">
+                                    <h3>FaceBook</h3>
+                                    <a href="">www.facebook.com/kinhmatCP</a>
+                                </div>
+                            </div>
+                            <div class="icon-box-wrapper">
+                                <i class="bi bi-envelope"></i>
+                                <div class="icon-box-content">
+                                    <h3>Email</h3>
+                                    <a href="mailto:cp_glasses@gmail.com">cp_glasses@gmail.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="contact_info">
+                        <h2>Gửi Ý Kiến Cho Chúng Tôi</h2>
+                        <div class="box-email">
+                            <form action="" method="get">
+                                <!-- <div class="form-floating">
+                                    <input type="text" class="form-control" id="floatingInputUsername"
+                                        placeholder="Họ và tên" required autofocus>
+                                    <label for="floatingInputUsername">Họ và tên</label>
+                                </div> -->
+
+
+                                <div class="form-floating">
+                                    <input id="gender1" name="filter_price" type="checkbox" value="filter1" />
+                                    <label for="gender1"> 1-3</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input id="gender2" name="filter_price" type="checkbox" value="filter2" />
+                                    <label for="gender2">3-5</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="floatingInputTitle"
+                                        placeholder="Tiêu đề">
+                                    <label for="floatingInputTitle">Tiêu đề</label>
+                                </div>
+
+                                <div class="form-floating">
+                                    <textarea name="" id="" cols="100" rows="10" class="form-control"
+                                        placeholder="Ý kiến của bạn" id="floatingContent"></textarea>
+                                    <label for="floatingContent">Ý kiến của bạn</label>
+                                </div>
+                                <div class="d-grid">
+                                    <button class="btn-send" type="submit">Gửi</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    </main>
+
+    <footer>
+        <div class="container infor">
+            <div class="row">
+                <div class="details col-lg-3">
+                    <h3>Trợ Giúp & Thông Tin
+                    </h3>
+                    <ul>
+                        <li>Địa chỉ: Số 176, Đường Quang Trung, Hà Đông, Hà Nội</li>
+                        <li>Điện thoại: +84 968209396</li>
+                        <li>Email: cp_glasses@gmail.com</li>
+                        <li>www.facebook.com/kinhmatCP</li>
+                    </ul>
+
+                </div>
+                <div class="details col-lg-3">
+                    <h3>Các thương hiệu nổi bật
+                    </h3>
+                    <ul>
+                        <li><a href="">Gucci</a></li>
+                        <li><a href="">Dior</a></li>
+                        <li><a href="">Chorme Heart</a></li>
+                        <li><a href="">Chanel</a></li>
+                        <li><a href="">Bubbery</a></li>
+                    </ul>
+
+                </div>
+                <div class="details col-lg-3">
+                    <h3>Hệ thống cửa hàng
+                    </h3>
+                    <ul>
+                        <li><a href="">164 Tôn Đức Thắng – Đống Đa HN</a> </li>
+                        <li><a href="">38 Nguyễn Khang – Cầu Giấy HN</a> </li>
+                        <li><a href="">298 Nguyễn Trãi – Hà Đông HN</a> </li>
+                        <li><a href="">805 Lê Hồng Phong – Q.10 HCM</a> </li>
+                        <li><a href="">399 – 401 Lê Văn Sỹ – Q.Tân Bình HCM</a> </li>
+                    </ul>
+
+                </div>
+
+                <div class="details col-lg-3">
+                    <h3>Địa chỉ
+                    </h3>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.8334970122846!2d105.77121431478464!3d21.039347192793077!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454c9ca620493%3A0x56beef4adf761a25!2zM2EgTmfDtSA2NSBNYWkgROG7i2NoLCBNYWkgROG7i2NoLCBD4bqndSBHaeG6pXksIEjDoCBO4buZaSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1658339939027!5m2!1svi!2s"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="support">
+            <a href=""><img src="../images/logo/messenger_14.png" alt=""></a>
+            <a href=""><img src="../images/logo/zalo_16.png" alt=""></a>
+        </div>
+
+        <div class="author">
+            Thiết kế 2022 © CP Glasses
+        </div>
+        <div id="scroll_top">
+            <a href="#top" onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-angle-up"></i></a>
+        </div>
+    </footer>
+
+
+    <script src="../js/script.js"></script>
+</body>
+
+</html>

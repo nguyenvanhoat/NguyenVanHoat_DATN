@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CP Glasses | Home Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/style_menu.css">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;0,600;0,700;1,200&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css"
+    integrity="sha512-5PV92qsds/16vyYIJo3T/As4m2d8b6oWYfoqV+vtizRB6KhF1F9kYzWzQmsO6T3z3QG2Xdhrx7FQ+5R1LiQdUA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+    integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <header>
+    <a href="">
+      <img class="logo" src="../images/logo/logo.png" alt=""> </a>
+
+    <div class="menu">
+      <div class="rong">
+
+      </div>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li class="active" id="products"><a href="products.html">Product</a>
+          <ul class="menu_con">
+            <li><a href="">Kính cận</a></li>
+            <li><a href="">Kính râm</a></li>
+            <li><a href="">Kính chính hãng</a></li>
+            <li><a href="">Kính áp tròng</a></li>
+          </ul>
+        </li>
+        <li><a href="">My Reviews</a></li>
+        <li><a href="">My Wishlists</a></li>
+
+        <!-- GET: Thường dùng cho tìm kiếm...:đẩy value lên URL  ; POST: dùng cho đăng nhập, đăng ký: bảo mật -->
+      </ul>
+      <div class="search">
+        <form action="" method="">
+          <input class="key_word" type="text" placeholder="Tìm kiếm">
+          <button type="submit" class="search_function"><i class="fa fa-search"></i></button>
+        </form>
+      </div>
+    </div>
+    <div class="right_function">
+      <div>
+        <button type="button" class="btn">
+          <i class="bi bi-person" aria-hidden="true"></i>
+        </button>
+      </div>
+      <!-- <a href="#"><i class="bi bi-person"></i></a> -->
+      <!-- <a href="cart.html"><i class="fa fa-shopping-cart"></i></a> -->
+
+      <div class="dropdown">
+        <button type="button" class="btn" data-toggle="dropdown">
+          <i class="bi bi-cart" aria-hidden="true"></i>
+        </button>
+        <span class="quantity_items">3</span>
+        <div class="dropdown-menu">
+
+          <div class="row cart-detail">
+            <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
+              <img src="../images/glasses/glass3.jpg">
+            </div>
+            <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
+              <p>Kính râm Linemai K304</p>
+              <span class="price "> 850.000 VND</span> <span class="count"> SL: 1</span>
+            </div>
+          </div>
+          <div class="row cart-detail">
+            <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
+              <img src="../images/glasses/glass3.jpg">
+            </div>
+            <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
+              <p>Kính râm Linemai K304</p>
+              <span class="price "> 850.000 VND</span> <span class="count"> SL: 1</span>
+            </div>
+          </div>
+          <div class="row cart-detail">
+            <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
+              <img src="../images/glasses/glass3.jpg">
+            </div>
+            <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
+              <p>Kính râm Linemai K304</p>
+              <span class="price "> 850.000 VND</span> <span class="count"> SL: 1</span>
+            </div>
+          </div>
+          <div class="row total-header-section">
+            <p style="font-weight: 600;">Tổng tiền: <span style="color: #ff871d;">5.400.000 VNĐ</span></p>
+          </div>
+
+          <div class="link-to-cart">
+            <a href="cart.html">Xem giỏ hàng</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class=" banner">
+      <!-- Carousel -->
+      <div id="demo" class="carousel slide" data-bs-ride="carousel">
+        <!-- Indicators/dots -->
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+          <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+          <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+          <button type="button" data-bs-target="#demo" data-bs-slide-to="3"></button>
+        </div>
+        <!-- The slideshow/carousel -->
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="banner_detail">
+              <div class="banner_title">
+                <h1>Kính râm thời trang</h1>
+                <h3>Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                  <br>
+                  Issa trong chiến dịch mùa mới của chúng tôi.
+                </h3>
+              </div>
+              <a href=""><button class="buy">Mua Ngay</button></a>
+            </div>
+            <img src="../images/banner/banner4.jpg" alt="Los Angeles" class="d-block">
+          </div>
+          <div class="carousel-item">
+            <div class="banner_detail">
+              <div class="banner_title">
+                <h1>Kính râm thời trang</h1>
+                <h3>Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                  <br>
+                  Issa trong chiến dịch mùa mới của chúng tôi.
+                </h3>
+              </div>
+              <a href=""><button class="buy">Mua Ngay</button></a>
+            </div>
+            <img src="../images/banner/banner01.jpg" alt="Chicago" class="d-block">
+          </div>
+          <div class="carousel-item">
+            <div class="banner_detail">
+              <div class="banner_title">
+                <h1>Kính râm thời trang</h1>
+                <h3>Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                  <br>
+                  Issa trong chiến dịch mùa mới của chúng tôi.
+                </h3>
+              </div>
+              <a href=""><button class="buy">Mua Ngay</button></a>
+            </div>
+            <img src="../images/banner/banner03.jpg" alt="New York" class="d-block">
+          </div>
+
+          <div class="carousel-item">
+            <div class="banner_detail">
+              <div class="banner_title">
+                <h1>Kính râm thời trang</h1>
+                <h3>Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                  <br>
+                  Issa trong chiến dịch mùa mới của chúng tôi.
+                </h3>
+              </div>
+              <a href=""><button class="buy">Mua Ngay</button></a>
+            </div>
+            <img src="../images/banner/banner2.jpg" alt="New York" class="d-block">
+          </div>
+        </div>
+
+        <!-- Left and right controls/icons -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+    </div>
+    <!-- <ol class="bread_crumb">
+        <li><a href="">Home</a></li>
+        <li><a href="">Quần áo</a></li>
+        <li>Quần Jean</li>
+      </ol> -->
+
+    <div class="container content">
+    </div>
+
+    <div class="container">
+      <div class="title">
+        <h2>Product Trending</h2>
+      </div>
+      <div class="row justify-content-between">
+        <!-- <div class="left_popular col-lg-4 col-12">
+          <img src="../images/model/model1.png" alt="">
+        </div> -->
+        <div class="right_popular col-lg-12">
+          <div class="row">
+            <div class="glass col-lg-3 col-6">
+              <img src="../images/glasses/glass1.jpg" alt="">
+              <div class="glass_name">
+                <a href="">Kính râm Linemai K304</a>
+              </div>
+              <div class="price">
+                850.000 VND
+              </div>
+              <div class="glass_icon_action">
+                <button class="btn-search"><i class="fa fa-search"></i></button>
+                <a href="#"><i class="fa fa-heart"></i></a>
+                <a href="#"><i class="fa fa-shopping-cart"></i></a>
+              </div>
+
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="container ">
+      <div class="row">
+        <div class="benefit col-lg-3 col-6">
+          <div class="benefit-box ">
+            <div class="benefit-icon"><i class="fa-solid fa-truck-fast"></i></div>
+            <div class="benefit-content">Giao hàng nhanh, tiết kiệm</div>
+          </div>
+        </div>
+        <div class="benefit col-lg-3 col-6">
+          <div class="benefit-box ">
+            <div class="benefit-icon"><i class="fa-solid fa-arrow-rotate-left"></i></div>
+            <div class="benefit-content">Đổi trả trong vòng 7 ngày đầu</div>
+          </div>
+        </div>
+        <div class="benefit col-lg-3 col-6">
+          <div class="benefit-box ">
+            <div class="benefit-icon"><i class="fa-solid fa-medal"></i></div>
+            <div class="benefit-content">Bảo hành trong vòng 6 tháng</div>
+          </div>
+        </div>
+        <div class="benefit col-lg-3 col-6">
+          <div class="benefit-box">
+            <div class="benefit-icon"><i class="fa-solid fa-glasses"></i></div>
+            <div class="benefit-content">Chất lượng đảm bảo 100%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container category">
+      <div class="title">
+        <h2>Danh Mục Sản Phẩm</h2>
+      </div>
+      <div class="row">
+        <div class="left_category col-lg-8 ">
+          <div class="row">
+            <div class="category_box col-lg-4">
+              <img src="../images/category/gong-kinh-ram.jpg" alt="">
+              <div class="overlay">
+                <div class="text"><a href="">Kính Râm</a></div>
+                <a href=""><button class="buy">Mua Ngay</button></a>
+              </div>
+            </div>
+            <div class="category_box col-lg-7">
+              <img src="../images/category/kinh-ram.jpg" alt="">
+              <div class="overlay">
+                <div class="text"><a href="">Kính Chính Hãng</a></div>
+                <a href=""><button class="buy">Mua Ngay</button></a>
+              </div>
+            </div>
+            <div class="category_box col-lg-7">
+              <img src="../images/category/kinh-can.jpg" alt="">
+              <div class="overlay">
+                <div class="text"><a href="">Kính Cận</a></div>
+                <a href=""><button class="buy">Mua Ngay</button></a>
+              </div>
+            </div>
+            <div class="category_box col-lg-4">
+              <img src="../images/category/kinh-ap-trong.jpg" alt="">
+              <div class="overlay">
+                <div class="text"><a href="">Kính Áp Tròng</a></div>
+                <a href=""><button class="buy">Mua Ngay</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="right_category col-lg-4">
+          <div class="category_box ">
+            <img src="../images/category/sale.jpg" alt="">
+            <div class="overlay">
+              <div class="text"><a href="">Sale</a></div>
+              <a href=""><button class="buy">Mua Ngay</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="brand-slider h-100">
+        <div class="row align-items-center h-100">
+          <div class="container rounded">
+            <div class="title">
+              <h2>Các thương hiệu nổi bật</h2>
+            </div>
+            <div class="slider">
+              <div class="logos">
+                <img src="../images/brands/gucci.jpg" alt="">
+                <img src="../images/brands/balenciaga.jpg" alt="">
+                <img src="../images/brands/chanel.jpg" alt="">
+                <img src="../images/brands/dior.jpg" alt="">
+                <img src="../images/brands/lv.jpg" alt="">
+                <img src="../images/brands/ysl.jpg" alt="">
+              </div>
+              <div class="logos">
+                <img src="../images/brands/gucci.jpg" alt="">
+                <img src="../images/brands/balenciaga.jpg" alt="">
+                <img src="../images/brands/chanel.jpg" alt="">
+                <img src="../images/brands/dior.jpg" alt="">
+                <img src="../images/brands/lv.jpg" alt="">
+                <img src="../images/brands/ysl.jpg" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="container infor">
+      <div class="row">
+        <div class="details col-lg-3">
+          <h3>Trợ Giúp & Thông Tin
+          </h3>
+          <ul>
+            <li>Địa chỉ: Số 176, Đường Quang Trung, Hà Đông, Hà Nội</li>
+            <li>Điện thoại: +84 968209396</li>
+            <li>Email: cp_glasses@gmail.com</li>
+            <li>www.facebook.com/giftshowhanoi</li>
+          </ul>
+
+        </div>
+        <div class="details col-lg-3">
+          <h3>Các thương hiệu nổi bật
+          </h3>
+          <ul>
+            <li><a href="">Gucci</a></li>
+            <li><a href="">Dior</a></li>
+            <li><a href="">Chorme Heart</a></li>
+            <li><a href="">Chanel</a></li>
+            <li><a href="">Bubbery</a></li>
+          </ul>
+
+        </div>
+        <div class="details col-lg-3">
+          <h3>Hệ thống cửa hàng
+          </h3>
+          <ul>
+            <li><a href="">164 Tôn Đức Thắng – Đống Đa HN</a> </li>
+            <li><a href="">38 Nguyễn Khang – Cầu Giấy HN</a> </li>
+            <li><a href="">298 Nguyễn Trãi – Hà Đông HN</a> </li>
+            <li><a href="">805 Lê Hồng Phong – Q.10 HCM</a> </li>
+            <li><a href="">399 – 401 Lê Văn Sỹ – Q.Tân Bình HCM</a> </li>
+          </ul>
+
+        </div>
+
+        <div class="details col-lg-3">
+          <h3>Địa chỉ
+          </h3>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.8334970122846!2d105.77121431478464!3d21.039347192793077!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454c9ca620493%3A0x56beef4adf761a25!2zM2EgTmfDtSA2NSBNYWkgROG7i2NoLCBNYWkgROG7i2NoLCBD4bqndSBHaeG6pXksIEjDoCBO4buZaSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1658339939027!5m2!1svi!2s"
+            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="support">
+      <a href=""><img src="../images/logo/messenger_14.png" alt=""></a>
+      <a href=""><img src="../images/logo/zalo_16.png" alt=""></a>
+    </div>
+
+    <div class="author">
+      Thiết kế 2022 © CP Glasses
+    </div>
+    <div id="scroll_top">
+      <a href="#top" onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-angle-up"></i></a>
+    </div>
+  </footer>
+  <div id="myModal" class="modal">
+    <!-- Nội dung form đăng nhập -->
+    <div class="modal-content">
+      <form action="#">
+        <span class="close">&times;</span>
+        <div class="container content-page-detail">
+          <div class="glass-img-detail">
+            <img src="../images/glasses/glass1.jpg" alt="">
+          </div>
+          <div class="detail-info">
+            <h3 class="product-title ">Kính râm Linemai K304</h3>
+            <div class="product-price">850.000 VND</div>
+            <div class="pd_summary">
+              Sản xuất bởi những vật liệu cao cấp với gọng kính được bo tròn tinh tế và trang nhã...
+            </div>
+            <div class="quantity">
+              <h5>Số lượng</h5>
+              <div class="quantity-icon-action">
+                <i onclick="minusQuantity()" class="fa-solid fa-minus"></i>
+                <span class="quantity-number" id="quantity-number">1</span>
+                <i onclick="plusQuantity()" class="fa-solid fa-plus"></i>
+              </div>
+            </div>
+            <script>
+
+            </script>
+            <div class="btn-action">
+              <button class="add_to_cart">Thêm vào giỏ hàng</button>
+              <button class="buy_now">Mua ngay</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal fade bd-example-modal-lg " id="modal_subcribe">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close closemodal" data-dismiss="modal"><span>&times;</span></button>
+          <img src="../images/logo/logo.png" alt="">
+          <h2>ĐĂNG KÝ THÀNH VIÊN CỦA CP GLASSES</h2>
+          <p>Nhận được các ưu đãi sớm nhất của CP Glasses khi đăng ký ngày hôm nay</p>
+          <input type="text" id="email_subcriber" class="email_subcribe" placeholder="Email của bạn">
+          <button type="button" onclick ="callAjaxSubcriber()" class="btn">Đăng ký</button>
+        </div>
+        <div class="modal-footer">
+          <div class="closemodal">Không, cảm ơn</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div data-id="tu_1">ABCD</div> -->
+  <script src="../js/script.js"></script>
+  
+</body>
+
+
+</html>

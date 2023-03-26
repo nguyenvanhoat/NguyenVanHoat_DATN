@@ -1,0 +1,219 @@
+﻿@{
+    ViewData["Title"] = "Tạo phiếu nhập";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">Quick Example</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form id="phieu-nhap">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputEmail1">Mã phiếu</label>
+                                    <input type="text" class="form-control" id="maphieu" >
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputPassword1">Bên giao</label>
+                                    <input type="text" class="form-control" id="bengiao" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputEmail1">Ngày giao</label>
+                                    <input type="date" class="form-control" id="ngaygiao" >
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputPassword1">Người nhận</label>
+                                    <input type="text" class="form-control" id="nguoinhan" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Địa chỉ</label>
+                                <input type="text" class="form-control" id="diachi" >
+                            </div>
+                            
+                            <!-- Button trigger modal -->
+                            <div class="col-md-12 text-right">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                Thêm Sản Phẩm Vào Phiếu Nhập
+                            </button>
+                            </div>
+
+                            <!-- Modal -->
+                            
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                   
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table class="table table-bordered" id="data-table">
+                                        <thead>
+                                            <tr>
+                                                
+                                                <th>Sản phẩm</th>
+                                                <th>Số lượng</th>
+                                                <th>Đơn Giá</th>
+                                                <th style="width: 40px">
+                                                    
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                                <div class="card-footer clearfix">
+                                    <ul class="pagination pagination-sm m-0 float-right">
+                                        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-primary" id="taophieu">Tạo Phiếu Nhập</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card -->
+                <!-- general form elements -->
+                
+                <!-- /.card -->
+
+            </div>
+            <!--/.col (left) -->
+            <!-- right column -->
+            
+            <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Chi Tiết Sản Phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Nhập sản phẩm</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form id="form-nhap">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Sản Phẩm</label>
+                                <input type="text" class="form-control" id="ten" name="ten">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Số Lượng</label>
+                                <input type="number" class="form-control" id="soluong" name="soluong">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Đơn Giá</label>
+                                <input type="number" class="form-control" id="dongia" name="dongia">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="them">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            $("#form-nhap").validate({
+                rules: {
+                    ten: "required",
+                    soluong: "required",
+                    dongia: "required"
+                },
+                messages: {
+                    ten: "Tên không được để trống",
+                    soluong: "Số lượng không được để trống",
+                    dongia: "Đơn giá không được để trống"
+                }
+            })
+
+            $("#phieu-nhap").validate({
+                rules: {
+                    maphieu: "required",
+                    bengiao: "required",
+                    ngaygiao: : "required",
+                    nguoinhan : "required",
+                    diachi: "required"
+                },
+                messages:{
+                    maphieu: "Mã phiếu không được để trống",
+                    bengiao: "Bên giao không được để trống",
+                    ngaygiao: : "Ngày giao không được để trống",
+                    nguoinhan: "Người nhận không được để trống",
+                    diachi: "Địa chỉ không được để trống"
+                }
+            })
+
+            let i = 1;
+            $("#them").click(function(){
+                if ($("#form-nhap").valid()) {
+                    let tenSanPham = $("#ten").val();
+                    let soLuong = $("#soluong").val();
+                    let donGia = $("#dongia").val();
+                    let row = `<tr id="tr-${i}">` +
+                        `<td>${tenSanPham}</td>` +
+                        `<td>${soLuong}</td>` +
+                        `<td>${donGia}</td>` +
+                        `<td ><button class="btn btn-danger" onclick="removeTableRow('#tr-${i}')">Xóa</button></td>` +
+                        '</tr>'
+                    $("#data-table").find('tbody').append(row);
+                    $("#them").attr("data-dismiss", "modal");
+                    i++;
+                }
+                $("#ten").val('')
+                $("#soluong").val('')
+                $("#dongia").val('')
+            })
+
+            $("#taophieu").click(function(){
+                //$("#phieu-nhap").valid()
+                console.log("haha")
+            })
+
+        })
+
+        function removeTableRow(id) {
+            
+            $(id).remove();
+        }
+    </script>
+}

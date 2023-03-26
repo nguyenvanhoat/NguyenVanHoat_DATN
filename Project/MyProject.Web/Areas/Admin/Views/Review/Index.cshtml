@@ -1,0 +1,166 @@
+﻿@using Service
+
+@model PagedResult<MyProject.ViewModel.ReviewsDTO>
+
+@{
+    ViewData["Title"] = "Danh sách shop";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">List Reviews</h6>
+    </div>
+    <div class="card-body">
+        @*<a asp-action="Create" asp-controller="Shop" asp-area="Admin" class="btn btn-success mb-4">Create New Shop</a>*@
+        @*<div class="mb-3">
+            <form class="d-flex justify-content-end">
+                <select class="form-control mr-3 w-30" id="filter-by-trending">
+                    <option value="">Filter Theo Trending</option>
+                    <option value="true">Trending</option>
+                    <option value="false">Not Trending</option>
+                </select>
+                <select class="form-control w-32 mr-3" id="filter-delete">
+                    <option value="">Filter Trạng Thái Xóa</option>
+                    <option value="true">Đã Xóa</option>
+                    <option value="false">Chưa Xóa</option>
+                </select>
+                <input type="text" class="form-control w-35 mr-3" id="searchString" placeholder="Tìm kiếm theo ShopName" value="@ViewBag.SearchString">
+                <input type="button" class="form-control w-30 btn btn-info" id="search" value="Filter">
+            </form>
+        </div>*@
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Product</th>
+                        <th>Details</th>
+                        <th>Create At</th>
+                        <th>Update At</th>
+                        <th>Delete At</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.Data)
+                    {
+                        if (item.DeleteAt == null)
+                        {
+                            <tr>
+                                <td>@item.User.UserName</td>
+                                <td>@item.Product.ProductName</td>
+                                <td>@item.ReviewsDetails</td>
+                                <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
+                                <td>@item.UpdateAt?.ToString("dd/MM/yyyy")</td>
+                                <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    @*<a asp-action="Edit" asp-controller="Shop" asp-route-id="@item.Id" class="btn btn-info"><i class="far fa-edit"></i></a>*@
+                                    <a data-id="@item.ProductId" data-userId="@item.UserId" class="btn btn-danger delete"><i class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr class="bg-secondary text-warning">
+                                <td>@item.User.UserName</td>
+                                <td>@item.Product.ProductName</td>
+                                <td>@item.ReviewsDetails</td>
+                                <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
+                                <td>@item.UpdateAt?.ToString("dd/MM/yyyy")</td>
+                                <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    Deleted
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container">
+        @if (Model.TotalItem > 0 && Model.TotalPages > 1)
+        {
+            <ul class="pagination justify-content-center">
+                @if (Model.PageNumber > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Review" asp-action="Index" asp-route-pageNumber="1">Fisrt</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Review" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber-1)">Previous</a>
+                    </li>
+                }
+
+                @for (var j = Model.StartPage; j <= Model.EndPage; j++)
+                {
+                    <li class="page-item @(j==Model.PageNumber ? "active" : "")">
+                        <a class="page-link" asp-controller="Review" asp-action="Index" asp-route-pageNumber="@j">@j</a>
+                    </li>
+                }
+
+                @if (Model.PageNumber < Model.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Review" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber+1)">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Review" asp-action="Index" asp-route-pageNumber="@Model.TotalPages">Last</a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            $(".delete").click(function () {
+                Swal.fire({
+                    title: 'Thông bá0!',
+                    text: "Bạn có thực sự muốn xóa không!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Đồng Ý!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var productId = $(this).data('id');
+                        var userId = $(this).attr('data-userId');
+                        console.log(productId);
+                        console.log(userId);
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("Delete", "Review")',
+                            data: { productId: productId, userId: userId },
+                            //dataType: "json",
+                            //contentType: "application/json;charset=utf-8",
+                            success: function (response) {
+                                if (response.result) {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Xóa thành công.',
+                                        'success'
+                                    )
+                                    setTimeout(() => location.href = '@Url.Action("Index", "Review", "Admin")', 2000)
+                                }
+                                else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: "Có lỗi trong quá trình xử lý"
+                                    })
+                                }
+                            }
+                        })
+
+                    }
+                })
+            })
+        })
+    </script>
+}

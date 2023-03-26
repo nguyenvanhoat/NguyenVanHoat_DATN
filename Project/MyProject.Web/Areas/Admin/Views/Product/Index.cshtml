@@ -1,0 +1,206 @@
+﻿@using Service
+
+@model PagedResult<MyProject.ViewModel.ProductDTO>
+
+@{
+    ViewData["Title"] = "Danh sách product";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">List Product</h6>
+    </div>
+    <div class="card-body">
+        <a asp-action="Create" asp-controller="Product" asp-area="Admin" class="btn btn-success mb-4">Create New Product</a>
+        <div class="mb-3">
+            <form class="d-flex justify-content-end">
+                <select class="form-control mr-3 w-30" id="filter-by-trending">
+                    <option value="">Filter Theo Trending</option>
+                    <option value="true">Trending</option>
+                    <option value="false">Not Trending</option>
+                </select>
+                <select class="form-control w-32 mr-3" id="filter-delete">
+                    <option value="">Filter Trạng Thái Xóa</option>
+                    <option value="true">Đã Xóa</option>
+                    <option value="false">Chưa Xóa</option>
+                </select>
+                <input type="text" class="form-control w-35 mr-3" id="searchString" placeholder="Tìm kiếm theo ProductName" value="@ViewBag.SearchString">
+                <input type="button" class="form-control w-30 btn btn-info" id="search" value="Filter">
+            </form>
+        </div>
+        <div style="width: 100%">
+            <table class="table table-bordered" id="dataTable" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Imgage</th>
+                        <th>Slug</th>
+                        <th>Trending</th>
+                        <th>View</th>
+                        <th>
+                            Shop
+                        </th>
+                        <th>Price</th>
+                        <th>Create At</th>
+                        <th>Update At</th>
+                        <th>Delete At</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.Data)
+                    {
+                        if (item.DeleteAt == null)
+                        {
+                            <tr>
+                                <td>@item.ProductName</td>
+                                <td>
+                                    <img src="~/img/@item.Thumbnail" width="100px"/>
+                                    <a class="btn btn-primary" asp-area="Admin" asp-action="Image" asp-controller="Product" asp-route-id="@item.Id">Ảnh</a>
+                                </td>
+                                <td>@item.Slug</td>
+                                <td>@item.Trending</td>
+                                <th>@item.Views</th>
+                                <td>@item.Shop.ShopName</td>
+                                <td>@item.Price</td>
+                                <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
+                                <td>@item.UpdateAt?.ToString("dd/MM/yyyy")</td>
+                                <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <a asp-action="Edit" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-info m-2"><i class="far fa-edit"></i></a>
+                                    <a data-id="@item.Id" class="btn btn-danger m-2 delete"><i class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr class="bg-secondary text-warning">
+                                <td>@item.ProductName</td>
+                                <td>
+                                    <img src="~/img/@item.Thumbnail" width="100px" />
+                                </td>
+                                <td>@item.Slug</td>
+                                <td>@item.Trending</td>
+                                <th>@item.Views</th>
+                                <td>@item.Shop.ShopName</td>
+                                <td>@item.Price</td>
+                                <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
+                                <td>@item.UpdateAt?.ToString("dd/MM/yyyy")</td>
+                                <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    Deleted
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container">
+        @if (Model.TotalItem > 0 && Model.TotalPages > 1)
+        {
+            <ul class="pagination justify-content-center">
+                @if (Model.PageNumber > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Product" asp-action="Index" asp-route-pageNumber="1" asp-route-shopId="@ViewBag.ShopId">Fisrt</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Product" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber-1)" asp-route-shopId="@ViewBag.ShopId">Previous</a>
+                    </li>
+                }
+
+                @for (var j = Model.StartPage; j <= Model.EndPage; j++)
+                {
+                    <li class="page-item @(j==Model.PageNumber ? "active" : "")">
+                        <a class="page-link" asp-controller="Product" asp-action="Index" asp-route-pageNumber="@j" asp-route-shopId="@ViewBag.ShopId">@j</a>
+                    </li>
+                }
+
+                @if (Model.PageNumber < Model.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Product" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber+1)" asp-route-shopId="@ViewBag.ShopId">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Product" asp-action="Index" asp-route-pageNumber="@Model.TotalPages" asp-route-shopId = "@ViewBag.ShopId">Last</a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#filter-delete').val('@ViewBag.Delete')
+            $('#filter-by-trending').val('@ViewBag.Trending')
+
+            $(".delete").click(function () {
+                Swal.fire({
+                    title: 'Thông báo',
+                    text: "Bạn chắc chắn không?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Tôi chắc!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var id = $(this).data('id');
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("Delete", "Product")',
+                            data: { id: id },
+                            //dataType: "json",
+                            //contentType: "application/json;charset=utf-8",
+                            success: function (response) {
+                                if (response.result) {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Your file has been deleted.',
+                                        'success'
+                                    )
+                                    setTimeout(() => location.href = '@Url.Action("Index", "Product", "Admin")', 3000)
+                                }
+                                else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: "Có lỗi trong quá trình xử lý"
+                                    })
+                                }
+                            }
+                        })
+
+                    }
+                })
+
+
+
+            })
+            $("#search").click(function () {
+                var trending = $("#filter-by-trending option:selected").val();
+                var del = $("#filter-delete option:selected").val();
+                var searchString = $("#searchString").val();
+                //console.log(trending);
+                //console.log(del);
+                //$.ajax(function(){
+                //    type: 'GET',
+                //    url: ,
+                //    data: {pageNumber: 1, trending: trending, delete: delete, searchString: searchString},
+                //})
+
+                location.href = '@Url.Action("Index", "Product")' + '/?pageNumber=' + 1 + '&trending=' + trending + '&delete=' + del + '&searchString=' + searchString + '&shopId=' + '@ViewBag.ShopId';
+
+            })
+        });
+    </script>
+}
+

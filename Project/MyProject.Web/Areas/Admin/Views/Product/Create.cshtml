@@ -1,0 +1,200 @@
+﻿@using Service.Interface
+@model MyProject.ViewModel.ProductDTO
+@inject IShopService shopService
+
+@{
+    ViewData["Title"] = "Thêm mới Product";
+    var list = new SelectList(shopService.GetShop(), "Id", "ShopName");
+}
+
+<div class="card shadow mb-4 p-5">
+    <form autocomplete="off" action="Create" method="post" id="form-product">
+        <div class="form-group">
+            <label>ProductName</label>
+            <input type="text" class="form-control" asp-for="ProductName" placeholder="Enter Product">
+            <span class="form-message"></span>
+        </div>
+        @*<div class="form-group">
+        <label>Product Details</label>
+        <textarea class="form-control" asp-for="ProductDetails" placeholder="Enter Product"></textarea>
+        <span class="form-message"></span>
+        </div>*@
+        
+        <div class="form-group">
+            <label>Price</label>
+            <input type="number" class="form-control" asp-for="Price" placeholder="Enter Product">
+            <span class="form-message"></span>
+        </div>
+        <div class="form-group">
+            <label>Shop</label>
+            <select class="form-control" asp-items="list" asp-for="ShopId">
+                <option value="">Choose a shop</option>
+            </select>
+            <span class="form-message"></span>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="Trending" id="Trending">
+            <label for="Trending">Is Trending</label>
+        </div>
+        <div class="form-check">
+            <input type="hidden" class="form-check-input" asp-for="CreateAt" value="@DateTime.Now">
+        </div>
+        <div class="form-group">
+            <div id="display-image">
+
+            </div>
+            @*<img id="output" class="img-rounded" alt="Ảnh" width="180" height="200" src="~/img/h0.png" />*@
+            <br />
+            <label for="">Ảnh</label>
+            <input type="file" class="form-check" id="File" onchange="loadFile(event)">
+            <span class="form-message"></span>
+        </div>
+        <div class="form-group">
+            <label>Product Details</label>
+            <textarea id="editor">
+                @* <textarea asp-for="ProductDetails"></textarea>*@
+            </textarea>
+            <span class="form-message"></span>
+        </div>
+        <button type="button" id="onSubmit" class="btn btn-primary mt-2">Create</button>
+    </form>
+</div>
+
+@section Scripts{
+    <script>
+        var loadFile = function (event) {
+            var displayElement = document.getElementById('display-image');
+            displayElement.innerHTML = '<img id="output" class="img-rounded" alt="Ảnh" width="180" height="200"/>';
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+        let editor;
+
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .then(newEditor => {
+                editor = newEditor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        Validator({
+            form: "#form-product",
+            errorSelector: ".form-message",
+            submitSelector: "#onSubmit",
+            rules: [
+                Validator.isRequired("#ProductName", "ProductName không được để trống"),
+                Validator.isRequired("#File", "Bạn phải chọn một file!"),
+                Validator.isRequired("#Price", "Price không được để trống"),
+                Validator.isRequired("#ShopId", "Phải chọn một Shop"),
+                Validator.lengthRequired("#ProductName", 2, 20, "ProductName phải từ 2 đến 20 ký tự"),
+            ],
+            onClick: function (data) {
+                console.log(data);
+                if (data) {
+                    $(document).ready(function () {
+                        //var myFile = $('#File').prop('files');
+                        //var input = document.getElementById("#File");
+                        //var files = input.files;
+                        //var files = $('input[type=file]').val()
+                        //let fileData = document.getElementById('#File').files[0];
+                        //var files = $("#fileInput")[0].files[0];
+                        //var props = $('#files').prop('files');
+                        //var files = props[0];
+                        var files = $('#File').prop("files");
+                        var productDetails = editor.getData();
+                        console.log(productDetails);
+                        var formData = new FormData();
+                        formData.append("ProductName", data.ProductName);
+                        formData.append("ProductDetails", productDetails);
+                        formData.append("Price", data.Price);
+                        formData.append("Trending", data.Trending);
+                        formData.append("ShopId", data.ShopId);
+                        formData.append("CreateAt", data.CreateAt);
+                        formData.append("File", files[0]);
+                        console.log(files[0]);
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("Create", "Product")',
+                            data: formData,
+                            //data: { model: { ProductName: data.ProductName, ProductDetails: data.ProductDetails, Price: data.Price, Trending: data.Trending, ShopId: data.ShopId, CreateAt: data.CreateAt, File: files[0] } },
+                            //dataType: "json",
+                            //contentType: "application/json;charset=utf-8",
+                            contentType: false,
+                            processData: false,
+                            success: function (response) {
+                                console.log(response);
+                                if (response.result == true) {
+                                    if (response.isValid == false) {
+                                        document.querySelector("#ProductName").parentElement.querySelector(".form-message").innerHTML = response.messProductname;
+                                        document.querySelector("#ProductName").parentElement.querySelector(".form-message").classList.add('text-danger');
+                                        if (response.messSlug) {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Oops...',
+                                                text: response.messSlug
+                                            })
+                                        }
+                                    }
+                                    else {
+                                        Swal.fire({
+                                            position: 'top-end',
+                                            icon: 'success',
+                                            title: 'Thêm mới sản phẩm thành công!',
+                                            showConfirmButton: false,
+                                            timer: 2500
+                                        });
+                                        setTimeout(() => location.href = '@Url.Action("Index", "Product", "Admin")', 3000);
+                                    }
+                                }
+                                else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: response.message
+                                    })
+                                }
+                            }
+                        })
+                    });
+                }
+            }
+        });
+
+        function filter(role, del) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("Index", "Product", "Admin")',
+                data: { role: role, delete: del },
+                success: function () {
+                    location.href = '@Url.Action("Index", "User", "Admin")/?role=' + role;
+                }
+            });
+        }
+
+        $(document).ready(function () {
+
+
+            $("#filter-by-role").change(function () {
+                var role = $("#filter-by-role option:selected").val();
+                var del = $("#filter-delete option:selected").val();
+                location.href = '@Url.Action("Index", "User", "Admin")&role=' + role;
+            })
+            $("#filter-delete").change(function () {
+                var role = $("#filter-by-role option:selected").val();
+                var del = $("#filter-delete option:selected").val();
+                console.log(role);
+                console.log(del);
+                filter(role, del);
+            })
+
+        })
+    </script>
+
+}
+
+    @section CkEditor{
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+}
+
