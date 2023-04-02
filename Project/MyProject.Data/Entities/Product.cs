@@ -10,6 +10,8 @@ namespace MyProject.Data.Entities
             Reviews = new HashSet<Reviews>();
             ChiTietPhieuNhaps = new HashSet<ChiTietPhieuNhap>();
             //WishLists = new HashSet<WishList>();
+            Carts = new HashSet<Cart>();
+            OrderDetails = new HashSet<OrderDetail>();
         }
         public int Id { get; set; }
         public string ProductName { get; set; }
@@ -29,5 +31,7 @@ namespace MyProject.Data.Entities
         public ICollection<Reviews> Reviews { get; set; }
         public ICollection<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; }
         //public ICollection<WishList> WishLists { get; set; }
+        public ICollection<Cart> Carts { get; set; }
+        public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

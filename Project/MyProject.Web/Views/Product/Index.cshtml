@@ -48,7 +48,7 @@
                                 }
                             </div>
                             <div class="mt-4 mb-3">
-                                <span class="text-uppercase text-muted brand" >Shop: @Model.Shop.ShopName</span>
+                                <span class="text-uppercase text-muted brand">Shop: @Model.Shop.ShopName</span>
                                 <h5 class="text-uppercase" style="font-size: 30px; font-weight: 900">@Model.ProductName</h5>
                                 <div class="price d-flex flex-row align-items-center">
                                     <span class="act-price" style="font-size: 25px">@Model.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</span>
@@ -56,7 +56,6 @@
                                 </div>
                             </div>
                             <div id="detail">
-                                
                             </div>
                             <div class="sizes mb-3">
                                 View: @Model.Views
@@ -71,16 +70,25 @@
                                     <li>Giảm Giá 30% với mã: Deal30</li>
                                 </ul>
                             </div>
-                            @if(checkWishList == false){
-                                <div class="cart mt-4 align-items-center">
-                                    <button class="btn btn-primary text-uppercase mr-2 px-4" id="addWishList">Add to WishList</button>
-                                </div>
+                            @*@if(checkWishList == false){
+                            <div class="cart mt-4 align-items-center">
+                            <button class="btn btn-primary text-uppercase mr-2 px-4" id="addWishList">Add to WishList</button>
+                            </div>
                             }
                             else{
-                                <div class="cart mt-4 align-items-center">
-                                    <button class="btn btn-warning text-uppercase mr-2 px-4" id="removeWishList">Remove WishList</button>
+                            <div class="cart mt-4 align-items-center">
+                            <button class="btn btn-warning text-uppercase mr-2 px-4" id="removeWishList">Remove WishList</button>
+                            </div>
+                            }*@
+                            <div class="cart mt-4 align-items-center row">
+                                <div class="col-md-7">
+                                    <button class="btn btn-primary text-uppercase mr-2 px-4 " id="lienhe" style="width:95%;">Liên hệ mua hàng</button>
                                 </div>
-                            }
+                                <div class="col-md-5">
+                                    <button class="btn btn-primary text-uppercase mr-2 px-4 col-md-6" id="lienhe" style="width: 90%" data-id="@Model.Id">Mua Hàng</button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -121,29 +129,29 @@
                                 </div>
                             }
                             @*<div class="comment-widgets m-b-20">
-                                <div class="d-flex flex-row comment-row">
-                                    <div class="p-2">
-                                        <span class="round">
-                                            <img src="https://i.imgur.com/cAdLHeY.jpg" alt="user"
-                                                 width="50">
-                                        </span>
-                                    </div>
-                                    <div class="comment-text w-100">
-                                        <h5>Sarah Tim</h5>
-                                        <div class="comment-footer">
-                                            <div class="date">14 - 8 - 2022</div>
-                                        </div>
-                                        <p class="m-b-5 m-t-10">
-                                            There are many variations of passages of Lorem
-                                            Ipsum available,
-                                            but the majority have suffered alteration in some form, by injected
-                                            humour, or
-                                            randomised words which don't look even slightly believable. If you
-                                            are going to use
-                                            a passage of Lorem Ipsum, you need to be sure
-                                        </p>
-                                    </div>
-                                </div>
+                            <div class="d-flex flex-row comment-row">
+                            <div class="p-2">
+                            <span class="round">
+                            <img src="https://i.imgur.com/cAdLHeY.jpg" alt="user"
+                            width="50">
+                            </span>
+                            </div>
+                            <div class="comment-text w-100">
+                            <h5>Sarah Tim</h5>
+                            <div class="comment-footer">
+                            <div class="date">14 - 8 - 2022</div>
+                            </div>
+                            <p class="m-b-5 m-t-10">
+                            There are many variations of passages of Lorem
+                            Ipsum available,
+                            but the majority have suffered alteration in some form, by injected
+                            humour, or
+                            randomised words which don't look even slightly believable. If you
+                            are going to use
+                            a passage of Lorem Ipsum, you need to be sure
+                            </p>
+                            </div>
+                            </div>
                             </div>*@
                         </div>
 
@@ -168,11 +176,40 @@
     </div>
 
 </div>
+
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="dathang" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Để lại số điện thoại</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-lien-he">
+                    <input class="form-control mt-3" type="text" placeholder="Số điện thoại" id="sdt" name="sdt">
+                    <input class="form-control mt-3" type="text" placeholder="Tên" id="ten" name="ten">
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="themlienhe">Thêm liên hệ</button>
+            </div>
+        </div>
+    </div>
+</div>
 @section Heads{
     <link href="~/user/css/productdetails.css" rel="stylesheet" />
 }
 
     @section Scripts{
+    <script src="~/cart/cart.js"></script>
+    <script>
+        var cartController = new CartController();
+        cartController.initialize();
+    </script>
     <script>
         function change_image(image) {
             var container = document.getElementById("main-image");
@@ -182,7 +219,24 @@
         });
 
         $(document).ready(function () {
-            console.log('@Model.ProductDetails')
+            $("#form-lien-he").validate({
+                rules: {
+                    sdt: {
+                        required: true,
+                    },
+                    ten: {
+                        required: true
+                    }
+                },
+                messages: {
+                    sdt: {
+                        required: "Số điện thoại không được để trống",
+                    },
+                    ten: {
+                        required: "Tên không được để trống"
+                    }
+                }
+            })
             $("#detail").html('<p>ok</p>');
             $("#addReview").click(function () {
                 var review = $("#review").val();
@@ -202,7 +256,7 @@
                                     icon: 'error',
                                     title: 'Oops...',
                                     text: response.mess,
-                                    
+
                                 })
                             }
                             else {
@@ -286,11 +340,21 @@
                                 }
                             }
                         })
-                        
+
                     }
                 })
-                
+
             })
         });
+
+        $("#lienhe").click(function () {
+            $("#dathang").modal('show');
+        })
+
+        $("#themlienhe").click(function () {
+            if ($("#form-lien-he").valid()) {
+                alert("haha")
+            }
+        })
     </script>
 }

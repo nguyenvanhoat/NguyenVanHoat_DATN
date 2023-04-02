@@ -12,7 +12,7 @@ namespace MyProject.Data.Entities
         {
             ChiTietPhieuNhaps = new HashSet<ChiTietPhieuNhap>();
         }
-        public string MaPhieu { get; set; }
+        public int MaPhieu { get; set; }
         public string BenGiao { get; set; }
         public string DiaChi { get; set; }
         public DateTime NgayGiao { get; set;}

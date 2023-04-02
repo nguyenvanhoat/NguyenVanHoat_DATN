@@ -15,8 +15,6 @@ namespace MyProject.Data.Entities
         public DateTime CreateAt { get; set; }
         public DateTime? UpdateAt { get; set; }
         public DateTime? DeleteAt { get; set; }
-        public string UserId { get; set; }
-        public AppUser User { get; set; }
         public ICollection<Product> Products { get; set; }
     }
 }

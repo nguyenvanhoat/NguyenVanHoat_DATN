@@ -1,0 +1,105 @@
+﻿@model MyProject.ViewModel.OrderDTO
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts{
+    <script src="~/js/cart.js"></script>
+    <script>
+        var cartController = new CartController();
+        cartController.initialize();
+    </script>
+}
+    <div class="container">
+        <div class="row">
+            <div id="cartcontainer">
+                <ul class="breadcrumb">
+                    <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+                    <li class="active"> SHOPPING CART</li>
+                </ul>
+
+                <h3>
+                    SHOPPING CART [ <small><span id="lbl_number_of_items">0</span> Item(s) </small>]
+                    <a href="/" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a>
+                </h3>
+
+                <hr class="soft" />
+                <div class="row">
+                    <div class="col-sm-8">
+                        <table class="table table-bordered" id="tbl_cart">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cart_body">
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="4" style="text-align:right"><strong>TOTAL =</strong></td>
+                                    <td style="display:block"> <strong> <span id="lbl_total"></span> </strong></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                </div>
+
+
+                <a href="/" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
+                <a class="btn btn-large pull-right" id="btnCheckout">Thanh toán <i class="icon-arrow-right"></i></a>
+            </div>
+        </div>
+        <div id="divCheckout" style="display:none;" class="row">
+
+            <h3>Thanh toán</h3>
+            <div class="checkbox-form">
+                <form method="post" id="frmPayment">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <label>
+                        <input type="checkbox" id="chkUserLoginInfo" />
+                        Sử dụng thông tin đăng nhập
+                    </label>
+                }
+                <div class="col-md-6">
+                    <div class="checkout-form-list">
+                        <input type="text" class="textbox" id="txtName" name="name" placeholder="Họ tên">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="checkout-form-list">
+                        <input type="text" class="textbox" id="txtAddress" name="address" placeholder="Địa chỉ">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="checkout-form-list">
+                        <input type="text" class="textbox" id="txtEmail" name="email" placeholder="Email">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="checkout-form-list">
+                        <input type="text" class="textbox" id="txtPhone" name="phone" placeholder="Điện thoại">
+                    </div>
+                </div>
+                <div class="order-notes">
+                    <div class="checkout-form-list checkout-form-list-2">
+                        <textarea id="txtMessage" cols="30" rows="10" placeholder="Ghi chú"></textarea>
+                    </div>
+                </div>
+                <input type="hidden" class="form-check-input" id="txtDate" value="@DateTime.Now">
+
+                @*<textarea value="" id="txtMessage" rows="5"></textarea>*@
+                <div class="alert alert-danger" id="divMessage" style="display:none;"></div>
+                <input type="button" id="btnCreateOrder" value="Thanh toán">
+                <div class="clearfix"> </div>
+            </form>
+        </div>
+
+    </div>
+</div>

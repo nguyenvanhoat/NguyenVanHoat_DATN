@@ -26,6 +26,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="~/saler/plugins/summernote/summernote-bs4.min.css">
     <link rel="stylesheet" href="~/saler/style.css" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -190,7 +191,7 @@
                            
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./index.html" class="nav-link">
+                                    <a asp-action="Index" asp-controller="PhieuNhap" asp-area="Saler" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Nhập Kho</p>
                                     </a>
@@ -226,19 +227,7 @@
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
-                        </div><!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard v1</li>
-                            </ol>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
+                
             </div>
             <!-- /.content-header -->
             <!-- Main content -->
@@ -273,35 +262,10 @@
     <!-- jQuery UI 1.11.4 -->
     <script src="~/saler/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
-    <!-- Bootstrap 4 -->
+    
     <script src="~/saler/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- ChartJS -->
-    <script src="~/saler/plugins/chart.js/Chart.min.js"></script>
-    <!-- Sparkline -->
-    <script src="~/saler/plugins/sparklines/sparkline.js"></script>
-    <!-- JQVMap -->
-    <script src="~/saler/plugins/jqvmap/jquery.vmap.min.js"></script>
-    <script src="~/saler/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-    <!-- jQuery Knob Chart -->
-    <script src="~/saler/plugins/jquery-knob/jquery.knob.min.js"></script>
-    <!-- daterangepicker -->
-    <script src="~/saler/plugins/moment/moment.min.js"></script>
-    <script src="~/saler/plugins/daterangepicker/daterangepicker.js"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
-    <script src="~/saler/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-    <!-- Summernote -->
-    <script src="~/saler/plugins/summernote/summernote-bs4.min.js"></script>
-    <!-- overlayScrollbars -->
-    <script src="~/saler/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="~/saler/dist/js/adminlte.js"></script>
-    <!-- AdminLTE for demo purposes -->
     
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="~/saler/dist/js/pages/dashboard.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

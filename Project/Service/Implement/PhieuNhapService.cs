@@ -65,7 +65,8 @@ namespace Service.Implement
 
         public void InsertPhieuNhap(PhieuNhap PhieuNhap)
         {
-            throw new NotImplementedException();
+            _unitOfWork.GenericRepository<PhieuNhap>().Insert(PhieuNhap);
+            _unitOfWork.Save();
         }
 
         public void UpDatePhieuNhap(PhieuNhap PhieuNhap)

@@ -9,7 +9,7 @@ namespace MyProject.Data.Entities
     public class ChiTietPhieuNhap
     {
         public int ID { get; set; }
-        public string PhieuNhapId { get; set; }
+        public int PhieuNhapId { get; set; }
         public int ProductId { get; set; }
         public int SoLuong { get; set; }
         public decimal DonGia { get; set; }

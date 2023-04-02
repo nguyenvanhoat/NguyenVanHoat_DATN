@@ -8,7 +8,7 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">List Product</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách xe</h6>
     </div>
     <div class="card-body">
         <a asp-action="Create" asp-controller="Product" asp-area="Admin" class="btn btn-success mb-4">Create New Product</a>
@@ -32,18 +32,18 @@
             <table class="table table-bordered" id="dataTable" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Product Name</th>
-                        <th>Imgage</th>
+                        <th>Tên</th>
+                        <th>Hình Ảnh</th>
                         <th>Slug</th>
                         <th>Trending</th>
-                        <th>View</th>
+                        <th>Lượt Xem</th>
                         <th>
-                            Shop
+                            Hãng
                         </th>
-                        <th>Price</th>
-                        <th>Create At</th>
-                        <th>Update At</th>
-                        <th>Delete At</th>
+                        <th>Giá</th>
+                        <th>Ngày Tạo</th>
+                        <th>Ngày sửa</th>
+                        <th>Ngày xóa</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -89,7 +89,7 @@
                                 <td>@item.UpdateAt?.ToString("dd/MM/yyyy")</td>
                                 <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
                                 <td>
-                                    Deleted
+                                    Xóa
                                 </td>
                             </tr>
                         }

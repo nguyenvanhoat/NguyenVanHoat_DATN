@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyProject.Data.Migrations
 {
-    public partial class fix : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,6 +49,22 @@ namespace MyProject.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PhieuNhap",
+                columns: table => new
+                {
+                    MaPhieu = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BenGiao = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    DiaChi = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    NgayGiao = table.Column<DateTime>(type: "DateTime", maxLength: 50, nullable: false),
+                    NguoiNhan = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PhieuNhap", x => x.MaPhieu);
                 });
 
             migrationBuilder.CreateTable(
@@ -213,6 +229,56 @@ namespace MyProject.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ChiTietPhieuNhap",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PhieuNhapId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    SoLuong = table.Column<int>(type: "int", nullable: false),
+                    DonGia = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DVT = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChiTietPhieuNhap", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_ChiTietPhieuNhap_PhieuNhap_PhieuNhapId",
+                        column: x => x.PhieuNhapId,
+                        principalTable: "PhieuNhap",
+                        principalColumn: "MaPhieu",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ChiTietPhieuNhap_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DatLich",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TenNguoiDat = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SoDienThoai = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DatLich", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DatLich_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Medias",
                 columns: table => new
                 {
@@ -241,6 +307,7 @@ namespace MyProject.Data.Migrations
                     Viewd = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     IsWishList = table.Column<bool>(type: "bit", nullable: false),
                     ReviewsDetails = table.Column<string>(type: "ntext", nullable: true),
+                    DateView = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeleteAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -267,8 +334,8 @@ namespace MyProject.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreateAt", "DeleteAt", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdateAt", "UserName" },
                 values: new object[,]
                 {
-                    { "b1265968-01bb-4b60-acd5-3fd73544fee6", 0, "dfea3f41-4c80-4950-a022-a0cb1e1431de", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "user2@hotmail.com", false, false, null, "USER2@HOTMAIL.COM", "USER2@HOTMAIL.COM", "AQAAAAEAACcQAAAAEJbjrNxCQXpsKeNh/IysP7LrtiUxyGCXwdYaNlbtKuzzJjI6KLV8mJGzebVpyU22Qw==", null, false, "be087318-4ded-4007-8658-bdee1caf8290", false, null, "user2@hotmail.com" },
-                    { "ce2c2be7-9330-4168-b4d3-ef045a7c045e", 0, "a2818f24-11df-455f-9b40-341f1cc2b0ff", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "user3@hotmail.com", false, false, null, "USER3@HOTMAIL.COM", "USER3@HOTMAIL.COM", "AQAAAAEAACcQAAAAEDjoUsDcroUX28xYA5UJhQ3vlUoRcXNzbRfHnGVYsG/gH2MbTLrOSyqd3k72/DCTiw==", null, false, "55054ef9-5b59-4144-8e76-2eaf097ca617", false, null, "user3@hotmail.com" }
+                    { "df6494a6-ae50-492a-b0f4-88ff3c8b2154", 0, "5c318f4a-dc64-406c-80eb-8fc8b8dc6785", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "user2@hotmail.com", false, false, null, "USER2@HOTMAIL.COM", "USER2@HOTMAIL.COM", "AQAAAAEAACcQAAAAEGOFCmlBVUL9dTcWGE8ggFed4U2AOvJ/sW7NhlVxtHvCwNGUYzvXC+NZGv19mHTUBw==", null, false, "e19cfdaa-cf5e-4365-9a6b-5e1cee024271", false, null, "user2@hotmail.com" },
+                    { "e1b39594-bc4f-44d8-98bc-5dd831b978b0", 0, "c59335ba-cb84-4d32-84af-1aa51eb45df6", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "user3@hotmail.com", false, false, null, "USER3@HOTMAIL.COM", "USER3@HOTMAIL.COM", "AQAAAAEAACcQAAAAELXVNX/Ds33OZvKmNDercaI4GbJZO0WcVrLG1UcrP1T3OYI+5dYRd1gHNLRDXNBPIQ==", null, false, "ca3f539d-4377-45b1-994f-61c95fc259d2", false, null, "user3@hotmail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -276,19 +343,19 @@ namespace MyProject.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "bae76389-f934-4fe0-bdd5-aea22ed08877", "aafcc3e1-a6d1-4e64-9cc1-af16bc7f300f", "Admin", "ADMIN" },
-                    { "cb12a212-7a7c-4680-bd35-ef14ed3237a8", "4353b677-53b4-415c-8ad8-5fdd880e339e", "User", "USER" }
+                    { "a69796cc-6f75-4811-a89d-2244e23107ed", "e769fea2-3ef9-4fd4-81f7-c33df9c717ff", "User", "USER" },
+                    { "af5da499-bd2a-4feb-aae9-41a2cea36b90", "6ea82e95-d312-4e34-926a-cc6db1d912df", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "cb12a212-7a7c-4680-bd35-ef14ed3237a8", "b1265968-01bb-4b60-acd5-3fd73544fee6" });
+                values: new object[] { "a69796cc-6f75-4811-a89d-2244e23107ed", "df6494a6-ae50-492a-b0f4-88ff3c8b2154" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "bae76389-f934-4fe0-bdd5-aea22ed08877", "ce2c2be7-9330-4168-b4d3-ef045a7c045e" });
+                values: new object[] { "af5da499-bd2a-4feb-aae9-41a2cea36b90", "e1b39594-bc4f-44d8-98bc-5dd831b978b0" });
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
@@ -328,6 +395,21 @@ namespace MyProject.Data.Migrations
                 name: "IX_AspNetUserRoles_RoleId",
                 table: "AspNetUserRoles",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChiTietPhieuNhap_PhieuNhapId",
+                table: "ChiTietPhieuNhap",
+                column: "PhieuNhapId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChiTietPhieuNhap_ProductId",
+                table: "ChiTietPhieuNhap",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DatLich_ProductId",
+                table: "DatLich",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Medias_ProductId",
@@ -380,6 +462,12 @@ namespace MyProject.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "ChiTietPhieuNhap");
+
+            migrationBuilder.DropTable(
+                name: "DatLich");
+
+            migrationBuilder.DropTable(
                 name: "Medias");
 
             migrationBuilder.DropTable(
@@ -387,6 +475,9 @@ namespace MyProject.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "PhieuNhap");
 
             migrationBuilder.DropTable(
                 name: "Product");

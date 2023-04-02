@@ -15,7 +15,7 @@ namespace MyProject.Data.Configuration
         {
             builder.ToTable("PhieuNhap");
             builder.HasKey(p => p.MaPhieu);
-            builder.Property(x => x.MaPhieu).HasColumnType("nvarchar").HasMaxLength(50).IsRequired();
+            builder.Property(x => x.MaPhieu).HasColumnType("int").UseIdentityColumn(1,1);
             builder.Property(x => x.BenGiao).HasColumnType("nvarchar").HasMaxLength(150).IsRequired();
             builder.Property(x => x.DiaChi).HasColumnType("nvarchar").HasMaxLength(50).IsRequired();
             builder.Property(x => x.NgayGiao).HasColumnType("DateTime").HasMaxLength(50).IsRequired();

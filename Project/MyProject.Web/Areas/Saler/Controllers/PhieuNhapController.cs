@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyProject.Data.EF;
 using MyProject.Data.Entities;
+using MyProject.ViewModel;
+using Service;
 using Service.Implement;
 using Service.Interface;
 using Service.Repository.Implement;
@@ -19,18 +21,28 @@ namespace MyProject.Web.Areas.Saler.Controllers
             _phieuNhapService = phieuNhapService;
             _chiTietPNService = chiTietPNService;
         }
-        public IActionResult Index()
+        public IActionResult Index(int pageNumber)
+        {
+            var list = _phieuNhapService.GetAllPhieuNhap(pageNumber, 10);
+            return View(list);
+        }
+
+        public IActionResult Create()
         {
             return View();
         }
 
+        [HttpPost]
         public IActionResult Create(PhieuNhap phieuNhap, List<ChiTietPhieuNhap> listChiTietPhieuNhap)
         {
             try
             {
+                phieuNhap.NgayGiao = DateTime.Now;
                 _phieuNhapService.InsertPhieuNhap(phieuNhap);
                 foreach(var item in listChiTietPhieuNhap)
                 {
+                    item.PhieuNhapId = phieuNhap.MaPhieu;
+                    item.DVT = "Chiếc";
                     _chiTietPNService.InsertChiTietPhieuNhap(item);
                 }
                 return RedirectToAction(nameof(Index));
@@ -41,6 +53,7 @@ namespace MyProject.Web.Areas.Saler.Controllers
             }
         }
 
+        [HttpGet]
         public IActionResult Details(int id)
         {
             try
