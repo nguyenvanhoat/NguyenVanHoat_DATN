@@ -1,0 +1,292 @@
+﻿@model MyProject.ViewModel.OrderDTO
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts{
+    <script src="~/js/cart.js"></script>
+    <script>
+        var cartController = new CartController();
+        cartController.initialize();
+    </script>
+    <script>
+        $(document).ready(async fucntion(){
+            let listItem = await getListItem();
+            console.log(listItem);
+        });
+
+        async function getListItem() {
+            return await $.ajax({
+                type: "GET",
+                url: "Cart/GetListItem"
+            });
+        }
+    </script>
+}
+    <main>
+        <div class="page_banner">
+            <div class="page_title">
+                <h1>Giỏ hàng</h1>
+                <ol class="bread_crumb">
+                    <li><a href="">Trang chủ</a></li>
+                    <li><a href="">Giỏ hàng</a></li>
+                </ol>
+            </div>
+        </div>
+
+        <section class="wizard-section">
+            <div class="row no-gutters">
+                <div class="">
+                    <div class="form-wizard">
+                        <!-- <form action="" method="post" role="form"> -->
+                        <div class="form-wizard-header">
+                            <ul class="list-unstyled form-wizard-steps clearfix">
+                                <li class="active"><span><i class="bi bi-basket"></i></span></li>
+                                <li><span><i class="bi bi-person-check"></i></span></li>
+                                <li><span><i class="bi bi-check-lg"></i></span></li>
+                                <!-- <li><span>4</span></li> -->
+                            </ul>
+                        </div>
+                        <fieldset class="wizard-fieldset show">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="list-item col-lg-9">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2">Sản phẩm</th>
+                                                    <th>Giá</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Thành tiền</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- <tr class="cart_item " id="item2">
+
+                                                    </tr> -->
+                                                <tr class="cart_item">
+                                                    <td class="cart_item_img">
+                                                        <a href="product_detail.html">
+                                                            <img src="../images/glasses/glass4.jpg" alt="">
+                                                        </a>
+                                                    </td>
+                                                    <td class="cart_item_name">
+                                                        <div class="glass_name">
+                                                            <a href="product_detail.html">Kính râm Linemai K304</a>
+                                                        </div>
+                                                    </td>
+                                                    <td class="cart_item_price">
+                                                        650.000 VND
+                                                    </td>
+                                                    <td class="cart_item_quantity">
+                                                        <div class="quantity-icon-action">
+                                                            <i onclick="minusQuantity1()" class="fa-solid fa-minus"></i>
+                                                            <span class="quantity-number" id="quantity-number">1</span>
+                                                            <i onclick="plusQuantity1()" class="fa-solid fa-plus"></i>
+                                                        </div>
+                                                    </td>
+                                                    <td id="cart_item_total">
+                                                        650.000 VND
+                                                    </td>
+                                                    <td class="delete_cart_item">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr class="cart_item">
+                                                    <td class="cart_item_img">
+                                                        <a href="product_detail.html">
+                                                            <img src="../images/glasses/glass6.jpg" alt="">
+                                                        </a>
+                                                    </td>
+                                                    <td class="cart_item_name">
+                                                        <div class="glass_name">
+                                                            <a href="product_detail.html">Kính râm Linemai K304</a>
+                                                        </div>
+                                                    </td>
+                                                    <td class="cart_item_price">
+                                                        1050.000 VND
+                                                    </td>
+                                                    <td class="cart_item_quantity">
+                                                        <div class="quantity-icon-action">
+                                                            <i onclick="minusQuantity2()" class="fa-solid fa-minus"></i>
+                                                            <span class="quantity-number" id="quantity-number">1</span>
+                                                            <i onclick="plusQuantity2()" class="fa-solid fa-plus"></i>
+                                                        </div>
+                                                    </td>
+                                                    <td id="cart_item_total">
+                                                        1050.000 VND
+                                                    </td>
+                                                    <td class="delete_cart_item">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </td>
+                                                </tr>
+                                                <!-- <script>
+                                                        var arr_price = [850000, 650000, 1050000];
+                                                        var sl = Number(document.getElementById('quantity-number').textContent);
+
+                                                        var gia = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format((arr_price[0]));
+                                                        console.log(gia);
+                                                        var thanhTien = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format((850000 * sl));
+
+                                                        document.getElementById('item2').innerHTML = '<td class="cart_item_img">' +
+                                                            '<a href="product_detail.html"><img src="../images/glasses/glass1.jpg" alt=""></a>' +
+                                                            '</td>' +
+                                                            '<td class="cart_item_name">' +
+                                                            '<div class="glass_name">' +
+                                                            '<a href="product_detail.html">Kính râm Linemai K304</a>' +
+                                                            '</div>' +
+                                                            '</td>' +
+                                                            '<td class="cart_item_price">' +
+                                                            gia +
+                                                            '</td>' +
+                                                            '<td class="cart_item_quantity"> ' +
+                                                            '<div class="quantity-icon-action">' +
+                                                            '<i onclick="minusQuantity()" class="fa-solid fa-minus"></i>' +
+                                                            '<span class="quantity-number" id="quantity-number">1</span>' +
+                                                            '<i onclick="plusQuantity()" class="fa-solid fa-plus"></i>' +
+                                                            '</div>' +
+                                                            '</td>' +
+                                                            '<td id="cart_item_total">' + thanhTien +
+                                                            '</td>' +
+                                                            '<td class="delete_cart_item">' +
+                                                            '<i class="fa-solid fa-trash-can"></i>' +
+                                                            '</td>';
+                                                        // console.log(x);
+
+
+                                                        function minusQuantity() {
+                                                            if (sl > 1) {
+                                                                document.getElementById('quantity-number').innerHTML = (--sl);
+                                                                var x = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format((850000 * sl));
+                                                                document.getElementById('cart_item_total').innerHTML = x;
+                                                            }
+                                                        }
+                                                        function plusQuantity() {
+                                                            document.getElementById('quantity-number').innerHTML = (++sl);
+                                                            var x = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format((850000 * sl));
+                                                            document.getElementById('cart_item_total').innerHTML = x;
+                                                        }
+                                                    </script> -->
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="total-price col-lg-3">
+                                        <p>
+                                            <span>Tạm tính</span>
+                                            <span class="cart-price">4.250.000 VND</span>
+                                        </p>
+                                        <p>
+                                            <span>Giảm giá</span>
+                                            <span class="cart-price">0 VND</span>
+                                        </p>
+                                        <p>
+                                            <span>Thành tiền</span>
+                                            <span class="cart-price" style="color: #ff871d;">4.250.000 VND</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="form-group clearfix">
+
+                                    <a href="products.html" class="form-wizard-previous-btn float-left">Tiếp tục mua
+                                        hàng</a>
+                                    <a href="javascript:;" class="form-wizard-next-btn float-right">Thanh toán</a>
+                                </div> -->
+                            </div>
+
+                            <div class="container">
+                                <div class="col-8 ">
+                                    <h5>Thông tin người nhận</h5>
+                                    <form action="" method="post">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="fullName-receiver"
+                                               name="fullName-receiver" placeholder="Họ và tên" required autofocus>
+                                            <span id="message-error"></span>
+                                            <label for="fullName-receiver">Tên người nhận</label>
+                                        </div>
+
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="phone-receiver"
+                                               name="phone-receiver" placeholder="Số điện thoại">
+                                            <label for="phone-receiver">Số điện thoại</label>
+                                        </div>
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="address-receiver"
+                                               name="address-receiver" placeholder="Địa chỉ">
+                                            <label for="address-receiver">Địa chỉ</label>
+                                        </div>
+                                        <div class="form-floating">
+                                            <textarea name="" id="" cols="100" rows="5" class="form-control"
+                                                  placeholder="Ghi chú" id="note-receiver"
+                                                  name="note-receiver"></textarea>
+                                            <label for="note-receiver">Ghi chú</label>
+                                        </div>
+                                        <div class="form-group clearfix">
+                                            <a href="javascript:;" class="form-wizard-previous-btn float-left">
+                                                Quay
+                                                lại
+                                            </a>
+                                            <button type="submit" onclick="check()"
+                                                class="form-wizard-next-btn float-right">
+                                                Thanh toán
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <script>
+                                function check() {
+                                    var pattern = /^[a-z_]{3,20}$/i;
+                                    var fullname = document.getElementById('fullName-receiver').value;
+                                    if (pattern.test(fullname)) {
+                                        alert('Lỗi');
+                                    }
+                                }
+                            </script>
+                    </div>
+                    <fieldset class="wizard-fieldset">
+                    </fieldset>
+                    <fieldset class="wizard-fieldset thanks">
+                        <h5>Bank Information</h5>
+                        <div class="form-group">
+                            <input type="text" class="form-control wizard-required" id="bname">
+                            <label for="bname" class="wizard-form-text-label">Bank Name*</label>
+                            <div class="wizard-form-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control wizard-required" id="brname">
+                            <label for="brname" class="wizard-form-text-label">Branch Name*</label>
+                            <div class="wizard-form-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control wizard-required" id="acname">
+                            <label for="acname" class="wizard-form-text-label">Account Name*</label>
+                            <div class="wizard-form-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control wizard-required" id="acon">
+                            <label for="acon" class="wizard-form-text-label">Account Number*</label>
+                            <div class="wizard-form-error"></div>
+                        </div> -->
+                        <div class="container">
+                            <div class="form-group clearfix">
+                                <a href="javascript:;" class="form-wizard-previous-btn float-left">Previous</a>
+                                <a href="javascript:;" class="form-wizard-next-btn float-right">Next</a>
+                            </div>
+                        </div> -->
+                        <div class="container">
+                            <img src="../images/logo/thank_you.png" alt="">
+                            <h2>Cảm ơn bạn khi đã lựa chọn và tin tưởng sản phẩm của CP Glasses</h2>
+                            <h4>Chúc bạn có một ngày vui vẻ</h4>
+                        </div>
+                    </fieldset>
+
+                </div>
+            </div>
+            </div>
+        </section>
+    </main>

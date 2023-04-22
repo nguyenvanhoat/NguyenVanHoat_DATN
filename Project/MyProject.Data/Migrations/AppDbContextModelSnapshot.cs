@@ -51,15 +51,15 @@ namespace MyProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c8ade27d-bb0c-41c9-ba4f-fe224efbd31f",
-                            ConcurrencyStamp = "d2fdec47-a5d3-48ee-be50-c7a88a1411b2",
+                            Id = "dec4d3c0-f30b-4084-bed9-59829da012b8",
+                            ConcurrencyStamp = "c51cd27f-1e8f-487c-a5f5-e39faf1cd222",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "d0ecfe2f-67f2-480f-89fd-549751ff8f68",
-                            ConcurrencyStamp = "7014480a-01e7-48cb-be88-1577d5e863e8",
+                            Id = "55afa83f-7da9-4e52-b215-2e964e0788e9",
+                            ConcurrencyStamp = "e8ea6158-6ebf-4e5b-b20c-72b761d90de5",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -154,13 +154,13 @@ namespace MyProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "b109e291-9200-40df-b0f0-a278e6445da3",
-                            RoleId = "d0ecfe2f-67f2-480f-89fd-549751ff8f68"
+                            UserId = "6e16db58-8f2b-4377-8325-36c267454068",
+                            RoleId = "55afa83f-7da9-4e52-b215-2e964e0788e9"
                         },
                         new
                         {
-                            UserId = "1df619eb-5390-4552-b973-e4d0ec924bec",
-                            RoleId = "c8ade27d-bb0c-41c9-ba4f-fe224efbd31f"
+                            UserId = "1d0cb6b2-f7c9-48c6-bd11-7fd9d3b1f871",
+                            RoleId = "dec4d3c0-f30b-4084-bed9-59829da012b8"
                         });
                 });
 
@@ -259,38 +259,71 @@ namespace MyProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b109e291-9200-40df-b0f0-a278e6445da3",
+                            Id = "6e16db58-8f2b-4377-8325-36c267454068",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "03d26c1a-284e-463d-b00d-d3059a24573c",
+                            ConcurrencyStamp = "efd27f13-5135-4a32-aba8-c594dec61ff1",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user2@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2@HOTMAIL.COM",
                             NormalizedUserName = "USER2@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHlLzNnu37aaUl7ooLAyFn+SrVWRZmUrXKtTElkhtA6w9HiU3r77zlouwqHSAYcmCg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA1BXwYtDFbdFydWfC5uxpHRvk13hNlQFhaxoPeM+k2An2yI4BpCVf9HmucjkPyOMA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0c1d08cf-e1be-4b15-9bfd-fbef0b87b5d5",
+                            SecurityStamp = "ec172e51-9f90-4a56-80e0-8243ae6f5deb",
                             TwoFactorEnabled = false,
                             UserName = "user2@hotmail.com"
                         },
                         new
                         {
-                            Id = "1df619eb-5390-4552-b973-e4d0ec924bec",
+                            Id = "1d0cb6b2-f7c9-48c6-bd11-7fd9d3b1f871",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "691eea2e-8a1c-493e-93ed-38c51d79bf49",
+                            ConcurrencyStamp = "9ac5245a-c8de-4a2a-8c5b-2c3a9f98dcb7",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user3@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER3@HOTMAIL.COM",
                             NormalizedUserName = "USER3@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAeNY7vGxROREpUy0WjtdAtq50Zf7hpJjyb2b7aS0Z8HXp+0KZ/CZhGTMbHRPLtNFg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENG/wZpuXf+frX8its8RpoQ94n0GBkjNnJs/VJFSNwywJj/iaiUovLeEHtS0pwSqtA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f1303270-824f-45ee-bbb2-1856131637c2",
+                            SecurityStamp = "db15a2d2-1666-49a5-b549-e2e1f8f26194",
                             TwoFactorEnabled = false,
                             UserName = "user3@hotmail.com"
                         });
+                });
+
+            modelBuilder.Entity("MyProject.Data.Entities.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Carts", (string)null);
                 });
 
             modelBuilder.Entity("MyProject.Data.Entities.ChiTietPhieuNhap", b =>
@@ -308,9 +341,8 @@ namespace MyProject.Data.Migrations
                     b.Property<decimal>("DonGia")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("PhieuNhapId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("PhieuNhapId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -325,6 +357,43 @@ namespace MyProject.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ChiTietPhieuNhap", (string)null);
+                });
+
+            modelBuilder.Entity("MyProject.Data.Entities.DatLich", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("GhiChu")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("NgayHen")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SoDienThoai")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenNguoiDat")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TrangThai")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("DatLich", (string)null);
                 });
 
             modelBuilder.Entity("MyProject.Data.Entities.Medias", b =>
@@ -350,11 +419,76 @@ namespace MyProject.Data.Migrations
                     b.ToTable("Medias", (string)null);
                 });
 
+            modelBuilder.Entity("MyProject.Data.Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("ShipAddress")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("ShipEmail")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("ShipName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("ShipPhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders", (string)null);
+                });
+
+            modelBuilder.Entity("MyProject.Data.Entities.OrderDetail", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderDetails", (string)null);
+                });
+
             modelBuilder.Entity("MyProject.Data.Entities.PhieuNhap", b =>
                 {
-                    b.Property<string>("MaPhieu")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("MaPhieu")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaPhieu"), 1L, 1);
 
                     b.Property<string>("BenGiao")
                         .IsRequired()
@@ -505,10 +639,6 @@ namespace MyProject.Data.Migrations
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ShopName")
@@ -516,8 +646,6 @@ namespace MyProject.Data.Migrations
 
                     b.HasIndex("Slug")
                         .IsUnique();
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Shop", (string)null);
                 });
@@ -573,6 +701,24 @@ namespace MyProject.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MyProject.Data.Entities.Cart", b =>
+                {
+                    b.HasOne("MyProject.Data.Entities.Product", "Product")
+                        .WithMany("Carts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyProject.Data.Entities.AppUser", "User")
+                        .WithMany("Carts")
+                        .HasForeignKey("UserId")
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("MyProject.Data.Entities.ChiTietPhieuNhap", b =>
                 {
                     b.HasOne("MyProject.Data.Entities.PhieuNhap", "PhieuNhap")
@@ -592,6 +738,17 @@ namespace MyProject.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("MyProject.Data.Entities.DatLich", b =>
+                {
+                    b.HasOne("MyProject.Data.Entities.Product", "Products")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("MyProject.Data.Entities.Medias", b =>
                 {
                     b.HasOne("MyProject.Data.Entities.Product", "Product")
@@ -599,6 +756,35 @@ namespace MyProject.Data.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("MyProject.Data.Entities.Order", b =>
+                {
+                    b.HasOne("MyProject.Data.Entities.AppUser", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MyProject.Data.Entities.OrderDetail", b =>
+                {
+                    b.HasOne("MyProject.Data.Entities.Order", "Order")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyProject.Data.Entities.Product", "Product")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
 
                     b.Navigation("Product");
                 });
@@ -633,22 +819,18 @@ namespace MyProject.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MyProject.Data.Entities.Shop", b =>
-                {
-                    b.HasOne("MyProject.Data.Entities.AppUser", "User")
-                        .WithMany("Shops")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("MyProject.Data.Entities.AppUser", b =>
                 {
-                    b.Navigation("Reviews");
+                    b.Navigation("Carts");
 
-                    b.Navigation("Shops");
+                    b.Navigation("Orders");
+
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("MyProject.Data.Entities.Order", b =>
+                {
+                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("MyProject.Data.Entities.PhieuNhap", b =>
@@ -658,9 +840,13 @@ namespace MyProject.Data.Migrations
 
             modelBuilder.Entity("MyProject.Data.Entities.Product", b =>
                 {
+                    b.Navigation("Carts");
+
                     b.Navigation("ChiTietPhieuNhaps");
 
                     b.Navigation("Medias");
+
+                    b.Navigation("OrderDetails");
 
                     b.Navigation("Reviews");
                 });

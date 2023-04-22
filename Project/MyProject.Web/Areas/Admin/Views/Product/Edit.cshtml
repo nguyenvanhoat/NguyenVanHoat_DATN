@@ -12,7 +12,7 @@
         <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="Thumbnail" />
         <div class="form-group">
-            <label>ProductName</label>
+            <label>Tên</label>
             <input type="text" class="form-control" asp-for="ProductName" placeholder="Enter Product">
             <span class="form-message"></span>
         </div>
@@ -22,15 +22,15 @@
         <span class="form-message"></span>
         </div>*@
         
-        <div class="form-group">
-            <label>Price</label>
-            <input type="number" class="form-control" asp-for="Price" placeholder="Enter Product">
+       @* <div class="form-group">
+            <label>Giá</label>
+            <input type="number" class="form-control" asp-for="Price" placeholder="">
             <span class="form-message"></span>
-        </div>
+        </div>*@
         <div class="form-group">
-            <label>Shop</label>
+            <label>Hãng Xe</label>
             <select class="form-control" asp-items="list" asp-for="ShopId" disabled>
-                <option value="">Choose a shop</option>
+                <option value="">Chọn hãng</option>
             </select>
             <span class="form-message"></span>
         </div>
@@ -42,13 +42,13 @@
             <input type="hidden" class="form-check-input" asp-for="UpdateAt" value="@DateTime.Now">
         </div>
         <div class="form-group">
-            <label>Product Details</label>
+            <label>Mô tả</label>
             <textarea id="editor" asp-for="ProductDetails">
                 @* <textarea asp-for="ProductDetails"></textarea>*@
             </textarea>
             <span class="form-message"></span>
         </div>
-        <button type="button" id="onSubmit" class="btn btn-primary mt-2">Edit</button>
+        <button type="button" id="onSubmit" class="btn btn-primary mt-2">Sửa</button>
     </form>
 </div>
 
@@ -75,10 +75,9 @@
             errorSelector: ".form-message",
             submitSelector: "#onSubmit",
             rules: [
-                Validator.isRequired("#ProductName", "ProductName không được để trống"),
-                Validator.isRequired("#Price", "Price không được để trống"),
-                Validator.isRequired("#ShopId", "Phải chọn một Shop"),
-                Validator.lengthRequired("#ProductName", 2, 20, "ProductName phải từ 2 đến 20 ký tự"),
+                Validator.isRequired("#ProductName", "Tên xe không được để trống"),
+                Validator.isRequired("#ShopId", "Phải chọn một hãng"),
+                Validator.lengthRequired("#ProductName", 2, 20, "Tên xe phải từ 2 đến 20 ký tự"),
             ],
             onClick: function (data) {
                 console.log(data);

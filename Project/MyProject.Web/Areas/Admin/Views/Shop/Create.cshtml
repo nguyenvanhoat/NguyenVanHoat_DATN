@@ -3,22 +3,15 @@
 @inject IUserService userService
 
 @{
-    ViewData["Title"] = "Thêm mới shop";
+    ViewData["Title"] = "Thêm mới hãng";
     var list = new SelectList(userService.GetUser(), "Id", "UserName");
 }
 
 <div class="card shadow mb-4 p-5">
     <form autocomplete="off" action="Create" method="post" id="form-shop">
         <div class="form-group">
-            <label>ShopName</label>
-            <input type="text" class="form-control" asp-for="ShopName" placeholder="Enter ShopName">
-            <span class="form-message"></span>
-        </div>
-        <div class="form-group">
-            <label >User</label>
-            <select class="form-control" asp-items="list" asp-for="UserId">
-                <option value="">Choose a user</option>
-            </select>
+            <label>Tên Hãng</label>
+            <input type="text" class="form-control" asp-for="ShopName" placeholder="">
             <span class="form-message"></span>
         </div>
         <div class="form-check">
@@ -28,7 +21,7 @@
         <div class="form-check">
             <input type="hidden" class="form-check-input" asp-for="CreateAt" value="@DateTime.Now">
         </div>
-        <button type="button" id="onSubmit" class="btn btn-primary mt-2">Create</button>
+        <button type="button" id="onSubmit" class="btn btn-primary mt-2">Thêm</button>
     </form>
 </div>
 
@@ -41,8 +34,7 @@
             submitSelector: "#onSubmit",
             rules: [
                 Validator.isRequired("#ShopName"),
-                Validator.isRequired("#UserId", "Phải chọn một user"),
-                Validator.lengthRequired("#ShopName", 2, 20, "ShopName phải từ 2 đến 20 ký tự"),
+                Validator.lengthRequired("#ShopName", 2, 20, "Tên hãng phải từ 2 đến 20 ký tự"),
             ],
             onClick: function (data) {
                 console.log(data);
@@ -72,7 +64,7 @@
                                         Swal.fire({
                                             position: 'top-end',
                                             icon: 'success',
-                                            title: 'Thêm shop thành công',
+                                            title: 'Thêm hãng thành công',
                                             showConfirmButton: false,
                                             timer: 2000
                                         });

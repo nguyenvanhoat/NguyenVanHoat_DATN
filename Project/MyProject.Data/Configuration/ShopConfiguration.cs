@@ -15,7 +15,6 @@ namespace MyProject.Data.Configuration
             builder.HasIndex(p => p.Slug).IsUnique();
             builder.Property(x => x.ShopName).HasColumnType("nvarchar").HasMaxLength(100).IsRequired();
             builder.Property(x => x.Slug).HasColumnType("nvarchar").HasMaxLength(256).IsRequired();
-            builder.HasOne(x=>x.User).WithMany(x=>x.Shops).HasForeignKey(x=>x.UserId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

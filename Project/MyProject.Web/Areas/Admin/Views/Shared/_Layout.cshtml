@@ -18,10 +18,19 @@
 
     <!-- Custom styles for this template-->
     <link href="~/admin/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @await RenderSectionAsync("CkEditor", required: false)
 </head>
-
+<style>
+    .error {
+        color: red;
+        font-size: 1rem;
+        position: relative;
+        line-height: 1;
+        width: 12.5rem
+    }
+</style>
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -54,28 +63,28 @@
             <li class="nav-item">
                 <a class="nav-link" asp-area="Admin" asp-controller="User" asp-action="Index">
                     <i class="fas fa-users"></i>
-                    <span>List User</span>
+                    <span>Quản lý tài khoản</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" asp-area="Admin" asp-controller="Shop" asp-action="Index">
                     <i class="fas fa-store"></i>
-                    <span>List Shop</span>
+                    <span>Quản lý hãng xe</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" asp-area="Admin" asp-controller="Review" asp-action="Index">
                     <i class="fas fa-comments"></i>
-                    <span>List Reviews</span>
+                    <span>Quản lý reviews</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" asp-area="Admin" asp-controller="Product" asp-action="Index">
                     <i class="fab fa-product-hunt"></i>
-                    <span>List Product</span>
+                    <span>Quản lý thông tin xe</span>
                 </a>
             </li>
 
@@ -209,6 +218,8 @@
         </div>
     </div>
     <!-- Bootstrap core JavaScript-->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js" defer></script>
+    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.js" defer></script>
     <script src="~/admin/vendor/jquery/jquery.min.js"></script>
     <script src="~/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

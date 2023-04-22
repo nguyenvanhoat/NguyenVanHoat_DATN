@@ -6,6 +6,7 @@ using MyProject.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,7 +32,12 @@ namespace MyProject.Data.EF
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new PhieuNhapConfiguration());
             modelBuilder.ApplyConfiguration(new ChiTietPhieuNhapConfiguration());
+            modelBuilder.ApplyConfiguration(new DatLichConfiguration());
+            modelBuilder.ApplyConfiguration(new CartConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
             //modelBuilder.ApplyConfiguration(new WishListConfiguration());
+            modelBuilder.ApplyConfiguration(new GiaXeConfiguration());
 
             List<IdentityRole> roles = new List<IdentityRole>()
             {
@@ -105,5 +111,10 @@ namespace MyProject.Data.EF
         public DbSet<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; }
         public DbSet<PhieuNhap> PhieuNhaps { get; set; }
         //public DbSet<WishList> WishLists { get; set; }
+        public DbSet<DatLich> DatLiches{ get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<GiaXe> GiaXes { get; set; }
     }
 }

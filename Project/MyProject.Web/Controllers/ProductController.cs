@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyProject.ActionFilter;
+using MyProject.Data.EF;
+using MyProject.Data.Entities;
 using MyProject.ViewModel;
 using Service.Implement;
 using Service.Interface;
@@ -11,11 +13,13 @@ namespace MyProject.Web.Controllers
     {
         private readonly IProductService _productService;
         private readonly IReviewsAndWishListService _reviewsAndWishListService;
+        private readonly AppDbContext _dbContext;
 
-        public ProductController(IProductService productService, IReviewsAndWishListService reviewsAndWishListService)
+        public ProductController(IProductService productService, IReviewsAndWishListService reviewsAndWishListService, AppDbContext dbContext)
         {
             _productService = productService;
             _reviewsAndWishListService = reviewsAndWishListService;
+            _dbContext = dbContext;
         }
 
         [ServiceFilter(typeof(AddViewFilter))]
@@ -98,6 +102,31 @@ namespace MyProject.Web.Controllers
             {
                 return Json(new { result = false, mess = "Lỗi!" });
             }
+        }
+
+        [HttpPost]
+        public IActionResult ThemLienHe(string ten, string sdt, int id)
+        {
+            var datLich = new DatLich()
+            {
+                TenNguoiDat = ten,
+                SoDienThoai = sdt,
+                ProductId = id,
+                TrangThai = "0",
+                GhiChu = ""
+            };
+
+            try
+            {
+                _dbContext.DatLiches.Add(datLich);
+                _dbContext.SaveChanges();
+                return Json(new {result = true});
+            }
+            catch
+            {
+                throw;
+            }
+
         }
     }
 }

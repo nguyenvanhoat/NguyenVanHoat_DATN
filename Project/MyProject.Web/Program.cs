@@ -33,7 +33,12 @@ builder.Services.AddScoped<IEmailSender, EmailSender>();
 //builder.Services.AddDefaultIdentity<MyProjectWebUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //    .AddEntityFrameworkStores<MyProjectWebContext>();
 
-
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = ".AdventureWorks.Session";
+    options.IdleTimeout = new TimeSpan(0, 30, 0);
+    options.Cookie.IsEssential = true;
+});
 
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
@@ -49,16 +54,14 @@ builder.Services.AddScoped<IMediasService, MediasService>();
 builder.Services.AddScoped<IReviewsAndWishListService, ReviewsAndWishListService>();
 builder.Services.AddScoped<IPhieuNhapService, PhieuNhapService>();
 builder.Services.AddScoped<IChiTietPhieuNhapService, ChiTietPhieuNhapService>();
+builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IDatLichService, DatLichService>();
+
 
 // add session
 
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options =>
-{
-    options.Cookie.Name = ".AdventureWorks.Session";
-    options.IdleTimeout = TimeSpan.FromSeconds(10);
-    options.Cookie.IsEssential = true;
-});
 
 builder.Services.Configure<IdentityOptions>(options => {
     // Thiết lập về Password
@@ -106,6 +109,8 @@ app.UseRouting();
 app.UseAuthentication();;
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapRazorPages();
 

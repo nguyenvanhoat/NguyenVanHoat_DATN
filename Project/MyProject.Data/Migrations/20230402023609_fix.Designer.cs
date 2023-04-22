@@ -12,8 +12,8 @@ using MyProject.Data.EF;
 namespace MyProject.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230315144241_update")]
-    partial class update
+    [Migration("20230402023609_fix")]
+    partial class fix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,15 +53,15 @@ namespace MyProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c8ade27d-bb0c-41c9-ba4f-fe224efbd31f",
-                            ConcurrencyStamp = "d2fdec47-a5d3-48ee-be50-c7a88a1411b2",
+                            Id = "82187aee-aceb-4b9a-916a-cab61bed08a9",
+                            ConcurrencyStamp = "143527d6-76e9-4e05-9fb1-4457ca03477a",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "d0ecfe2f-67f2-480f-89fd-549751ff8f68",
-                            ConcurrencyStamp = "7014480a-01e7-48cb-be88-1577d5e863e8",
+                            Id = "092cc63d-21e2-4cec-b59b-142e2a89c0d8",
+                            ConcurrencyStamp = "3bd70995-0f68-41a3-8ee9-b6c6aff55edd",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -156,13 +156,13 @@ namespace MyProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "b109e291-9200-40df-b0f0-a278e6445da3",
-                            RoleId = "d0ecfe2f-67f2-480f-89fd-549751ff8f68"
+                            UserId = "f214d665-87d4-417c-9eef-c245a6385ff9",
+                            RoleId = "092cc63d-21e2-4cec-b59b-142e2a89c0d8"
                         },
                         new
                         {
-                            UserId = "1df619eb-5390-4552-b973-e4d0ec924bec",
-                            RoleId = "c8ade27d-bb0c-41c9-ba4f-fe224efbd31f"
+                            UserId = "703ffc74-e086-4870-9f3f-f2e7961f1540",
+                            RoleId = "82187aee-aceb-4b9a-916a-cab61bed08a9"
                         });
                 });
 
@@ -261,35 +261,35 @@ namespace MyProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b109e291-9200-40df-b0f0-a278e6445da3",
+                            Id = "f214d665-87d4-417c-9eef-c245a6385ff9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "03d26c1a-284e-463d-b00d-d3059a24573c",
+                            ConcurrencyStamp = "8d1e2b8d-5975-48e5-a1fe-a8c279520da1",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user2@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2@HOTMAIL.COM",
                             NormalizedUserName = "USER2@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHlLzNnu37aaUl7ooLAyFn+SrVWRZmUrXKtTElkhtA6w9HiU3r77zlouwqHSAYcmCg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELXuS0b7Ey81w0cG5G42e+n+QS3+mHqPSoVU2gj/IE7vBXFufMu7mwD8eOeNV5JPCQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0c1d08cf-e1be-4b15-9bfd-fbef0b87b5d5",
+                            SecurityStamp = "69c9c986-2c49-44c3-af08-664a9e17cebe",
                             TwoFactorEnabled = false,
                             UserName = "user2@hotmail.com"
                         },
                         new
                         {
-                            Id = "1df619eb-5390-4552-b973-e4d0ec924bec",
+                            Id = "703ffc74-e086-4870-9f3f-f2e7961f1540",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "691eea2e-8a1c-493e-93ed-38c51d79bf49",
+                            ConcurrencyStamp = "f3f6c669-b6c6-41ec-8fb9-9c4bdfbbeb77",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user3@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER3@HOTMAIL.COM",
                             NormalizedUserName = "USER3@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAeNY7vGxROREpUy0WjtdAtq50Zf7hpJjyb2b7aS0Z8HXp+0KZ/CZhGTMbHRPLtNFg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOkPyAOgOVjRgH1ucXPaV/4SLGkHzwB2W1n2XQHPeciWKhFcjJPJDTxoeoQPwleGqA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f1303270-824f-45ee-bbb2-1856131637c2",
+                            SecurityStamp = "1f3804e2-eff9-4fb9-9848-feca5372ea03",
                             TwoFactorEnabled = false,
                             UserName = "user3@hotmail.com"
                         });
@@ -310,9 +310,8 @@ namespace MyProject.Data.Migrations
                     b.Property<decimal>("DonGia")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("PhieuNhapId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("PhieuNhapId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -327,6 +326,32 @@ namespace MyProject.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ChiTietPhieuNhap", (string)null);
+                });
+
+            modelBuilder.Entity("MyProject.Data.Entities.DatLich", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SoDienThoai")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenNguoiDat")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("DatLich", (string)null);
                 });
 
             modelBuilder.Entity("MyProject.Data.Entities.Medias", b =>
@@ -354,9 +379,11 @@ namespace MyProject.Data.Migrations
 
             modelBuilder.Entity("MyProject.Data.Entities.PhieuNhap", b =>
                 {
-                    b.Property<string>("MaPhieu")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("MaPhieu")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaPhieu"), 1L, 1);
 
                     b.Property<string>("BenGiao")
                         .IsRequired()
@@ -507,10 +534,6 @@ namespace MyProject.Data.Migrations
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ShopName")
@@ -518,8 +541,6 @@ namespace MyProject.Data.Migrations
 
                     b.HasIndex("Slug")
                         .IsUnique();
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Shop", (string)null);
                 });
@@ -594,6 +615,17 @@ namespace MyProject.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("MyProject.Data.Entities.DatLich", b =>
+                {
+                    b.HasOne("MyProject.Data.Entities.Product", "Products")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("MyProject.Data.Entities.Medias", b =>
                 {
                     b.HasOne("MyProject.Data.Entities.Product", "Product")
@@ -635,22 +667,9 @@ namespace MyProject.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MyProject.Data.Entities.Shop", b =>
-                {
-                    b.HasOne("MyProject.Data.Entities.AppUser", "User")
-                        .WithMany("Shops")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("MyProject.Data.Entities.AppUser", b =>
                 {
                     b.Navigation("Reviews");
-
-                    b.Navigation("Shops");
                 });
 
             modelBuilder.Entity("MyProject.Data.Entities.PhieuNhap", b =>

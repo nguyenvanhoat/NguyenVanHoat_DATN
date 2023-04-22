@@ -1,0 +1,116 @@
+﻿@using MyProject.Data.Entities
+@using Service.Interface
+@using System.Globalization
+@model PhieuNhap
+@inject IChiTietPhieuNhapService _chiTietPhieuNhapService
+
+@{
+    var list = _chiTietPhieuNhapService.Get(filter: x => x.PhieuNhapId == Model.MaPhieu, includeProperties: "Product");
+    decimal total = 0;
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title"></h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form id="phieu-nhap">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputPassword1" asp-for="BenGiao">Bên giao</label>
+                                    <input type="text" class="form-control" id="bengiao" name="bengiao" asp-for="BenGiao">
+                                </div>
+                                <div class="form-group col-md-6">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputEmail1">Ngày giao</label>
+                                    <input type="date" class="form-control" id="ngaygiao" name="ngaygiao" asp-for="NgayGiao">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputPassword1">Người nhận</label>
+                                    <input type="text" class="form-control" id="nguoinhan" name="nguoinhan" asp-for="NguoiNhan">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Địa chỉ</label>
+                                <input type="text" class="form-control" id="diachi" name="diachi" asp-for="DiaChi">
+                            </div>
+
+                            <!-- Button trigger modal -->
+
+                            <!-- Modal -->
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table class="table table-bordered" id="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Sản phẩm</th>
+                                                <th>Số lượng</th>
+                                                <th>Đơn Giá</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in list)
+                                            {
+                                                <tr>
+                                                    <th>@item.Product.ProductName</th>
+                                                    <th>@item.SoLuong</th>
+                                                    <th>@item.DonGia</th>
+                                                </tr>
+                                                total += item.DonGia * item.SoLuong;
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                    <div class="mt-5 text-right">
+                                        <h4>
+                                            Tổng tiền: @total.ToString("0,0", CultureInfo.CreateSpecificCulture("el-GR"))
+                                        </h4>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+                                <div class="card-footer clearfix">
+                                    <ul class="pagination pagination-sm m-0 float-right">
+                                        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-primary" id="btn-tao-phieu" asp-action="Index">Trở về</a>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card -->
+                <!-- general form elements -->
+                <!-- /.card -->
+
+            </div>
+            <!--/.col (left) -->
+            <!-- right column -->
+            <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>

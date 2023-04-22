@@ -27,7 +27,11 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @await RenderSectionAsync("Heads", required: false)
 </head>
-
+<style>
+    .error{
+        color: red;
+    }
+</style>
 <body>
     
     <header>
@@ -58,46 +62,14 @@
             <!-- <a href="cart.html"><i class="fa fa-shopping-cart"></i></a> -->
 
             <div class="dropdown">
-                <button type="button" class="btn" data-toggle="dropdown">
+                <button type="button" class="btn them-gio-hang" @*data-toggle="dropdown"*@ id="cart">
                     <i class="bi bi-cart" aria-hidden="true"></i>
                 </button>
-                <span class="quantity_items">3</span>
+                <span class="quantity_items" id="lbl_number_of_items_header"></span>
+                @*<span class="quantity_items">3</span>*@
                 <div class="dropdown-menu">
 
-                    <div class="row cart-detail">
-                        <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
-                            <img src="~/user/images/glasses/glass3.jpg">
-                        </div>
-                        <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
-                            <p>Kính râm Linemai K304</p>
-                            <span class="price "> 850.000 VND</span> <span class="count"> SL: 1</span>
-                        </div>
-                    </div>
-                    <div class="row cart-detail">
-                        <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
-                            <img src="~/user/images/glasses/glass3.jpg">
-                        </div>
-                        <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
-                            <p>Kính râm Linemai K304</p>
-                            <span class="price "> 850.000 VND</span> <span class="count"> SL: 1</span>
-                        </div>
-                    </div>
-                    <div class="row cart-detail">
-                        <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
-                            <img src="~/user/images/glasses/glass3.jpg">
-                        </div>
-                        <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
-                            <p>Kính râm Linemai K304</p>
-                            <span class="price "> 850.000 VND</span> <span class="count"> SL: 1</span>
-                        </div>
-                    </div>
-                    <div class="row total-header-section">
-                        <p style="font-weight: 600;">Tổng tiền: <span style="color: #ff871d;">5.400.000 VNĐ</span></p>
-                    </div>
-
-                    <div class="link-to-cart">
-                        <a href="cart.html">Xem giỏ hàng</a>
-                    </div>
+                    
                 </div>
             </div>
             <div>
@@ -173,13 +145,55 @@
             <a href="#top" onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-angle-up"></i></a>
         </div>
     </footer>
-    
     @*<script src="~/user/js/script.js"></script>*@
     <script asp-append-version="true" src="~/validation//clientvalidator.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+   @* <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    @*<script asp-append-version="true" src="~/cart/site.js"></script>
+    <script asp-append-version="true">
+        var siteController = new SiteController();
+        siteController.initialize();
+    </script>*@
+    
     @*<partial name="_ValidationScriptsPartial" />*@
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        $(document).ready(function(){
+            loadCart()
+            $(".them-gio-hang").click(function(){
+                location.href = "/Cart/Index"
+            })
+        })
+
+        function loadCart() {
+            $.ajax({
+                type: "GET",
+                url: "/Cart/GetListItem",
+                success: function (res) {
+                    $('#lbl_number_of_items_header').text(res.length)
+                }
+            });
+        }
+
+        function addToCard(id) {
+            $.ajax({
+                type: "POST",
+                url: '/Cart/AddToCart',
+                data: {
+                    id: id
+                },
+                success: function (res) {
+                    console.log(res)
+                    $('#lbl_number_of_items_header').text(res.length);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+    </script>
     
 </body>
 

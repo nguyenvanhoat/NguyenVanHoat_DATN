@@ -1,11 +1,12 @@
-﻿
+﻿@using Service
+@model PagedResult<MyProject.Data.Entities.PhieuNhap>
 
 <section class="content">
 
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <button class="card-title btn btn-success">Tạo phiếu nhập</button>
+            <button class="card-title btn btn-succes create">Tạo phiếu nhập</button>
 
             <div class="card-tools">
                 
@@ -35,32 +36,74 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            #
-                        </td>
-                        <td>
-                            gf
-                        </td>
-                        <td>
-                            hehe
-                        </td>
-                        <td >
-                            gf
-                        </td>
-                        <td >
-                            df
-                        </td>
-                        <td>
-                            <a class="btn btn-primary">Chi Tiết</a>
-                        </td>
-                    </tr>
-                    
+                    @foreach(var item in Model.Data){
+                        <tr>
+                            <td>
+                                @item.MaPhieu
+                            </td>
+                            <td>
+                                @item.BenGiao
+                            </td>
+                            <td>
+                                @item.DiaChi
+                            </td>
+                            <td>
+                                @item.NgayGiao
+                            </td>
+                            <td>
+                                @item.NguoiNhan
+                            </td>
+                            <td>
+                                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.MaPhieu">Chi Tiết</a>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
         <!-- /.card-body -->
     </div>
     <!-- /.card -->
+    <div class="container">
+        @if (Model.TotalItem > 0 && Model.TotalPages > 1)
+        {
+            <ul class="pagination justify-content-center">
+                @if (Model.PageNumber > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="PhieuNhap" asp-action="Index" asp-route-pageNumber="1">Fisrt</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="PhieuNhap" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber-1)">Previous</a>
+                    </li>
+                }
 
+                @for (var j = Model.StartPage; j <= Model.EndPage; j++)
+                {
+                    <li class="page-item @(j==Model.PageNumber ? "active" : "")">
+                        <a class="page-link" asp-controller="PhieuNhap" asp-action="Index" asp-route-pageNumber="@j">@j</a>
+                    </li>
+                }
+
+                @if (Model.PageNumber < Model.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="PhieuNhap" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber+1)">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="PhieuNhap" asp-action="Index" asp-route-pageNumber="@Model.TotalPages">Last</a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
 </section>
+
+@section Scripts{
+    <script>
+        $(".create").click(function(){
+            location.href = "/saler/PhieuNhap/Create";
+        })
+
+    </script>
+}
