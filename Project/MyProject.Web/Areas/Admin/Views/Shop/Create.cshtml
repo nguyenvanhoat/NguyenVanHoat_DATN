@@ -34,7 +34,7 @@
             submitSelector: "#onSubmit",
             rules: [
                 Validator.isRequired("#ShopName"),
-                Validator.lengthRequired("#ShopName", 2, 20, "ShopName phải từ 2 đến 20 ký tự"),
+                Validator.lengthRequired("#ShopName", 2, 20, "Tên hãng phải từ 2 đến 20 ký tự"),
             ],
             onClick: function (data) {
                 console.log(data);
@@ -64,7 +64,7 @@
                                         Swal.fire({
                                             position: 'top-end',
                                             icon: 'success',
-                                            title: 'Thêm shop thành công',
+                                            title: 'Thêm hãng thành công',
                                             showConfirmButton: false,
                                             timer: 2000
                                         });

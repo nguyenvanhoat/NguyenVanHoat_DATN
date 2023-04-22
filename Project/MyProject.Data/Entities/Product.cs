@@ -12,6 +12,7 @@ namespace MyProject.Data.Entities
             //WishLists = new HashSet<WishList>();
             Carts = new HashSet<Cart>();
             OrderDetails = new HashSet<OrderDetail>();
+            GiaXes = new HashSet<GiaXe>();
         }
         public int Id { get; set; }
         public string ProductName { get; set; }
@@ -33,5 +34,6 @@ namespace MyProject.Data.Entities
         //public ICollection<WishList> WishLists { get; set; }
         public ICollection<Cart> Carts { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }
+        public ICollection<GiaXe> GiaXes { get; set; }
     }
 }

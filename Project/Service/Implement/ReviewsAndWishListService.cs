@@ -155,7 +155,7 @@ namespace Service.Implement
         {
             var model = GetReviewById(userId, productId);
             model.DeleteAt = DateTime.Now;
-            UpDateReview(model);
+            _unitOfWork.GenericRepository<ReviewsDTO>().Delete(model);
         }
 
         public IEnumerable<ReviewsDTO> GetProductViewd(int size, string userId)

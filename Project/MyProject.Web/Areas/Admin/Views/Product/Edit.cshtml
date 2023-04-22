@@ -22,11 +22,11 @@
         <span class="form-message"></span>
         </div>*@
         
-        <div class="form-group">
+       @* <div class="form-group">
             <label>Giá</label>
             <input type="number" class="form-control" asp-for="Price" placeholder="">
             <span class="form-message"></span>
-        </div>
+        </div>*@
         <div class="form-group">
             <label>Hãng Xe</label>
             <select class="form-control" asp-items="list" asp-for="ShopId" disabled>
@@ -75,10 +75,9 @@
             errorSelector: ".form-message",
             submitSelector: "#onSubmit",
             rules: [
-                Validator.isRequired("#ProductName", "ProductName không được để trống"),
-                Validator.isRequired("#Price", "Price không được để trống"),
-                Validator.isRequired("#ShopId", "Phải chọn một Shop"),
-                Validator.lengthRequired("#ProductName", 2, 20, "ProductName phải từ 2 đến 20 ký tự"),
+                Validator.isRequired("#ProductName", "Tên xe không được để trống"),
+                Validator.isRequired("#ShopId", "Phải chọn một hãng"),
+                Validator.lengthRequired("#ProductName", 2, 20, "Tên xe phải từ 2 đến 20 ký tự"),
             ],
             onClick: function (data) {
                 console.log(data);

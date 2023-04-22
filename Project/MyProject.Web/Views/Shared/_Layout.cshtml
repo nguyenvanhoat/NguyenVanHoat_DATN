@@ -27,7 +27,11 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @await RenderSectionAsync("Heads", required: false)
 </head>
-
+<style>
+    .error{
+        color: red;
+    }
+</style>
 <body>
     
     <header>
@@ -58,10 +62,10 @@
             <!-- <a href="cart.html"><i class="fa fa-shopping-cart"></i></a> -->
 
             <div class="dropdown">
-                <button type="button" class="btn" @*data-toggle="dropdown"*@ id="cart">
+                <button type="button" class="btn them-gio-hang" @*data-toggle="dropdown"*@ id="cart">
                     <i class="bi bi-cart" aria-hidden="true"></i>
                 </button>
-                <span class="quantity_items" id="lbl_number_of_items_header">0</span>
+                <span class="quantity_items" id="lbl_number_of_items_header"></span>
                 @*<span class="quantity_items">3</span>*@
                 <div class="dropdown-menu">
 
@@ -143,62 +147,53 @@
     </footer>
     @*<script src="~/user/js/script.js"></script>*@
     <script asp-append-version="true" src="~/validation//clientvalidator.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script asp-append-version="true" src="~/cart/site.js"></script>
+   @* <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    @*<script asp-append-version="true" src="~/cart/site.js"></script>
     <script asp-append-version="true">
         var siteController = new SiteController();
         siteController.initialize();
-    </script>
+    </script>*@
+    
+    @*<partial name="_ValidationScriptsPartial" />*@
+    @await RenderSectionAsync("Scripts", required: false)
+
     <script>
-        $("#giohang").click(function () {
-            loadDataDropDown()
-            $("#cart").attr("data-toggle", "dropdown");
+        $(document).ready(function(){
+            loadCart()
+            $(".them-gio-hang").click(function(){
+                location.href = "/Cart/Index"
+            })
         })
 
-        function loadDataDropDown() {
+        function loadCart() {
             $.ajax({
                 type: "GET",
-                url: '/Cart/GetListItem',
+                url: "/Cart/GetListItem",
                 success: function (res) {
-                    var html = '';
-                    var total = 0;
+                    $('#lbl_number_of_items_header').text(res.length)
+                }
+            });
+        }
 
-                    $.each(res, function (i, item) {
-                        var amount = item.price * item.quantity;
-                        html += `<div class="row cart-detail" >` +
-                            ` <div class="col-lg-4 col-sm-4 col-4 cart-detail-img" >`
-                            + `<img src="~/user/images/glasses/${item.image}" `
-                                `</div>` +
-                            `< div class="col-lg-8 col-sm-8 col-8 cart-detail-product" >` +
-                            `<p>${}< /p>` +
-                            `< span class="price " > 850.000 VND < /span> <span class="count"> SL: 1</span >` +
-                            `< /div>< /div >`
-                        $(".dropdown-menu").html(html);
-
-                        //html += "<tr>"
-                        //    + "<td> <img width=\"60\" src=\"" + "/img/" + item.image + "\" alt=\"\" /></td>"
-                        //    + "<td>" + item.name + "</td>"
-                        //    + "<td><div class=\"input-append\"><input class=\"span1\" style=\"max-width: 48px\" placeholder=\"1\" id=\"txt_quantity_" + item.productId + "\" value=\"" + item.quantity + "\" size=\"36\" type=\"text\">"
-                        //    + "<button class=\"btn btn-minus\" data-id=\"" + item.productId + "\" type =\"button\"> <i class=\"fa fa-minus\"></i></button>"
-                        //    + "<button class=\"btn btn-plus\" type=\"button\" data-id=\"" + item.productId + "\"><i class=\"fa fa-plus\"></i></button>"
-                        //    + "<button class=\"btn btn-danger btn-remove\" type=\"button\" data-id=\"" + item.productId + "\"><i class=\"pe-7s-close\"></i></button>"
-                        //    + "</div>"
-                        //    + "</td>"
-
-                        //    + "<td>" + numberWithCommas(item.price) + "</td>"
-                        //    + "<td>" + numberWithCommas(amount) + "</td>"
-                        //    + "</tr>";
-                        total += amount;
-                    });
-
-
+        function addToCard(id) {
+            $.ajax({
+                type: "POST",
+                url: '/Cart/AddToCart',
+                data: {
+                    id: id
+                },
+                success: function (res) {
+                    console.log(res)
+                    $('#lbl_number_of_items_header').text(res.length);
+                },
+                error: function (err) {
+                    console.log(err);
                 }
             });
         }
     </script>
-    @*<partial name="_ValidationScriptsPartial" />*@
-    @await RenderSectionAsync("Scripts", required: false)
     
 </body>
 

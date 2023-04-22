@@ -44,21 +44,21 @@
                             <div class="sizes">
                                 @if (Model.Trending)
                                 {
-                                    <button class="btn btn-danger">Product Trending</button>
+                                    <button class="btn btn-danger">Xe Trending</button>
                                 }
                             </div>
                             <div class="mt-4 mb-3">
-                                <span class="text-uppercase text-muted brand">Shop: @Model.Shop.ShopName</span>
+                                <span class="text-uppercase text-muted brand">Hãng Xe: @Model.Shop.ShopName</span>
                                 <h5 class="text-uppercase" style="font-size: 30px; font-weight: 900">@Model.ProductName</h5>
                                 <div class="price d-flex flex-row align-items-center">
-                                    <span class="act-price" style="font-size: 25px">@Model.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</span>
+                                    <span class="act-price" style="font-size: 25px">Giá Tham Khảo: @Model.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</span>
                                     @*<div class="ml-2"> <small class="dis-price">$59</small> <span>40% OFF</span> </div>*@
                                 </div>
                             </div>
                             <div id="detail">
                             </div>
                             <div class="sizes mb-3">
-                                View: @Model.Views
+                                Lượt truy cập: @Model.Views
                             </div>
                             <div class="special-offer">
                                 <h5 class="offer-title">
@@ -85,7 +85,7 @@
                                     <button class="btn btn-primary text-uppercase mr-2 px-4 " id="lienhe" style="width:95%;">Liên hệ mua hàng</button>
                                 </div>
                                 <div class="col-md-5">
-                                    <button class="btn btn-primary text-uppercase mr-2 px-4 col-md-6" id="lienhe" style="width: 90%" data-id="@Model.Id">Mua Hàng</button>
+                                    <button class="btn btn-primary text-uppercase mr-2 px-4 " data-id="@Model.Id" onclick="addToCard(@Model.Id)" style="width:95%;">Liên hệ mua hàng</button>
                                 </div>
                             </div>
 
@@ -188,7 +188,7 @@
             </div>
             <div class="modal-body">
                 <form id="form-lien-he">
-                    <input class="form-control mt-3" type="text" placeholder="Số điện thoại" id="sdt" name="sdt">
+                    <input class="form-control mt-3" type="number" placeholder="Số điện thoại" id="sdt" name="sdt">
                     <input class="form-control mt-3" type="text" placeholder="Tên" id="ten" name="ten">
                 </form>
 
@@ -223,6 +223,7 @@
                 rules: {
                     sdt: {
                         required: true,
+                        rangelength:[10,10]
                     },
                     ten: {
                         required: true
@@ -231,13 +232,14 @@
                 messages: {
                     sdt: {
                         required: "Số điện thoại không được để trống",
+                        rangelength: "Số điện thoại chỉ được 10 kí tự số"
                     },
                     ten: {
                         required: "Tên không được để trống"
                     }
                 }
             })
-            $("#detail").html('<p>ok</p>');
+            $("#detail").html('<p></p>');
             $("#addReview").click(function () {
                 var review = $("#review").val();
                 if (review == '') {
@@ -353,7 +355,33 @@
 
         $("#themlienhe").click(function () {
             if ($("#form-lien-he").valid()) {
-                alert("haha")
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ThemLienHe", "Product")',
+                    data: { ten: $("#ten").val(), sdt: $("#sdt").val() ,id: @Model.Id },
+                    //dataType: "json",
+                    //contentType: "application/json;charset=utf-8",
+                    success: function (response) {
+                        if (!response.result) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: response.mess,
+
+                            })
+                        }
+                        else {
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Gửi liên hệ thành công',
+                                showConfirmButton: false,
+                                timer: 2500
+                            });
+                            $("#dathang").modal('hide');
+                        }
+                    }
+                })
             }
         })
     </script>

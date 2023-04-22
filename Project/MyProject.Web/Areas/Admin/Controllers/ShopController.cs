@@ -170,10 +170,11 @@ namespace MyProject.Web.Areas.Admin.Controllers
         {
             try
             {
-                //var model = _shopService.GetShopById(id);
+                var model = _shopService.GetShopById(id);
                 //model.DeleteAt = DateTime.Now;
                 //_shopService.UpDateShop(model);
-                _shopService.DeleteShopStatus(id);
+
+                _shopService.DeleteShop(model);
                 return Json(new { result = true });
             }
             catch

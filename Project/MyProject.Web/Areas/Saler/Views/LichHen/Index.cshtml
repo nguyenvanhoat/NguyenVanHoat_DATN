@@ -1,0 +1,272 @@
+﻿@using Service
+@model PagedResult<MyProject.Data.Entities.DatLich>
+
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-border">
+                <thead>
+                    <tr>
+                        <th style="width: 20%">
+                            Họ tên
+                        </th>
+                        <th style="width: 15%">
+                            Số điện thoại
+                        </th>
+                        <th style="width: 20%">
+                            Trạng thái
+                        </th>
+                        <th>
+                            Ngày Hẹn
+                        </th>
+                        <th>
+                            Ghi chú
+                        </th>
+                        
+                        <th style="width: 15%">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Data)
+                    {
+                        <tr>
+                            <td>
+                                @item.TenNguoiDat
+                            </td>
+                            <td>
+                                @item.SoDienThoai
+                            </td>
+                            <td>
+                                @if(item.TrangThai == "0"){
+                                    <button class="btn btn-warning">Mới</button>
+                                }
+                                else if (item.TrangThai == "1")
+                                {
+                                    <button class="btn btn-info">Chờ khách đến mua</button>
+                                }
+                                else{
+                                    <button class="btn btn-danger">Khách đã mua</button>
+                                }
+
+                            </td>
+                            <td>
+                                @(item.NgayHen.Year > 1000 ? item.NgayHen.ToString("dd/MM/yyyy") : "Chưa xếp lịch hẹn")
+                            </td>
+                            <td>
+                                @item.GhiChu
+                            </td>
+                            <td>
+                                @if (item.TrangThai == "0")
+                                {
+                                    <a class="btn btn-primary lien-he" data-id="@item.Id">Liên hệ</a>
+                                }
+                                else if (item.TrangThai == "1")
+                                {
+                                    <a class="btn btn-primary xac-nhan" data-id="@item.Id">Xác nhận</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+    <div class="container">
+        @if (Model.TotalItem > 0 && Model.TotalPages > 1)
+        {
+            <ul class="pagination justify-content-center">
+                @if (Model.PageNumber > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="DatLich" asp-action="Index" asp-route-pageNumber="1">Fisrt</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="DatLich" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber-1)">Previous</a>
+                    </li>
+                }
+
+                @for (var j = Model.StartPage; j <= Model.EndPage; j++)
+                {
+                    <li class="page-item @(j==Model.PageNumber ? "active" : "")">
+                        <a class="page-link" asp-controller="DatLich" asp-action="Index" asp-route-pageNumber="@j">@j</a>
+                    </li>
+                }
+
+                @if (Model.PageNumber < Model.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="DatLich" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber+1)">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="DatLich" asp-action="Index" asp-route-pageNumber="@Model.TotalPages">Last</a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</section>
+
+<div class="modal fade" id="modal-lien-he" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Gọi điện tới khách hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3><span id="hoten"> </span> - <span id="sodienthoai"></span></h3>
+                <br>
+                <label class="form-lable">Ngày hẹn</label>
+                <input type="date" class="form-control" id="ngay-hen"/>
+
+                <br>
+                <label class="form-lable">Ghi chú</label>
+                <input type="text" class="form-control" id="ghi-chu"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="hoan-thanh" data-id="">Hoàn Thành</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        const URL_SENDATA = "/saler/LichHen/LienHe";
+        const URL_THANHCONG = "/saler/LichHen/ThanhCong";
+
+        $(".create").click(function () {
+            location.href = "/saler/DatLich/Create";
+        })
+
+        $(document).ready(function(){
+            $(".lien-he").click(async function(){
+                let id = $(this).data('id');
+                let lichhen = await getLichHen(id);
+                $('#hoan-thanh').attr('data-id', id);
+                $("#hoten").html(lichhen.tenNguoiDat)
+                $("#sodienthoai").html(lichhen.soDienThoai)
+                $("#modal-lien-he").modal('show');
+            });
+
+            $("#hoan-thanh").click(async function(){
+                let ngayHen = $("#ngay-hen").val();
+                if(!ngayHen){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Chưa xếp lịch hẹn cho khách hàng!',
+                    })
+                }
+                else{
+                    let id = $(this).data('id');
+                    let result = await sendData(id);
+                    if(result){
+                        Swal.fire('Đặt lịch hẹn với khách hàng thành công')
+                    }
+                    else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Đã sảy ra lỗi vui lòng liên hệ lại!',
+                        })
+                    }
+
+                    setTimeout(() => { location.reload()}, 1500);
+                    
+                }
+            });
+
+            $(".xac-nhan").click(function(){
+
+                Swal.fire({
+                    title: 'Bạn có chắc?',
+                    text: "Khách hàng đã mua hàng thành công?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: "Hủy",
+                    confirmButtonText: 'Xác Nhận!'
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        let id = $(this).data('id');
+                        let result = await thanhCong(id);
+                        if (result) {
+                            Swal.fire({
+                                title: 'Khách hàng đã mua thành công!',
+                                width: 600,
+                                padding: '3em',
+                                color: '#716add',
+                                background: '#fff url(/images/trees.png)',
+                                backdrop: `
+                    rgba(0,0,123,0.4)
+                    url("/images/nyan-cat.gif")
+                    left top
+                    no-repeat
+                  `
+                            })
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Đã sảy ra lỗi vui lòng thử lại!',
+                            })
+                        }
+
+                        setTimeout(() => { location.reload() }, 2000);
+                    }
+                })
+                
+            })
+
+        })
+
+        async function getLichHen(id){
+            return await $.ajax({
+                type: "POST",
+                url: "/saler/LichHen/GetDetailsLichHen",
+                data: {id: id}
+            });
+        }
+
+        async function sendData(id){
+            let model = {
+                id: id,
+                ngayHen: $("#ngay-hen").val(),
+                ghiChu: $("#ghi-chu").val()
+            }
+
+            return await $.ajax({
+                type: "POST",
+                data: model,
+                url: URL_SENDATA
+            })
+        }
+
+        async function thanhCong(id) {
+            let model = {
+                id: id,
+            }
+
+            return await $.ajax({
+                type: "POST",
+                data: model,
+                url: URL_THANHCONG
+            })
+        }
+    </script>
+}
+

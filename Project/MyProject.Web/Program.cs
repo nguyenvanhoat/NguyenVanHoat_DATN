@@ -56,6 +56,7 @@ builder.Services.AddScoped<IPhieuNhapService, PhieuNhapService>();
 builder.Services.AddScoped<IChiTietPhieuNhapService, ChiTietPhieuNhapService>();
 builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IDatLichService, DatLichService>();
 
 
 // add session

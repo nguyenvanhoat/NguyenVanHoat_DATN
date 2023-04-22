@@ -214,10 +214,10 @@ namespace MyProject.Web.Areas.Admin.Controllers
         {
             try
             {
-                //var model = _shopService.GetShopById(id);
+                var model = _productService.GetProductById(id);
                 //model.DeleteAt = DateTime.Now;
                 //_shopService.UpDateShop(model);
-                _productService.DeleteProductStatus(id);
+                _productService.DeleteProduct(model);
                 return Json(new { result = true });
             }
             catch

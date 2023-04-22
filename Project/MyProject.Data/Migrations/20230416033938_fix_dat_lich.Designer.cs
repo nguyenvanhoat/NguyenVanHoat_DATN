@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyProject.Data.EF;
 
@@ -11,9 +12,10 @@ using MyProject.Data.EF;
 namespace MyProject.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230416033938_fix_dat_lich")]
+    partial class fix_dat_lich
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,15 +53,15 @@ namespace MyProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "dec4d3c0-f30b-4084-bed9-59829da012b8",
-                            ConcurrencyStamp = "c51cd27f-1e8f-487c-a5f5-e39faf1cd222",
+                            Id = "15113cec-9a91-4ac1-a15a-fac1f0ca6e88",
+                            ConcurrencyStamp = "9467fd1c-7a52-4d84-bcdb-2e3699b4ccea",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "55afa83f-7da9-4e52-b215-2e964e0788e9",
-                            ConcurrencyStamp = "e8ea6158-6ebf-4e5b-b20c-72b761d90de5",
+                            Id = "dcd77a87-5d26-4b1e-b39c-271cafddd47a",
+                            ConcurrencyStamp = "fad999e8-d8f3-4d46-94e2-ac647a252ab5",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -154,13 +156,13 @@ namespace MyProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "6e16db58-8f2b-4377-8325-36c267454068",
-                            RoleId = "55afa83f-7da9-4e52-b215-2e964e0788e9"
+                            UserId = "4d2b232a-ed61-4a22-bdf0-d7ac78f4765a",
+                            RoleId = "dcd77a87-5d26-4b1e-b39c-271cafddd47a"
                         },
                         new
                         {
-                            UserId = "1d0cb6b2-f7c9-48c6-bd11-7fd9d3b1f871",
-                            RoleId = "dec4d3c0-f30b-4084-bed9-59829da012b8"
+                            UserId = "bd7d8e72-d0ce-4eb1-a294-0f3c1451e60c",
+                            RoleId = "15113cec-9a91-4ac1-a15a-fac1f0ca6e88"
                         });
                 });
 
@@ -259,35 +261,35 @@ namespace MyProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6e16db58-8f2b-4377-8325-36c267454068",
+                            Id = "4d2b232a-ed61-4a22-bdf0-d7ac78f4765a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "efd27f13-5135-4a32-aba8-c594dec61ff1",
+                            ConcurrencyStamp = "0b59fe32-5a27-44cc-bbe4-31b940be992a",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user2@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2@HOTMAIL.COM",
                             NormalizedUserName = "USER2@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEA1BXwYtDFbdFydWfC5uxpHRvk13hNlQFhaxoPeM+k2An2yI4BpCVf9HmucjkPyOMA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFt1RGC06xROM1rd6b6nAZrljt3dm8h44qmm8LK0YTXBmGbktv5tXwzREgK0GSXh6g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ec172e51-9f90-4a56-80e0-8243ae6f5deb",
+                            SecurityStamp = "7e4fbc0c-38ef-445e-85a6-4d1fe2a16275",
                             TwoFactorEnabled = false,
                             UserName = "user2@hotmail.com"
                         },
                         new
                         {
-                            Id = "1d0cb6b2-f7c9-48c6-bd11-7fd9d3b1f871",
+                            Id = "bd7d8e72-d0ce-4eb1-a294-0f3c1451e60c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9ac5245a-c8de-4a2a-8c5b-2c3a9f98dcb7",
+                            ConcurrencyStamp = "d6b4fffc-96e9-4bb4-a05b-beb03549a1a0",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user3@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER3@HOTMAIL.COM",
                             NormalizedUserName = "USER3@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENG/wZpuXf+frX8its8RpoQ94n0GBkjNnJs/VJFSNwywJj/iaiUovLeEHtS0pwSqtA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKQ06qXkjK3XsukyeAgxgV9GYBbmn+pDXDmTqyd3GCICYP4ENe9P5H/rq/sKyvQ4sg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "db15a2d2-1666-49a5-b549-e2e1f8f26194",
+                            SecurityStamp = "62f2041e-7ac3-4dfe-8725-0808bca43c8f",
                             TwoFactorEnabled = false,
                             UserName = "user3@hotmail.com"
                         });
@@ -382,10 +384,6 @@ namespace MyProject.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TenNguoiDat")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TrangThai")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

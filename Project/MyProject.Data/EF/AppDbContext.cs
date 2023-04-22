@@ -37,6 +37,7 @@ namespace MyProject.Data.EF
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
             modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
             //modelBuilder.ApplyConfiguration(new WishListConfiguration());
+            modelBuilder.ApplyConfiguration(new GiaXeConfiguration());
 
             List<IdentityRole> roles = new List<IdentityRole>()
             {
@@ -114,5 +115,6 @@ namespace MyProject.Data.EF
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<GiaXe> GiaXes { get; set; }
     }
 }

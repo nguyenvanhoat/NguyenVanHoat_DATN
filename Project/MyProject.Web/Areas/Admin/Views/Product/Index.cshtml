@@ -11,7 +11,7 @@
         <h6 class="m-0 font-weight-bold text-primary">Danh sách xe</h6>
     </div>
     <div class="card-body">
-        <a asp-action="Create" asp-controller="Product" asp-area="Admin" class="btn btn-success mb-4">Create New Product</a>
+        <a asp-action="Create" asp-controller="Product" asp-area="Admin" class="btn btn-success mb-4">Thêm mới xe</a>
         <div class="mb-3">
             <form class="d-flex justify-content-end">
                 <select class="form-control mr-3 w-30" id="filter-by-trending">
@@ -25,7 +25,7 @@
                     <option value="false">Chưa Xóa</option>
                 </select>
                 <input type="text" class="form-control w-35 mr-3" id="searchString" placeholder="Tìm kiếm theo ProductName" value="@ViewBag.SearchString">
-                <input type="button" class="form-control w-30 btn btn-info" id="search" value="Filter">
+                <input type="button" class="form-control w-30 btn btn-info" id="search" value="Lọc">
             </form>
         </div>
         <div style="width: 100%">
@@ -34,16 +34,14 @@
                     <tr>
                         <th>Tên</th>
                         <th>Hình Ảnh</th>
-                        <th>Slug</th>
                         <th>Trending</th>
                         <th>Lượt Xem</th>
                         <th>
                             Hãng
                         </th>
-                        <th>Giá</th>
                         <th>Ngày Tạo</th>
                         <th>Ngày sửa</th>
-                        <th>Ngày xóa</th>
+                        <th>Quản lý giá</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -56,17 +54,17 @@
                             <tr>
                                 <td>@item.ProductName</td>
                                 <td>
-                                    <img src="~/img/@item.Thumbnail" width="100px"/>
+                                    <img src="~/img/@item.Thumbnail" width="100px" />
                                     <a class="btn btn-primary" asp-area="Admin" asp-action="Image" asp-controller="Product" asp-route-id="@item.Id">Ảnh</a>
                                 </td>
-                                <td>@item.Slug</td>
                                 <td>@item.Trending</td>
                                 <th>@item.Views</th>
                                 <td>@item.Shop.ShopName</td>
-                                <td>@item.Price</td>
                                 <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
                                 <td>@item.UpdateAt?.ToString("dd/MM/yyyy")</td>
-                                <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <a data-id="@item.Id" class="btn btn-info m-2 gia" data-ten="@item.ProductName">Giá</a>
+                                </td>
                                 <td>
                                     <a asp-action="Edit" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-info m-2"><i class="far fa-edit"></i></a>
                                     <a data-id="@item.Id" class="btn btn-danger m-2 delete"><i class="fas fa-trash-alt"></i></a>
@@ -80,14 +78,11 @@
                                 <td>
                                     <img src="~/img/@item.Thumbnail" width="100px" />
                                 </td>
-                                <td>@item.Slug</td>
                                 <td>@item.Trending</td>
                                 <th>@item.Views</th>
                                 <td>@item.Shop.ShopName</td>
-                                <td>@item.Price</td>
                                 <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
                                 <td>@item.UpdateAt?.ToString("dd/MM/yyyy")</td>
-                                <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
                                 <td>
                                     Xóa
                                 </td>
@@ -126,7 +121,7 @@
                         <a class="page-link" asp-controller="Product" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber+1)" asp-route-shopId="@ViewBag.ShopId">Next</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" asp-controller="Product" asp-action="Index" asp-route-pageNumber="@Model.TotalPages" asp-route-shopId = "@ViewBag.ShopId">Last</a>
+                        <a class="page-link" asp-controller="Product" asp-action="Index" asp-route-pageNumber="@Model.TotalPages" asp-route-shopId="@ViewBag.ShopId">Last</a>
                     </li>
                 }
             </ul>
@@ -134,11 +129,93 @@
     </div>
 </div>
 
-
+<div class="modal fade" id="gia" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Quản lý giá - <span id="ten-xe"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-them-gia">
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Màu</label>
+                            <input type="text" class="form-control" id="mau" name="mau"/>
+                        </div>
+                        <div class="col-md-5">
+                            <label>Giá</label>
+                            <input type="number" class="form-control" id="gia" name="gia"/>
+                        </div>
+                        <div class="col-md-3" style="margin-top: 31px">
+                            <button class="btn btn-success" id="them-gia">Thêm</button>
+                        </div>
+                    </div>
+                </form>
+                <table id="gia-table" class="table table-striped table-bordered" style="width:100%">
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts{
     <script>
         $(document).ready(function () {
+
+            $("#form-them-gia").validate({
+                rules: {
+                    mau: {
+                        required: true
+                    },
+                    gia: {
+                        required: true,
+                        min: 0
+                    }
+                }, 
+                messages: {
+                    mau: {
+                        required: "Màu không được để trống"
+                    },
+                    gia: {
+                        required: "Giá không được để trống",
+                        min: "Không được nhập số âm"
+                    }
+                }
+            })
+
+            $("#them-gia").click(function(){
+                let result = $("#form-them-gia").valid()
+            })
+
+
+            $('#gia-table').DataTable(
+                {
+                    "language": {
+                        "emptyTable": "Không có dữ liệu"
+                    },
+                    "iDisplayLength": 100,
+                    "searching": false,
+                    "paging": false,
+                    "info": false,
+                    "columns": [
+                        { "title": "Màu" },
+                        { "title": "Giá" },
+                    ]
+                }
+            );
+
+            $(".gia").click(function () {
+                $("#ten-xe").html($(this).attr("data-ten"))
+                $("#gia").modal('show');
+            })
+
+
             $('#filter-delete').val('@ViewBag.Delete')
             $('#filter-by-trending').val('@ViewBag.Trending')
 

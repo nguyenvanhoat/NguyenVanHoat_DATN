@@ -111,7 +111,9 @@ namespace MyProject.Web.Controllers
             {
                 TenNguoiDat = ten,
                 SoDienThoai = sdt,
-                ProductId = id
+                ProductId = id,
+                TrangThai = "0",
+                GhiChu = ""
             };
 
             try
