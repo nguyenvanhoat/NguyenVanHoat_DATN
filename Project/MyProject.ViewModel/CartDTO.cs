@@ -13,6 +13,7 @@ namespace MyProject.ViewModel
         public int Quantity { get; set; }
 
         public string Description { get; set; }
+        public string Color { get; set; }
 
         public string Name { get; set; }
 

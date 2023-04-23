@@ -32,7 +32,8 @@ namespace Service.Repository.Implement
             Delete(entity);
         }
 
-        public IEnumerable<T> GetAll(Func<IQueryable<T>, IQueryable<T>> filterFull = null, Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
+        public IEnumerable<T> GetAll(Func<IQueryable<T>, IQueryable<T>> filterFull = null, Expression<Func<T, bool>> filter = null, 
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
         {
             IQueryable<T> query = _dbSet;
 

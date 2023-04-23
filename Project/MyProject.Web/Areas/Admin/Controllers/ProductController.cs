@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyProject.Data.EF;
 using MyProject.Data.Entities;
 using MyProject.Data.Enum;
 using MyProject.Utilities.Helper;
@@ -19,13 +20,15 @@ namespace MyProject.Web.Areas.Admin.Controllers
         private readonly IShopService _shopServcie;
         private readonly IProductService _productService;
         private readonly int pageSize;
+        private readonly AppDbContext _appDbContext;
 
-        public ProductController(IProductService productService, IShopService shopService, IMediasService mediasService ,int pageSize = 10)
+        public ProductController(AppDbContext appDbContext ,IProductService productService, IShopService shopService, IMediasService mediasService ,int pageSize = 10)
         {
             _mediasService = mediasService;
             _shopServcie = shopService;
             _productService = productService;
             this.pageSize = pageSize;
+            _appDbContext = appDbContext;
         }
         public IActionResult Index(int pageNumber, string trending, string delete, string searchString, int? shopId)
         {
@@ -223,6 +226,51 @@ namespace MyProject.Web.Areas.Admin.Controllers
             catch
             {
                 return Json(new { result = false });
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetListGia(int id)
+        {
+            try
+            {
+                return Json(_appDbContext.GiaXes.Where(x => x.ProductId == id).ToList());
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public JsonResult GetGiaById(int id)
+        {
+            try
+            {
+                var listGia = _appDbContext.GiaXes.Where(x => x.ProductId == id);
+                return Json(listGia);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public JsonResult ThemGia(GiaXe model)
+        {
+            try
+            {
+                var compare = _appDbContext.GiaXes.Where(x => x.MauXe.ToLower() == model.MauXe.ToLower());
+                if(compare != null)
+                {
+                    return Json(new { result = false });
+                }
+                _appDbContext.GiaXes.Add(model);
+                _appDbContext.SaveChanges();
+                return Json(new { result = true });
+            }
+            catch
+            {
+                throw;
             }
         }
     }
