@@ -11,7 +11,7 @@ namespace MyProject.Data.Entities
         public int Id { get; set; }
         public string MauXe { get; set; }
         public decimal Gia { get; set; }
-        public int SanPhamId { get; set; }
+        public int ProductId { get; set; }
         public Product Product { get; set; }
     }
 }
