@@ -51,17 +51,24 @@ namespace MyProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "91ae4711-06ea-4cd9-b26e-ab950a9fa8e5",
-                            ConcurrencyStamp = "6aa0ad1f-697e-4e94-b28b-378e8290927f",
+                            Id = "851dab50-a24e-4c97-ac94-15ffad69c3de",
+                            ConcurrencyStamp = "8f42bd7b-a50b-481f-b62d-fa9dc1753540",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "279e1cf9-04bb-48e4-a6d2-12b68a3093b2",
-                            ConcurrencyStamp = "f78207ed-87e7-4525-9e47-0f842907b10a",
+                            Id = "60224f15-f72c-4676-a5b7-c1c24b832cbb",
+                            ConcurrencyStamp = "d59a095d-f38f-438b-b5ee-4eb33d760e4f",
                             Name = "User",
                             NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "7f9a1ed0-7380-4c16-894d-ad476a38fe49",
+                            ConcurrencyStamp = "cdade1bb-7734-42dd-acf3-b79d6c11ead4",
+                            Name = "Saler",
+                            NormalizedName = "SALER"
                         });
                 });
 
@@ -154,13 +161,13 @@ namespace MyProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "f0fee473-1e96-491c-9851-03fe30ed695f",
-                            RoleId = "279e1cf9-04bb-48e4-a6d2-12b68a3093b2"
+                            UserId = "c59c017c-0df2-4c9c-a10a-e8f879a47bac",
+                            RoleId = "60224f15-f72c-4676-a5b7-c1c24b832cbb"
                         },
                         new
                         {
-                            UserId = "deefce8e-3bff-415b-b195-2bbb9348b7f0",
-                            RoleId = "91ae4711-06ea-4cd9-b26e-ab950a9fa8e5"
+                            UserId = "3f8d6aed-385e-43d0-ab68-930aad5008af",
+                            RoleId = "851dab50-a24e-4c97-ac94-15ffad69c3de"
                         });
                 });
 
@@ -259,35 +266,35 @@ namespace MyProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f0fee473-1e96-491c-9851-03fe30ed695f",
+                            Id = "c59c017c-0df2-4c9c-a10a-e8f879a47bac",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "676fc632-eb38-4d2f-bce8-db65504a02ed",
+                            ConcurrencyStamp = "8293d805-a24d-49b8-a2cb-386a0a0aa84a",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user2@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2@HOTMAIL.COM",
                             NormalizedUserName = "USER2@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBsgpKSwyxEcl4GnbZXiWG/I4qdBH5zRpwu5zJRkuAAVOue6AsYaz+3kZ2MgJSfelQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOyGzSQCyFsQza4t81bVZUfSrMHg+Cpy68VqOQlrU69U001DFl0OismvEaJEUd8lEg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7172e0f7-d82c-48ce-b574-ef128a060ac0",
+                            SecurityStamp = "a70f7701-a272-4ff9-8bf0-0d5ee88a8a70",
                             TwoFactorEnabled = false,
                             UserName = "user2@hotmail.com"
                         },
                         new
                         {
-                            Id = "deefce8e-3bff-415b-b195-2bbb9348b7f0",
+                            Id = "3f8d6aed-385e-43d0-ab68-930aad5008af",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fd523f12-9503-4ae4-98b9-1d3f21d6b1f9",
+                            ConcurrencyStamp = "f5b16a7c-804b-4259-be81-66f8c1d4a711",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user3@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER3@HOTMAIL.COM",
                             NormalizedUserName = "USER3@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFV09dwc41G9g/c7+lDdvAmzBHTNqvN5LUQ7qI0rgoutYIHkcqfLHJDkghPZFEso7g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJsi61Llo73JgDhsm7unzw025HO2TbZhZWiFxosV30aAq6+/rSlIOf13IdQqCuroMg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0ab7bd5c-fb04-4d90-9bb4-971cc052e0d8",
+                            SecurityStamp = "839aff8c-becb-4f83-8604-c5686a3bac02",
                             TwoFactorEnabled = false,
                             UserName = "user3@hotmail.com"
                         });
@@ -300,6 +307,10 @@ namespace MyProject.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
@@ -452,29 +463,31 @@ namespace MyProject.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("date");
 
-                    b.Property<string>("ShipAddress")
+                    b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ShipEmail")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ShipName")
+                    b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ShipPhoneNumber")
+                    b.Property<string>("Type")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -494,13 +507,16 @@ namespace MyProject.Data.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("OrderId", "ProductId");
+                    b.HasKey("OrderId", "ProductId", "Color");
 
                     b.HasIndex("ProductId");
 

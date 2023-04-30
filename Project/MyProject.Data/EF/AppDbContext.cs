@@ -42,7 +42,8 @@ namespace MyProject.Data.EF
             List<IdentityRole> roles = new List<IdentityRole>()
             {
                 new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" },
-                new IdentityRole { Name = "User", NormalizedName = "USER" }
+                new IdentityRole { Name = "User", NormalizedName = "USER" },
+                new IdentityRole { Name = "Saler", NormalizedName = "SALER" }
             };
 
             modelBuilder.Entity<IdentityRole>().HasData(roles);

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MyProject.Data.EF;
 using MyProject.Data.Entities;
 using MyProject.ViewModel;
 using MyProject.Web.Models;
@@ -12,17 +14,20 @@ using System.Security.Claims;
 
 namespace MyProject.Web.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IReviewsAndWishListService _reviewService;
         private readonly IProductService _productService;
+        private readonly AppDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger, IReviewsAndWishListService reviewService, IProductService productService)
+        public HomeController(ILogger<HomeController> logger, IReviewsAndWishListService reviewService, IProductService productService, AppDbContext context)
         {
             _logger = logger;
             _reviewService = reviewService;
             _productService = productService;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -195,6 +200,19 @@ namespace MyProject.Web.Controllers
             {
                 return NotFound();
             }
+        }
+
+        public IActionResult SanPhamMua()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var list = _context.Orders.Where(x => x.UserId == userId).ToList();
+            return View(list);
+        }
+
+        public IActionResult ChiTietSanPham(int orderId)
+        {
+            var list = _context.OrderDetails.Where(x => x.OrderId == orderId).ToList();
+            return Json(list);
         }
     }
 }

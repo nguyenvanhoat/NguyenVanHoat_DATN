@@ -88,10 +88,10 @@
                         Trợ Giúp & Thông Tin
                     </h3>
                     <ul>
-                        <li>Địa chỉ: Số 176, Đường Quang Trung, Hà Đông, Hà Nội</li>
+                        <li>Địa chỉ: Tt Cồn, Hải Hậu Nam Định</li>
                         <li>Điện thoại: +84 968209396</li>
-                        <li>Email: cp_glasses@gmail.com</li>
-                        <li>www.facebook.com/giftshowhanoi</li>
+                        <li>Email: vhbike@gmail.com</li>
+                        <li>www.facebook.com/vhbike</li>
                     </ul>
 
                 </div>
@@ -100,10 +100,10 @@
                         Các thương hiệu nổi bật
                     </h3>
                     <ul>
-                        <li><a href="">Gucci</a></li>
-                        <li><a href="">Dior</a></li>
-                        <li><a href="">Chorme Heart</a></li>
-                        <li><a href="">Chanel</a></li>
+                        <li><a href="">Honda</a></li>
+                        <li><a href="">Yamaha</a></li>
+                        <li><a href="">SYM</a></li>
+                        <li><a href="">Suzuki</a></li>
                         <li><a href="">Bubbery</a></li>
                     </ul>
 
@@ -139,7 +139,7 @@
         </div>
 
         <div class="author">
-            Thiết kế 2022 © CP Glasses
+            Thiết kế 2023 © VH Bike
         </div>
         <div id="scroll_top">
             <a href="#top" onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-angle-up"></i></a>
@@ -177,16 +177,33 @@
             });
         }
 
-        function addToCard(id) {
+        function addToCard(id, mau, gia) {
             $.ajax({
                 type: "POST",
                 url: '/Cart/AddToCart',
                 data: {
-                    id: id
+                    id: id, 
+                    mau: mau,
+                    gia: gia
                 },
                 success: function (res) {
-                    console.log(res)
-                    $('#lbl_number_of_items_header').text(res.length);
+                    if(res.result == false){
+                        Swal.fire(
+                            'Sản phẩm đã có trong giỏ hàng!',
+                            '',
+                            'warning'
+                        )
+                    }
+                    else{
+                        $('#lbl_number_of_items_header').text(res.length);
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Thêm vào giỏ hàng thành công!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
                 },
                 error: function (err) {
                     console.log(err);

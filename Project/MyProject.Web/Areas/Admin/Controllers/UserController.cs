@@ -131,7 +131,7 @@ namespace MyProject.Web.Areas.Admin.Controllers
                 //_shopService.UpDateShop(model);
                 var userUpdate = await _userManager.FindByIdAsync(id);
                 userUpdate.DeleteAt = DateTime.Now;
-                await _userManager.UpdateAsync(userUpdate);
+                await _userManager.DeleteAsync(userUpdate);
                 return Json(new { result = true });
             }
             catch

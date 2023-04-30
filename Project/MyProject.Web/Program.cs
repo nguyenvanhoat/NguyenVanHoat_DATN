@@ -12,6 +12,11 @@ using Service.File;
 using Microsoft.AspNetCore.Builder;
 using MyProject.ViewModel;
 using MyProject.ActionFilter;
+using PrintService.Interface;
+using PrintService.Implement;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Net;
+using MyProject.Web.Authen;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -57,6 +62,7 @@ builder.Services.AddScoped<IChiTietPhieuNhapService, ChiTietPhieuNhapService>();
 builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IDatLichService, DatLichService>();
+builder.Services.AddScoped<IPrintService, PrintHelperService>();
 
 
 // add session
@@ -85,8 +91,17 @@ builder.Services.Configure<IdentityOptions>(options => {
     // Cấu hình đăng nhập.
     options.SignIn.RequireConfirmedEmail = false; // Cấu hình xác thực địa chỉ email (email phải tồn tại)
     options.SignIn.RequireConfirmedPhoneNumber = false; // Xác thực số điện thoại
+    
+});
+
+builder.Services.AddScoped<CookieAuthEvents>();
+
+builder.Services.ConfigureApplicationCookie(ops =>
+{
+    ops.EventsType = typeof(CookieAuthEvents);
 
 });
+
 
 //filter
 

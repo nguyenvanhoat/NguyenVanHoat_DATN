@@ -242,11 +242,12 @@ namespace MyProject.Web.Areas.Admin.Controllers
             }
         }
 
+        [HttpPost]
         public JsonResult GetGiaById(int id)
         {
             try
             {
-                var listGia = _appDbContext.GiaXes.Where(x => x.ProductId == id);
+                var listGia = _appDbContext.GiaXes.Where(x => x.ProductId == id).ToList();
                 return Json(listGia);
             }
             catch
@@ -257,21 +258,14 @@ namespace MyProject.Web.Areas.Admin.Controllers
 
         public JsonResult ThemGia(GiaXe model)
         {
-            try
+            var compare = _appDbContext.GiaXes.Where(x => x.MauXe.ToLower() == model.MauXe.ToLower() && x.ProductId == model.ProductId).ToList();
+            if (compare.Count() != 0)
             {
-                var compare = _appDbContext.GiaXes.Where(x => x.MauXe.ToLower() == model.MauXe.ToLower());
-                if(compare != null)
-                {
-                    return Json(new { result = false });
-                }
-                _appDbContext.GiaXes.Add(model);
-                _appDbContext.SaveChanges();
-                return Json(new { result = true });
+                return Json(new { result = false });
             }
-            catch
-            {
-                throw;
-            }
+            _appDbContext.GiaXes.Add(model);
+            _appDbContext.SaveChanges();
+            return Json(new { result = true });
         }
     }
 }

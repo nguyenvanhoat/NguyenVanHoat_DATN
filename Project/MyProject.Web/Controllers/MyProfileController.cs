@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyProject.Data.Entities;
 using MyProject.ViewModel;
@@ -17,6 +18,8 @@ namespace MyProject.Web.Controllers
         [Required(ErrorMessage = "Username không được để trống")]
         public string UserName { get; set; }
     }
+
+    [AllowAnonymous]
     public class MyProfileController : Controller
     {
         private readonly IUserService _userService;

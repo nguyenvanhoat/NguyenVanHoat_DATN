@@ -11,7 +11,7 @@
 }
 
 main {
-    margin-top: 100px;
+    margin-top: 0px;
 }
 
 header {
@@ -23,10 +23,10 @@ header {
     line-height: 50px;
     font-size: 20px;
     align-items: center;
-    position: fixed;
-    top: 0;
+    /*position: fixed;
+    top: 0;*/
     z-index: 100;
-    background-color: rgba(255, 255, 255, 0.945);
+    background-color: rgba(207,175,46,255);
 }
 
 .logo {
@@ -1624,6 +1624,10 @@ th {
             display: block;
         }
 
+        .form-wizard .wizard-fieldset.hide {
+            display: none;
+        }
+
     .form-wizard .wizard-form-error {
         display: none;
         background-color: #d70b0b;
@@ -1723,7 +1727,6 @@ th {
             .form-wizard .form-wizard-steps li.activated::after {
                 background-color: #ff871d;
                 left: 50%;
-                width: 50%;
                 border-color: #ff871d;
             }
 
@@ -1770,4 +1773,12 @@ th {
 .thanks {
     text-align: center;
     color: #1e1e1e;
+}
+
+.form-floating .error{
+    margin-top: 20px;
+}
+
+.form-floating > label{
+    top: -5px;
 }

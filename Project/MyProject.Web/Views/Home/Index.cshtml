@@ -1,8 +1,10 @@
-﻿@using Service.Interface
+﻿@using MyProject.Data.EF
+@using Service.Interface
 @using System.Globalization
 @using System.Security.Claims
 @inject IProductService productService
 @inject IReviewsAndWishListService reviewService
+@inject AppDbContext context
 @{
     ViewData["Title"] = "Trang chủ";
     var list = productService.GetProduct();
@@ -30,57 +32,57 @@
                     <div class="banner_title">
                         <h1>Xe Máy thời thượng</h1>
                         <h3>
-                            Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                            Khám phá bộ sưu tập theo phong cách của biểu tượng mới
                             <br>
-                            Issa trong chiến dịch mùa mới của chúng tôi.
+                            Honda trong chiến dịch mùa mới của chúng tôi.
                         </h3>
                     </div>
                     <a href=""><button class="buy">Mua Ngay</button></a>
                 </div>
-                <img src="~/user/images/banner/banner4.jpg" alt="Los Angeles" class="d-block">
+                <img src="~/user/images/banner/banner0.png" alt="Los Angeles" class="d-block">
             </div>
             <div class="carousel-item">
                 <div class="banner_detail">
                     <div class="banner_title">
-                        <h1>Kính râm thời trang</h1>
+                        <h1>Yamaha</h1>
                         <h3>
-                            Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                            Hãy đến ngay với chúng tôi
                             <br>
-                            Issa trong chiến dịch mùa mới của chúng tôi.
+                            Xe máy Việt Hương
                         </h3>
                     </div>
                     <a href=""><button class="buy">Mua Ngay</button></a>
                 </div>
-                <img src="~/user/images/banner/banner01.jpg" alt="Chicago" class="d-block">
+                <img src="~/user/images/banner/banner1.jpg" alt="Chicago" class="d-block">
             </div>
             <div class="carousel-item">
                 <div class="banner_detail">
                     <div class="banner_title">
-                        <h1>Kính râm thời trang</h1>
+                        <h1>Honda</h1>
                         <h3>
-                            Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                            Hãy đến ngay với chúng tôi
                             <br>
-                            Issa trong chiến dịch mùa mới của chúng tôi.
+                            Xe máy Việt Hương
                         </h3>
                     </div>
                     <a href=""><button class="buy">Mua Ngay</button></a>
                 </div>
-                <img src="~/user/images/banner/banner03.jpg" alt="New York" class="d-block">
+                <img src="~/user/images/banner/banner0.png" alt="New York" class="d-block">
             </div>
 
             <div class="carousel-item">
                 <div class="banner_detail">
                     <div class="banner_title">
-                        <h1>Kính râm thời trang</h1>
+                        <h1>Suzuki</h1>
                         <h3>
-                            Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                            Hãy đến ngay với chúng tôi
                             <br>
-                            Issa trong chiến dịch mùa mới của chúng tôi.
+                            Xe máy Việt Hương
                         </h3>
                     </div>
                     <a href=""><button class="buy">Mua Ngay</button></a>
                 </div>
-                <img src="~/user/images/banner/banner2.jpg" alt="New York" class="d-block">
+                <img src="~/user/images/banner/banner1.jpg" alt="New York" class="d-block">
             </div>
         </div>
 
@@ -121,7 +123,23 @@
 
                         </div>
                         <div class="price">
-                            @item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ
+                            @{
+                                var listGia = context.GiaXes.Where(x => x.ProductId == item.Id).OrderBy(x => x.Gia).ToList();
+                            }
+                            @if(listGia.Count() < 2){
+                                if(listGia.Count() == 1){
+                                    <p>@listGia.FirstOrDefault().Gia.ToString("N00", new CultureInfo("en-us"))</p>
+                                }
+                                else{
+                                    <p>Giá chưa cập nhật</p>
+                                }
+                            }
+                            else{
+                                <p>
+                                    @listGia.FirstOrDefault().Gia.ToString("N00", new CultureInfo("en-us")) - @listGia.LastOrDefault().Gia.ToString("N00", new CultureInfo("en-us"))VNĐ
+                                </p>
+                            }
+                            
                         </div>
                         <div class="d-flex justify-content-center">
                             <p>@item.Views <i class="fa-solid fa-eye"></i></p>
@@ -248,21 +266,6 @@
                     </div>
 
                 }
-                @*<div class="glass col-lg-3 col-6">
-                <img src="~/user/images/glasses/glass1.jpg" alt="">
-                <div class="glass_name">
-                <a href="">Kính râm Linemai K304</a>
-                </div>
-                <div class="price">
-                850.000 VND
-                </div>
-                <div class="glass_icon_action">
-                <button class="btn-search"><i class="fa fa-search"></i></button>
-                <a href="#"><i class="fa fa-heart"></i></a>
-                <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                </div>
-
-                </div>*@
 
             </div>
         </div>
@@ -327,7 +330,7 @@
 </div>
 }
 
-<div class="container category">
+@*<div class="container category">
     <div class="title">
         <h2>Danh Mục Sản Phẩm</h2>
     </div>
@@ -374,8 +377,8 @@
             </div>
         </div>
     </div>
-</div>
-<div class="container">
+</div>*@
+@*<div class="container">
     <div class="brand-slider h-100">
         <div class="row align-items-center h-100">
             <div class="container rounded">
@@ -403,7 +406,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 @section Scripts{
     <script>

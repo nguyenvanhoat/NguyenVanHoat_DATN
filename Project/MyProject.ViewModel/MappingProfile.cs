@@ -18,6 +18,8 @@ namespace MyProject.ViewModel
             CreateMap<Medias, MediasDTO>().ReverseMap();
             CreateMap<Reviews, ReviewsDTO>().ReverseMap();
             //CreateMap<WishList, WishListDTO>().ReverseMap();
+            CreateMap<Order, OrderDTO>().ReverseMap();
+            CreateMap<OrderDetail, OrderDetailDTO>().ReverseMap();
         }
     }
 }
