@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyProject.Data.EF;
 using MyProject.Data.Entities;
 using MyProject.Data.Enum;
@@ -7,6 +8,7 @@ using MyProject.ViewModel;
 using Service;
 using Service.Implement;
 using Service.Interface;
+using System.Data;
 using System.Drawing.Printing;
 using System.Linq.Expressions;
 
@@ -14,6 +16,7 @@ namespace MyProject.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("admin/[controller]/[action]")]
+    [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
         private readonly IMediasService _mediasService;

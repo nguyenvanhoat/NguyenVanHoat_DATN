@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Service.Implement;
 using Service.Interface;
+using System.Data;
 using System.Globalization;
 
 namespace MyProject.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("admin/[controller]/[action]")]
+    [Authorize(Roles = "Admin")]
     public class ReviewController : Controller
     {
         private readonly IReviewsAndWishListService _reviewService;

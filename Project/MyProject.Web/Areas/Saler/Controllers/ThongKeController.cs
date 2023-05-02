@@ -4,12 +4,11 @@ using System.Data;
 
 namespace MyProject.Web.Areas.Saler.Controllers
 {
-    [Authorize(Roles = "Saler")]
     [Area("Saler")]
     [Route("saler/[controller]/[action]")]
-    public class HomeController : Controller
+    [Authorize(Roles = "Saler")]
+    public class ThongKeController : Controller
     {
-        
         public IActionResult Index()
         {
             return View();

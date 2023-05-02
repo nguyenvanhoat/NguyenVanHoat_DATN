@@ -14,6 +14,7 @@ namespace MyProject.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("admin/[controller]/[action]")]
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;

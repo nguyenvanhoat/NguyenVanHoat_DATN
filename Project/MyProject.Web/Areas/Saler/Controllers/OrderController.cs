@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyProject.Data.EF;
 using PrintService.Interface;
 using Service.Implement;
 using Service.Interface;
+using System.Data;
 
 namespace MyProject.Web.Areas.Saler.Controllers
 {
     [Area("Saler")]
     [Route("saler/[controller]/[action]")]
+    [Authorize(Roles = "Saler")]
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;

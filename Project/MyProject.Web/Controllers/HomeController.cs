@@ -204,15 +204,22 @@ namespace MyProject.Web.Controllers
 
         public IActionResult SanPhamMua()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var list = _context.Orders.Where(x => x.UserId == userId).ToList();
-            return View(list);
+            return View();
         }
 
         public IActionResult ChiTietSanPham(int orderId)
         {
             var list = _context.OrderDetails.Where(x => x.OrderId == orderId).ToList();
             return Json(list);
+        }
+
+        public IActionResult Huy(int id)
+        {
+            //var list = _context.OrderDetails.Where(x => x.OrderId == orderId).ToList();
+            var order = _context.Orders.Where(x => x.Id == id).FirstOrDefault();
+            order.Status = "Huy";
+            _context.SaveChanges();
+            return Json(true);
         }
     }
 }

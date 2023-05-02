@@ -12,6 +12,7 @@ namespace MyProject.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("admin/[controller]/[action]")]
+    [Authorize(Roles = "Admin")]
     public class ShopController : Controller
     {
         private readonly int pageSize;
