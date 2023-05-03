@@ -235,7 +235,27 @@
                             <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
                         </div>
                         <div class="price">
-                            @item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ
+                            @{
+                                var listGia = context.GiaXes.Where(x => x.ProductId == item.Id).OrderBy(x => x.Gia).ToList();
+                            }
+                            @if (listGia.Count() < 2)
+                            {
+                                if (listGia.Count() == 1)
+                                {
+                                    <p>@listGia.FirstOrDefault().Gia.ToString("N00", new CultureInfo("en-us"))</p>
+                                }
+                                else
+                                {
+                                    <p>Giá chưa cập nhật</p>
+                                }
+                            }
+                            else
+                            {
+                                <p>
+                                    @listGia.FirstOrDefault().Gia.ToString("N00", new CultureInfo("en-us")) - @listGia.LastOrDefault().Gia.ToString("N00", new CultureInfo("en-us"))VNĐ
+                                </p>
+                            }
+
                         </div>
                         <div class="d-flex justify-content-center">
                             <p>@item.Views <i class="fa-solid fa-eye"></i></p>
@@ -292,7 +312,27 @@
                                 <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
                             </div>
                             <div class="price">
-                                @item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ
+                                @{
+                                    var listGia = context.GiaXes.Where(x => x.ProductId == item.Id).OrderBy(x => x.Gia).ToList();
+                                }
+                                @if (listGia.Count() < 2)
+                                {
+                                    if (listGia.Count() == 1)
+                                    {
+                                        <p>@listGia.FirstOrDefault().Gia.ToString("N00", new CultureInfo("en-us"))</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Giá chưa cập nhật</p>
+                                    }
+                                }
+                                else
+                                {
+                                    <p>
+                                        @listGia.FirstOrDefault().Gia.ToString("N00", new CultureInfo("en-us")) - @listGia.LastOrDefault().Gia.ToString("N00", new CultureInfo("en-us"))VNĐ
+                                    </p>
+                                }
+
                             </div>
                             <div class="d-flex justify-content-center">
                                 <p>@item.Views <i class="fa-solid fa-eye"></i></p>

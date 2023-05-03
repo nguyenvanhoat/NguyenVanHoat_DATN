@@ -17,8 +17,8 @@ namespace MyProject.Data.Configuration
             builder.HasKey(x => new { x.UserId, x.ProductId });
             builder.Property(x => x.Viewd).HasDefaultValue(false);
             builder.Property(x => x.ReviewsDetails).HasColumnType("ntext").IsRequired(false);
-            builder.HasOne(x => x.User).WithMany(x => x.Reviews).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(x => x.Product).WithMany(x => x.Reviews).HasForeignKey(x => x.ProductId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(x => x.User).WithMany(x => x.Reviews).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.Product).WithMany(x => x.Reviews).HasForeignKey(x => x.ProductId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
