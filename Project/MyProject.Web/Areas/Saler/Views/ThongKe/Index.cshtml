@@ -9,6 +9,9 @@
     int tk = context.Users.ToList().Count();
 }
 <div class="row">
+    <div class="col-12">
+        <h1>Thống kê</h1>
+    </div>
     <div class="col-lg-3 col-6">
         <!-- small box -->
         <div class="small-box bg-info">
@@ -70,4 +73,106 @@
     </div>
     <!-- ./col -->
 </div>
+
+<div class="row">
+    <div class="col-12">
+        <h1>Xuất báo cáo</h1>
+    </div>
+</div>
+<form id="baocao">
+<div class="row">
+    
+        <div class="col-5">
+            <label for="start" class="form-label">Ngày bắt đầu</label>
+            <input type="date" class="form-control" id="start" name="start" aria-describedby="emailHelp">
+        </div>
+        <div class="col-5">
+            <label for="end" class="form-label">Ngày kết thúc</label>
+            <input type="date" class="form-control" id="end" name="end" aria-describedby="emailHelp">
+        </div>
+        <div class="col-2">
+            <input type="button" class="btn btn-info" id="xuat" value="Xuất báo cáo" style="margin-top: 32px" aria-describedby="emailHelp">
+        </div>
+    
+</div>
+</form>
+
+<div id="pdf" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+                <embed src="~/outputBaoCao.pdf"
+                       frameborder="0" width="100%" height="400px" id="file-pdf">
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            $.validator.addMethod("moreThan", function (value, element) {
+                return $(element).val() >= $("#start").val();
+            }, "Ngày kết thúc phải lớn hơn ngày bắt đầu");
+
+            $.validator.addMethod("lessThanToday", function (value, element) {
+                return new Date($(element).val()) <= new Date();
+            }, "Ngày không được lớn hơn ngày hôm nay");
+
+            $("#baocao").validate({
+                rules : {
+                    start: {
+                        required: true,
+                        lessThanToday: true
+                    },
+                    end : {
+                        lessThanToday: true,
+                        moreThan: true,
+                        required: true
+                    }
+                },
+                messages: {
+                    start: {
+                        required: "Vui lòng nhập ngày bắt đầu!"
+                    },
+                    end: {
+                        required: "Vui lòng nhập ngày kết thúc!"
+                    }
+                }
+            })
+
+            $("#xuat").click(function(){
+                if ($("#baocao").valid()){
+                    let rs = $.redirect(
+                        "/saler/ThongKe/BaoCao",
+                        { start: $("#start").val(), end: $("#end").val() },
+                        "POST",
+                    )
+                    //$.ajax({
+                    //    type: "POST",
+                    //    url: "/saler/ThongKe/BaoCao",
+                    //    data: {start: $("#start").val(), end: $("#end").val()}
+                    //})s
+                }
+            })
+
+            let check = '@TempData["Xuat"]';
+            if (check.length > 0){
+                $("#pdf").modal("show");
+            }
+        })
+   </script>
+}
+
+
 

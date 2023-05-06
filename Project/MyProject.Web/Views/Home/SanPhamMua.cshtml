@@ -22,12 +22,12 @@
             $(".huy").click(async function(){
                 const { value: text } = await Swal.fire({
                     input: 'textarea',
-                    inputLabel: 'Message',
-                    inputPlaceholder: 'Type your message here...',
+                    inputLabel: 'Lý do',
+                    inputPlaceholder: 'Nhập lý do mà bạn muốn hủy đơn hàng...',
                     inputAttributes: {
                         'aria-label': 'Type your message here'
                     },
-                    showCancelButton: true
+                    showCancelButton: false
                 })
 
                 if (!text) {

@@ -9,5 +9,6 @@ namespace PrintService.Interface
     public interface IPrintService
     {
         public void Print(int orderId);
+        public void PrintBaoCao(DateTime start, DateTime end);
     }
 }
