@@ -472,7 +472,7 @@
                             Swal.fire({
                                 position: 'center',
                                 icon: 'success',
-                                title: 'Thêm WishList thành công',
+                                title: 'Thêm yêu thích thành công',
                                 showConfirmButton: false,
                                 timer: 2500
                             });
@@ -491,7 +491,7 @@
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: 'Đồng ý!'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
@@ -504,7 +504,7 @@
                                 if (!response.result) {
                                     Swal.fire({
                                         icon: 'error',
-                                        title: 'Oops...',
+                                        title: 'Đã xảy ra lỗi...',
                                         text: response.mess,
 
                                     })
@@ -512,7 +512,7 @@
                                 else {
                                     Swal.fire(
                                         'Deleted!',
-                                        'Đã Xóa Sản Phẩm Khỏi WishList',
+                                        'Đã Xóa Sản Phẩm Khỏi Yêu Thích',
                                         'success'
                                     )
                                     setTimeout(() => location.href = '@Url.Action("Index", "Home")', 2000);
