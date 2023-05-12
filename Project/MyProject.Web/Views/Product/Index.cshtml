@@ -111,10 +111,18 @@
 <div class="container mt-4">
     <div class="tabs">
         <div class="tab-2">
-            <label for="tab2-1">Đánh giá sản phẩm</label>
+            <label for="tab2-1">Thông số kỹ thuật</label>
             <input id="tab2-1" name="tabs-two" type="radio" checked="checked">
+            <div id="thongso">
+               @* @Model.ProductDetails*@
+                @Html.Raw(Model.ProductDetails)
+            </div>
+        </div>
+        <div class="tab-2" @*@(check ? "" : "hidden")*@>
+            <label for="tab2-2">Đánh Giá Sản Phẩm</label>
+            <input id="tab2-2" name="tabs-two" type="radio">
             <div>
-                <div class="row">
+                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                             @foreach (var item in listReview)
@@ -168,13 +176,6 @@
 
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="tab-2" @*@(check ? "" : "hidden")*@>
-            <label for="tab2-2">Viết Đánh Giá Sản Phẩm</label>
-            <input id="tab2-2" name="tabs-two" type="radio">
-            <div>
-
                 <div class="mb-3">
                     <textarea class="form-control" id="review" rows="3"></textarea>
                 </div>
@@ -183,7 +184,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
 </div>
@@ -222,6 +222,10 @@
         cartController.initialize();
     </script>
     <script>
+        var stringToHTML = function (str) {
+            var d = $(str);
+            return d;
+        }
         var cur = function (amt) {
             return Intl.NumberFormat('en-US', { style: "currency", currency: "VND" }).format(amt);
         };
@@ -233,6 +237,8 @@
         });
 
         $(document).ready(function () {
+             //$("#thongso").html(`${@Model.ProductDetails}`);
+            //thongSo.innerHTML = @Model.ProductDetails
             $(".gia").first().addClass("btn-success text-white")
             $("#gia-xe").text(cur($($(".gia").first()).attr("data-gia")));
             $("#btn-mua").attr("data-gia", $($(".gia").first()).attr("data-gia"));

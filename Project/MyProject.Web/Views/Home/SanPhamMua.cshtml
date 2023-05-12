@@ -98,16 +98,22 @@
                                                 <tr>
                                                     <td>@item.OrderDate.ToString("dd/MM/yyyy")</td>
                                                     <td>
-                                                        @{
-                                                            var listDetails = _context.OrderDetails.Where(x => x.OrderId == item.Id).ToList();
-                                                                                            @foreach (var i in listDetails)
-                                                                {
-                                                                        var detail = _context.Products.Where(x => x.Id == i.ProductId).FirstOrDefault();
-                                                                                                <span>@detail.ProductName, </span>
-                                                                }
+                                                        <a class="btn btn-primary btn-print" data-id="@item.Id" @*asp-action="Print" asp-route-id="@item.Id"*@>Xem hóa đơn</a>
+                                                    </td>
+                                                    <td>
+                                                        @if (item.Status == "NEW")
+                                                        {
+                                                            <p>Đang chờ xử lý</p>
+                                                        }
+                                                        else if (item.Status == "Huy")
+                                                        {
+                                                            <p>Đã hủy</p>
+                                                        }
+                                                        else
+                                                        {
+                                                            <p>Đã mua hàng</p>
                                                         }
                                                     </td>
-                                                    <td>@item.Status</td>
                                                     <td>
                                                         @if(item.Status == "NEW"){
                                                             <button class="btn btn-danger huy" data-id="@item.Id">Hủy</button>
@@ -221,3 +227,40 @@
         </div>
     </section>
 </main>
+
+<div id="pdf" class="modal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông tin đơn hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <embed src="~/output.pdf"
+                       frameborder="0" width="100%" height="400px" id="file-pdf">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function(){
+        $(".btn-print").click(function () {
+            let rs = $.redirect(
+                "/Home/Print",
+                { id: $(this).data("id") },
+                "POST",
+            )
+
+        })
+        let check = '@TempData["Contain"]';
+        if (check.length > 0) {
+            $("#pdf").modal("show");
+        }
+    })
+</script>

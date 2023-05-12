@@ -4,6 +4,7 @@ using MyProject.Data.EF;
 using MyProject.Data.Entities;
 using MyProject.ViewModel;
 using MyProject.Web.Models;
+using PrintService.Interface;
 using Service;
 using Service.Implement;
 using Service.Interface;
@@ -21,13 +22,15 @@ namespace MyProject.Web.Controllers
         private readonly IReviewsAndWishListService _reviewService;
         private readonly IProductService _productService;
         private readonly AppDbContext _context;
+        private readonly IPrintService _printService;
 
-        public HomeController(ILogger<HomeController> logger, IReviewsAndWishListService reviewService, IProductService productService, AppDbContext context)
+        public HomeController(ILogger<HomeController> logger, IReviewsAndWishListService reviewService, IProductService productService, AppDbContext context, IPrintService printService)
         {
             _logger = logger;
             _reviewService = reviewService;
             _productService = productService;
             _context = context;
+            _printService = printService;
         }
 
         public IActionResult Index()
@@ -220,6 +223,14 @@ namespace MyProject.Web.Controllers
             order.Status = "Huy";
             _context.SaveChanges();
             return Json(true);
+        }
+
+        [HttpPost]
+        public IActionResult Print(int id)
+        {
+            _printService.Print(id);
+            TempData["Contain"] = "Contain";
+            return RedirectToAction("SanPhamMua");
         }
     }
 }

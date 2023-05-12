@@ -38,6 +38,7 @@ namespace MyProject.Web.Controllers
                 {
                     _reviewsAndWishListService.Viewed(userId, id);
                 }
+                //product.ProductDetails = product.ProductDetails.Replace(product.ProductDetails, product.ProductDetails);
                 return View(product);
             }
             catch
