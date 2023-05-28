@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyProject.Data.EF;
 using Service.Implement;
 using Service.Interface;
+using System.Data;
 using System.Threading.Tasks.Dataflow;
 
 namespace MyProject.Web.Areas.Saler.Controllers
 {
+    [Authorize(Roles = "Saler")]
     [Area("Saler")]
     [Route("saler/[controller]/[action]")]
     public class LichHenController : Controller

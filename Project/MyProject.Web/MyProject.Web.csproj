@@ -27,6 +27,7 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\img\" />
+    <Folder Include="wwwroot\HoaDon\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +35,7 @@
     <ProjectReference Include="..\MyProject.Data\MyProject.Data.csproj" />
     <ProjectReference Include="..\MyProject.Utilities\MyProject.Utilities.csproj" />
     <ProjectReference Include="..\MyProject.ViewModel\MyProject.ViewModel.csproj" />
+    <ProjectReference Include="..\PrintService\PrintService.csproj" />
     <ProjectReference Include="..\Service\Service.csproj" />
   </ItemGroup>
 

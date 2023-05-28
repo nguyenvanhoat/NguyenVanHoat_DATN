@@ -12,11 +12,13 @@ namespace MyProject.ViewModel
         public int Id { get; set; }
         public DateTime OrderDate { get; set; }
         public string? UserId { get; set; }
-        public string ShipName { set; get; }
-        public string ShipAddress { set; get; }
-        public string ShipEmail { set; get; }
-        public string ShipPhoneNumber { set; get; }
+        public string Name { get; set; }
+        public string Address { set; get; }
+        public string PhoneNumber { set; get; }
+        public string Type { get; set; }
+        public string Status { get; set; }
+        public string? Reason { get; set; }
+        public ICollection<OrderDetail> OrderDetails { get; set; }
         public AppUser? User { get; set; }
-        public List<OrderDetail> OrderDetails { get; set; }
     }
 }

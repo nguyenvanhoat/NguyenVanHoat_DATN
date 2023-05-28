@@ -2749,7 +2749,7 @@ textarea.form-control-lg {
 
 .form-floating>label {
     position: absolute;
-    top: 0;
+    top: -5px;
     left: 0;
     height: 100%;
     padding: 1rem .75rem;

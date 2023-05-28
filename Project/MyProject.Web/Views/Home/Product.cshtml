@@ -1,9 +1,11 @@
-﻿@using Service
+﻿@using MyProject.Data.EF
+@using Service
 @using System.Security.Claims
 @using Service.Interface
 @using System.Globalization
 @inject IReviewsAndWishListService reviewService
 @inject IShopService shopService
+@inject AppDbContext context
 
 @model PagedResult<MyProject.ViewModel.ProductDTO>
 
@@ -22,11 +24,6 @@
 
 <div class="container">
     <div class="d-flex">
-        <select class="form-select m-2" aria-label="Default select example" id="filter-by-trending">
-            <option value="">Lọc Theo Xu Hướng</option>
-            <option value="true">Xu Hướng</option>
-            <option value="false">Thường</option>
-        </select>
         <input type="text" class="form-control m-2" id="searchString" placeholder="Tìm kiếm theo tên" value="@ViewBag.SearchString">
         <input type="text" class="form-control m-2" id="min" placeholder="Giá Thấp Nhất" value="@ViewBag.Min">
         <input type="text" class="form-control m-2" id="max" placeholder="Giá Cao Nhất" value="@ViewBag.Max">
@@ -61,7 +58,27 @@
                             <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
                         </div>
                         <div class="price">
-                            @item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ
+                            @{
+                                var listGia = context.GiaXes.Where(x => x.ProductId == item.Id).OrderBy(x => x.Gia).ToList();
+                            }
+                            @if (listGia.Count() < 2)
+                            {
+                                if (listGia.Count() == 1)
+                                {
+                                    <p>@listGia.FirstOrDefault().Gia.ToString("N00", new CultureInfo("en-us"))</p>
+                                }
+                                else
+                                {
+                                    <p>Giá chưa cập nhật</p>
+                                }
+                            }
+                            else
+                            {
+                                <p>
+                                    @listGia.FirstOrDefault().Gia.ToString("N00", new CultureInfo("en-us")) - @listGia.LastOrDefault().Gia.ToString("N00", new CultureInfo("en-us"))VNĐ
+                                </p>
+                            }
+
                         </div>
                         <div class="glass_icon_action">
                             <button class="btn-search"><i class="fa fa-search"></i></button>

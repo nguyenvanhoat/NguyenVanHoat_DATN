@@ -4,9 +4,15 @@ using MyProject.Data.Entities;
 using MyProject.ViewModel;
 using Newtonsoft.Json;
 using Service.Interface;
+using Microsoft.AspNetCore.Http;
+using System.Text.Json;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
+using Microsoft.Build.Evaluation;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyProject.Web.Controllers
 {
+    [AllowAnonymous]
     public class CartController : Controller
     {
         private readonly IProductService _productService;
@@ -43,11 +49,21 @@ namespace MyProject.Web.Controllers
             {
                 var order = JsonConvert.DeserializeObject<OrderDTO>(model);
 
-                if (User.Identity.IsAuthenticated)
-                {
-                    order.UserId = _userManager.GetUserId(HttpContext.User);
-                }
+                order.OrderDate = DateTime.Now;
 
+
+
+                var id = _userManager.GetUserId(HttpContext.User);
+
+                if (id == null)
+                {
+                    return Json(new
+                    {
+                        status = false
+                    });
+                }
+                order.UserId = id;
+                order.Status = "NEW";
                 var session = HttpContext.Session.GetString(CartSession);
                 List<CartDTO> currentCart = new List<CartDTO>();
                 if (session != null)
@@ -58,15 +74,14 @@ namespace MyProject.Web.Controllers
                 var orderDetails = new OrderDetailDTO();
                 foreach (var item in currentCart)
                 {
-                    orderDetails.OrderID = c;
-                    orderDetails.ProductID = item.ProductId;
+                    orderDetails.OrderId = c;
+                    orderDetails.ProductId = item.ProductId;
                     orderDetails.Quantity = item.Quantity;
                     orderDetails.Price = item.Price;
-
+                    orderDetails.Color = item.Color;
                     _orderDetailService.Create(orderDetails);
 
                 }
-
                 return Json(new
                 {
                     status = true
@@ -74,30 +89,16 @@ namespace MyProject.Web.Controllers
             }
             catch
             {
-                return Json(new
-                {
-                    status = false
-                });
+                throw;
             }
 
         }
 
-        public IActionResult GetUser()
+        public UserDTO GetUser()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = _userManager.GetUserId(HttpContext.User);
-                var user = _userService.GetUserById(userId);
-                return Json(new
-                {
-                    data = user,
-                    status = true
-                });
-            }
-            return Json(new
-            {
-                status = false
-            });
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var user = _userService.GetUserById(userId);
+            return user;
         }
 
         [HttpGet]
@@ -111,7 +112,7 @@ namespace MyProject.Web.Controllers
             }
             return Ok(currentCart);
         }
-        public IActionResult AddToCart(int id)
+        public IActionResult AddToCart(int id, string mau, decimal gia)
         {
             var product = _productService.GetProductById(id);
             var session = HttpContext.Session.GetString(CartSession);
@@ -120,10 +121,10 @@ namespace MyProject.Web.Controllers
             {
                 currentCart = JsonConvert.DeserializeObject<List<CartDTO>>(session);
             }
-            var cartitem = currentCart.Find(x => x.ProductId == id);
+            var cartitem = currentCart.Find(x => x.ProductId == id && x.Color == mau);
             if (cartitem != null)
             {
-                cartitem.Quantity++;
+                return Json(new { result = false });
             }
             else
             {
@@ -133,8 +134,9 @@ namespace MyProject.Web.Controllers
                     Description = product.ProductDetails,
                     Image = product.Thumbnail,
                     Name = product.ProductName,
-                    Price = product.Price,
+                    Price = gia,
                     Quantity = 1,
+                    Color = mau
                 };
                 currentCart.Add(cart);
             }
@@ -142,6 +144,31 @@ namespace MyProject.Web.Controllers
             return Ok(currentCart);
 
         }
+
+        public IActionResult RemoveItem(int id, string mau)
+        {
+            var session = HttpContext.Session.GetString(CartSession);
+            List<CartDTO> currentCart = new List<CartDTO>();
+            if (session != null)
+            {
+                currentCart = JsonConvert.DeserializeObject<List<CartDTO>>(session);
+            }
+            foreach (var item in currentCart)
+            {
+                if (item.ProductId == id)
+                {
+                    if (item.Color == mau)
+                    {
+                        currentCart.Remove(item);
+                        break;
+                    }
+                }
+            }
+            HttpContext.Session.SetString(CartSession, JsonConvert.SerializeObject(currentCart));
+            return Ok(currentCart);
+            //return Json(new { result = true });
+        }
+
         public IActionResult UpdateCart(int id, int quantity)
         {
             var session = HttpContext.Session.GetString(CartSession);

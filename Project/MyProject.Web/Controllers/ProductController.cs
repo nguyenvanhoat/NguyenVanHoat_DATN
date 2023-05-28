@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyProject.ActionFilter;
 using MyProject.Data.EF;
 using MyProject.Data.Entities;
@@ -9,6 +10,7 @@ using System.Security.Claims;
 
 namespace MyProject.Web.Controllers
 {
+    [AllowAnonymous]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
@@ -36,6 +38,7 @@ namespace MyProject.Web.Controllers
                 {
                     _reviewsAndWishListService.Viewed(userId, id);
                 }
+                //product.ProductDetails = product.ProductDetails.Replace(product.ProductDetails, product.ProductDetails);
                 return View(product);
             }
             catch

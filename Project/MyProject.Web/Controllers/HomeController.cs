@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MyProject.Data.EF;
 using MyProject.Data.Entities;
 using MyProject.ViewModel;
 using MyProject.Web.Models;
+using PrintService.Interface;
 using Service;
 using Service.Implement;
 using Service.Interface;
@@ -12,17 +15,22 @@ using System.Security.Claims;
 
 namespace MyProject.Web.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IReviewsAndWishListService _reviewService;
         private readonly IProductService _productService;
+        private readonly AppDbContext _context;
+        private readonly IPrintService _printService;
 
-        public HomeController(ILogger<HomeController> logger, IReviewsAndWishListService reviewService, IProductService productService)
+        public HomeController(ILogger<HomeController> logger, IReviewsAndWishListService reviewService, IProductService productService, AppDbContext context, IPrintService printService)
         {
             _logger = logger;
             _reviewService = reviewService;
             _productService = productService;
+            _context = context;
+            _printService = printService;
         }
 
         public IActionResult Index()
@@ -195,6 +203,34 @@ namespace MyProject.Web.Controllers
             {
                 return NotFound();
             }
+        }
+
+        public IActionResult SanPhamMua()
+        {
+            return View();
+        }
+
+        public IActionResult ChiTietSanPham(int orderId)
+        {
+            var list = _context.OrderDetails.Where(x => x.OrderId == orderId).ToList();
+            return Json(list);
+        }
+
+        public IActionResult Huy(int id)
+        {
+            //var list = _context.OrderDetails.Where(x => x.OrderId == orderId).ToList();
+            var order = _context.Orders.Where(x => x.Id == id).FirstOrDefault();
+            order.Status = "Huy";
+            _context.SaveChanges();
+            return Json(true);
+        }
+
+        [HttpPost]
+        public IActionResult Print(int id)
+        {
+            _printService.Print(id);
+            TempData["Contain"] = "Contain";
+            return RedirectToAction("SanPhamMua");
         }
     }
 }

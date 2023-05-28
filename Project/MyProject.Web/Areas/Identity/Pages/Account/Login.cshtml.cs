@@ -88,6 +88,24 @@ namespace MyProject.Web.Areas.Identity.Pages.Account
                 //var result = await _signInManager.SignInAsync(user, isPersistent: false);
                 if (result.Succeeded)
                 {
+                    //var userName = _userManager.GetUserName(User);
+                    var currentUser = _userManager.Users.FirstOrDefault(u => u.UserName == Input.UserName);
+                    if (currentUser != null)
+                    {
+                        var checkRole = await _userManager.IsInRoleAsync(currentUser, "Admin");
+
+                        if (checkRole)
+                        {
+                            return LocalRedirect("/admin/Home/Index");
+                        }
+                        var checkRole2 = await _userManager.IsInRoleAsync(currentUser, "Saler");
+                        if (checkRole2)
+                        {
+                            return LocalRedirect("/saler/Home/Index");
+                        }
+                        return LocalRedirect(returnUrl);
+                    }
+
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }

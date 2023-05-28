@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyProject.Data.EF;
 using MyProject.Data.Entities;
 using MyProject.ViewModel;
@@ -6,11 +7,13 @@ using Service;
 using Service.Implement;
 using Service.Interface;
 using Service.Repository.Implement;
+using System.Data;
 
 namespace MyProject.Web.Areas.Saler.Controllers
 {
     [Area("Saler")]
     [Route("saler/[controller]/[action]")]
+    [Authorize(Roles = "Saler")]
     public class PhieuNhapController : Controller
     {
         private readonly IPhieuNhapService _phieuNhapService;

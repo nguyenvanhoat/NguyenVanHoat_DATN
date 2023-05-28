@@ -38,11 +38,14 @@ namespace MyProject.Data.EF
             modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
             //modelBuilder.ApplyConfiguration(new WishListConfiguration());
             modelBuilder.ApplyConfiguration(new GiaXeConfiguration());
+            modelBuilder.ApplyConfiguration(new BaoHanhConfiguration());
+            modelBuilder.ApplyConfiguration(new ChiTietBaoHanhConfiguration());
 
             List<IdentityRole> roles = new List<IdentityRole>()
             {
                 new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" },
-                new IdentityRole { Name = "User", NormalizedName = "USER" }
+                new IdentityRole { Name = "User", NormalizedName = "USER" },
+                new IdentityRole { Name = "Saler", NormalizedName = "SALER" }
             };
 
             modelBuilder.Entity<IdentityRole>().HasData(roles);
@@ -116,5 +119,7 @@ namespace MyProject.Data.EF
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<GiaXe> GiaXes { get; set; }
+        public DbSet<BaoHanh> BaoHanhs { get; set; }
+        public DbSet<ChiTietBaoHanh> ChiTietBaoHanhs { get; set; }
     }
 }
